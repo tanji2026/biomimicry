@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myco-TanJi | 仿生社區碳循環系統</title>
+    <meta name="description" content="2026 台灣仿生設計競賽參賽作品 - 基於菌絲網絡邏輯的社區碳循環平台">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        bio: {
+                            dark: '#0f172a',
+                            light: '#f1f5f9',
+                            accent: '#10b981', // Emerald 500
+                            fungi: '#fbbf24',  // Amber 400
+                            soil: '#78350f',   // Brown
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=2574&auto=format&fit=crop')",
+                        'noise': "url('https://www.transparenttextures.com/patterns/stardust.png')",
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+        .fungi-glow {
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981; 
+        }
+    </style>
+</head>
+<body class="bg-bio-dark text-slate-200 antialiased selection:bg-bio-accent selection:text-bio-dark">
+
+    <nav class="fixed w-full z-50 glass-panel border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="relative w-10 h-10 flex items-center justify-center">
+                        <i class="fa-solid fa-circle-nodes text-bio-accent text-3xl animate-pulse-slow"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-xl tracking-wider text-white">Myco<span class="text-bio-accent">TanJi</span></span>
+                        <span class="text-[10px] text-slate-400 tracking-[0.2em] uppercase">Biomimicry Carbon Lab</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#concept" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">仿生概念</a>
+                    <a href="#solution" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">運作機制</a>
+                    <a href="#dashboard" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">碳儀表板</a>
+                    <a href="#impact" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">自然正向</a>
+                    <div class="px-3 py-1 rounded-full border border-bio-accent/30 text-bio-accent text-xs font-mono">
+                        <span class="w-2 h-2 rounded-full bg-bio-accent inline-block mr-2 animate-pulse"></span>System Online
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-40"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-bio-dark/80 via-bio-dark/90 to-bio-dark"></div>
+        
+        <div class="absolute inset-0 bg-noise opacity-20"></div>
+        
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+            <div class="inline-block mb-6 px-4 py-2 rounded-full glass-panel border-bio-accent/20">
+                <span class="text-bio-accent font-mono text-sm tracking-widest uppercase">2026 Biomimicry Design Challenge</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-8 leading-tight tracking-tight">
+                像<span class="text-transparent bg-clip-text bg-gradient-to-r from-bio-accent to-blue-500 text-glow">菌絲</span>一樣思考：<br>
+                啟動社區資源代謝網絡
+            </h1>
+            
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+                <strong class="text-white">Myco-TanJi</strong> 模仿森林地下的資源交換協議，將北大特區的「廢棄物」轉化為「可食地景」的養分。<br>
+                這不僅是回收，這是一場關於<strong class="text-bio-accent">「修復、增益、再生」</strong>的城市微革命。
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#concept" class="group relative px-8 py-4 bg-bio-accent text-bio-dark font-bold rounded-xl overflow-hidden hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                    <span class="relative z-10 flex items-center gap-2">
+                        探索仿生機制 <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+                    </span>
+                </a>
+                <a href="#dashboard" class="px-8 py-4 glass-panel text-white font-bold rounded-xl hover:bg-white/10 transition-all border border-white/20 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-chart-pie text-bio-accent"></i> 查看減碳數據
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-slate-500 text-xl"></i>
+        </div>
+    </header>
+
+    <section id="concept" class="py-24 bg-bio-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-bio-accent to-blue-600 rounded-2xl opacity-20 blur-xl"></div>
+                    <div class="relative rounded-2xl overflow-hidden glass-panel border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1629250005740-9e6347c4c34e?q=80&w=1000&auto=format&fit=crop" alt="Mycelium Network" class="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-bio-dark to-transparent">
+                            <span class="font-mono text-bio-accent text-xs">Fig 1.1</span>
+                            <h3 class="text-xl font-bold text-white">Wood Wide Web (森林寬頻)</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">自然界的<span class="text-bio-accent">資源調度員</span></h2>
+                        <div class="h-1 w-20 bg-bio-accent rounded-full mb-6"></div>
+                        <p class="text-slate-400 text-lg leading-relaxed">
+                            森林沒有垃圾車，為什麼沒有廢棄物？<br>
+                            因為地下的<strong class="text-white">菌絲網絡 (Mycelium)</strong> 扮演了關鍵角色。它們連接植物根系，將 A 樹多餘的碳水化合物，傳輸給缺乏養分的 B 樹，並負責分解倒木，將有機質回歸土壤。
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-bio-accent/50 transition duration-300">
+                            <div class="w-10 h-10 rounded-full bg-bio-accent/10 flex items-center justify-center text-bio-accent mb-4">
+                                <i class="fa-solid fa-recycle"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">倒木效應 (Nurse Log)</h4>
+                            <p class="text-sm text-slate-400">
+                                模仿森林中倒木就地分解的機制。社區產生的廢棄物（如咖啡渣），不需要運送到遙遠的焚化爐，而是成為滋養社區綠化的養分。
+                            </p>
+                        </div>
+                        <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-bio-accent/50 transition duration-300">
+                            <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">源庫流動 (Source-Sink)</h4>
+                            <p class="text-sm text-slate-400">
+                                模仿菌絲的物質傳輸演算法。自動媒合「資源產生點（咖啡店）」與「資源需求點（社區農園）」，建立最短路徑的微型物流。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" class="py-24 bg-slate-900 relative overflow-hidden">
+        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-bio-accent/30 to-transparent hidden md:block"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-bio-accent font-mono text-sm tracking-wider uppercase">System Workflow</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">三峽在地循環模型</h2>
+                <p class="text-slate-400 mt-4">連結 <span class="text-white font-bold">北大特區咖啡店</span> 與 <span class="text-white font-bold">麗寶萊茵社區</span> 的實證計畫</p>
+            </div>
+
+            <div class="space-y-12 md:space-y-24">
+                
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+                    <div class="w-full md:w-1/2 text-right md:pr-12 space-y-4 order-2 md:order-1">
+                        <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">Input / 營養源</div>
+                        <h3 class="text-2xl font-bold text-white">城市裡的有機礦脈</h3>
+                        <p class="text-slate-400">
+                            三峽北大特區密集分佈的連鎖咖啡店（Louisa, Starbucks），每日產生大量潔淨的咖啡渣。這些是富含氮源的有機資材，目前卻多被視為垃圾。
+                        </p>
+                        <div class="flex justify-end gap-2">
+                            <span class="px-3 py-1 rounded-full bg-amber-900/30 text-amber-500 text-xs border border-amber-900/50">咖啡渣</span>
+                            <span class="px-3 py-1 rounded-full bg-green-900/30 text-green-500 text-xs border border-green-900/50">生廚餘</span>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 order-1 md:order-2">
+                        <div class="relative group">
+                            <div class="absolute -inset-2 bg-amber-600 rounded-full opacity-20 blur-lg group-hover:opacity-40 transition"></div>
+                            <div class="relative w-32 h-32 md:w-48 md:h-48 mx-auto bg-slate-800 rounded-full border-2 border-slate-700 flex items-center justify-center overflow-hidden">
+                                <i class="fa-solid fa-mug-hot text-5xl md:text-7xl text-amber-500"></i>
+                            </div>
+                            <div class="absolute top-0 right-1/4 bg-bio-dark border border-slate-700 px-3 py-1 rounded text-xs text-white shadow-xl">
+                                Louisa Coffee<br>Sanxia
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+                    <div class="w-full md:w-1/2 md:text-right order-1">
+                        <div class="relative group">
+                            <div class="absolute -inset-2 bg-bio-accent rounded-full opacity-20 blur-lg group-hover:opacity-40 transition animate-pulse-slow"></div>
+                            <div class="relative w-40 h-40 md:w-56 md:h-56 mx-auto bg-slate-800 rounded-full border-2 border-bio-accent flex items-center justify-center overflow-hidden z-20">
+                                <i class="fa-solid fa-arrows-rotate text-6xl md:text-8xl text-bio-accent animate-spin" style="animation-duration: 10s;"></i>
+                            </div>
+                            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-bio-dark border border-bio-accent/30 px-4 py-2 rounded-xl text-sm text-white shadow-2xl z-30 w-48 text-center glass-panel">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs text-slate-400">Myco-TanJi App</span>
+                                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                </div>
+                                <div class="text-xs font-mono text-bio-accent">媒合成功：路徑最佳化</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 md:pl-12 space-y-4 order-2">
+                        <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">Process / 轉化</div>
+                        <h3 class="text-2xl font-bold text-white">數位菌絲中繼站</h3>
+                        <p class="text-slate-400">
+                            透過 <strong class="text-white">Myco-TanJi 平台</strong>，社區志工接收到咖啡店的「釋出訊號」。利用回頭車或散步路徑，將物資運回社區堆肥站。混合社區落葉（碳源），進行好氧發酵。
+                        </p>
+                        <ul class="space-y-2 text-sm text-slate-400">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-bio-accent mr-2"></i> 自動計算碳氮比 (C/N Ratio)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-bio-accent mr-2"></i> 追蹤發酵溫度與熟成度</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+                    <div class="w-full md:w-1/2 text-right md:pr-12 space-y-4 order-2 md:order-1">
+                        <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">Output / 再生</div>
+                        <h3 class="text-2xl font-bold text-white">社區可食地景</h3>
+                        <p class="text-slate-400">
+                            熟成的黑金堆肥，直接用於「麗寶萊茵社區」的頂樓農園與中庭植栽。種出的薄荷、迷迭香、萵苣，再回饋給住戶或咖啡店，完成完美的閉鎖循環。
+                        </p>
+                        <div class="flex justify-end gap-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-900/30 text-emerald-500 text-xs border border-emerald-900/50">零肥料成本</span>
+                            <span class="px-3 py-1 rounded-full bg-blue-900/30 text-blue-500 text-xs border border-blue-900/50">微氣候調節</span>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 order-1 md:order-2">
+                        <div class="relative group">
+                            <div class="absolute -inset-2 bg-green-600 rounded-full opacity-20 blur-lg group-hover:opacity-40 transition"></div>
+                            <div class="relative w-32 h-32 md:w-48 md:h-48 mx-auto bg-slate-800 rounded-full border-2 border-slate-700 flex items-center justify-center overflow-hidden">
+                                <i class="fa-solid fa-seedling text-5xl md:text-7xl text-green-500 float-animation"></i>
+                            </div>
+                            <div class="absolute bottom-0 left-1/4 bg-bio-dark border border-slate-700 px-3 py-1 rounded text-xs text-white shadow-xl">
+                                Urban Farm
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="dashboard" class="py-24 bg-bio-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 space-y-6">
+                    <span class="text-bio-accent font-mono text-sm tracking-wider uppercase">Live Data</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">碳代謝戰情室</h2>
+                    <p class="text-slate-400">
+                        不只是做環保，我們用數據說話。系統內建 GHG Protocol 計算模組，將每一次的「菌絲傳輸」換算為具體的環境效益。
+                    </p>
+                    
+                    <div class="p-4 bg-slate-800 rounded-xl border-l-4 border-bio-accent">
+                        <h4 class="text-white font-bold mb-1">Scope 3 減量</h4>
+                        <p class="text-xs text-slate-400">透過在地循環，大幅減少廢棄物清運與化肥生產的間接排放。</p>
+                    </div>
+
+                    <div class="p-4 bg-slate-800 rounded-xl border-l-4 border-blue-500">
+                        <h4 class="text-white font-bold mb-1">SDG 11 & 12 指標</h4>
+                        <p class="text-xs text-slate-400">直接對應聯合國永續發展目標，數據可匯出供新北市 VLR 報告使用。</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <div class="glass-panel rounded-2xl p-6 md:p-8 border border-white/10 shadow-2xl relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-10"></div>
+                        
+                        <div class="flex justify-between items-center mb-8 relative z-10">
+                            <div>
+                                <h3 class="text-xl font-bold text-white">麗寶萊茵社區 - 即時監測</h3>
+                                <p class="text-xs text-slate-400 font-mono">Last updated: <span id="current-time">Loading...</span></p>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 relative z-10">
+                            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
+                                <div class="text-xs text-slate-400 mb-1">本月攔截咖啡渣</div>
+                                <div class="text-2xl font-mono font-bold text-amber-400 count-up" data-target="125">0</div>
+                                <div class="text-[10px] text-slate-500">kg</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
+                                <div class="text-xs text-slate-400 mb-1">累積減碳量</div>
+                                <div class="text-2xl font-mono font-bold text-bio-accent count-up" data-target="68.5">0</div>
+                                <div class="text-[10px] text-slate-500">kg CO2e</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
+                                <div class="text-xs text-slate-400 mb-1">產出有機肥</div>
+                                <div class="text-2xl font-mono font-bold text-bio-soil count-up" data-target="80">0</div>
+                                <div class="text-[10px] text-slate-500">kg</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
+                                <div class="text-xs text-slate-400 mb-1">節省肥料費</div>
+                                <div class="text-2xl font-mono font-bold text-blue-400 count-up" data-target="2400">0</div>
+                                <div class="text-[10px] text-slate-500">TWD</div>
+                            </div>
+                        </div>
+
+                        <div class="relative h-64 w-full z-10">
+                            <canvas id="carbonChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="py-24 bg-slate-900 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-white mb-16">全方位永續效益</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-green-500 transition duration-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center text-green-500 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-wheat-awn"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">都市農業創新</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        針對<strong>農業局</strong>目標。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程至「0公里」。
+                    </p>
+                </div>
+
+                <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-amber-500 transition duration-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-16 h-16 mx-auto bg-amber-500/10 rounded-full flex items-center justify-center text-amber-500 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-trash-arrow-up"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">循環經濟減量</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        針對<strong>環保局</strong>目標。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現「搖籃到搖籃」的閉鎖循環。
+                    </p>
+                </div>
+
+                <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-blue-500 transition duration-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center text-blue-500 text-2xl mb-6 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-city"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">永續韌性城市</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        針對<strong>秘書處</strong>目標。建立公私協力 (PPP) 的社區示範模組，強化社區氣候韌性與居民凝聚力。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-bio-dark py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <i class="fa-solid fa-circle-nodes text-bio-accent"></i>
+                <span class="font-bold text-lg text-white">Myco-TanJi</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-8">
+                2026 台灣仿生設計競賽參賽作品 | 新北市三峽區在地實踐
+            </p>
+            <div class="text-xs text-slate-600 font-mono">
+                Designed with <i class="fa-solid fa-heart text-red-900"></i> by Carbon Management Team
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update Time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').innerText = now.toLocaleString('zh-TW', { hour12: false });
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Counter Animation
+        const counters = document.querySelectorAll('.count-up');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            const increment = target / 100;
+            const updateCount = () => {
+                const count = +counter.innerText;
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 20);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            // Simple trigger on load
+            setTimeout(updateCount, 1000);
+        });
+
+        // Chart.js Configuration
+        const ctx = document.getElementById('carbonChart').getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.5)');
+        gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                datasets: [{
+                    label: '碳排放減量 (kg CO2e)',
+                    data: [12, 19, 25, 45, 58, 68.5],
+                    borderColor: '#10b981',
+                    backgroundColor: gradient,
+                    borderWidth: 2,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#10b981',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#94a3b8' }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#64748b' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#64748b' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
