@@ -24,9 +24,9 @@
                         bio: {
                             dark: '#0f172a',
                             light: '#f1f5f9',
-                            accent: '#10b981', // Emerald 500
-                            fungi: '#fbbf24',  // Amber 400
-                            soil: '#78350f',   // Brown
+                            accent: '#10b981', 
+                            fungi: '#fbbf24',  
+                            soil: '#78350f',   
                         }
                     },
                     backgroundImage: {
@@ -68,7 +68,6 @@
         .text-glow {
             text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
         }
-        /* Timeline Line */
         .timeline-line {
             position: absolute;
             left: 20px;
@@ -83,13 +82,11 @@
                 transform: translateX(-50%);
             }
         }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #10b981; }
 
-        /* --- Network Canvas Styles --- */
         .network-container {
             position: relative;
             width: 100%;
@@ -135,7 +132,6 @@
             z-index: 15;
             transition: opacity 0.5s;
         }
-        /* 互動選項樣式 */
         .interactive-option {
             transition: all 0.3s ease;
             cursor: pointer;
@@ -156,7 +152,6 @@
 </head>
 <body class="bg-bio-dark text-slate-200 antialiased selection:bg-bio-accent selection:text-bio-dark relative">
 
-    <!-- Fixed Navigation -->
     <nav class="fixed w-full z-50 glass-panel border-b border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -177,7 +172,6 @@
                     <a href="#dashboard" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">監測站</a>
                     <a href="#impact" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">永續效益</a>
                     
-                    <!-- Admin Login Button -->
                     <button id="navAdminBtn" onclick="window.openAdminModal()" class="px-3 py-1 rounded-full border border-slate-500 text-slate-300 hover:text-white hover:border-white text-xs font-mono transition flex items-center gap-2">
                         <i class="fa-solid fa-lock text-[10px]"></i> 管理員登入
                     </button>
@@ -186,13 +180,11 @@
         </div>
     </nav>
 
-    <!-- Floating Action Button (FAB) - Platform Intro -->
     <button onclick="window.openGuideModal()" class="fixed bottom-8 right-8 z-[60] w-14 h-14 rounded-full bg-slate-700 hover:bg-slate-600 border border-slate-500 hover:border-bio-accent text-white shadow-[0_0_20px_rgba(0,0,0,0.5)] flex items-center justify-center transition-all transform hover:scale-110 group">
         <i class="fa-solid fa-info text-xl group-hover:text-bio-accent transition-colors duration-300"></i>
         <span class="absolute -top-10 right-0 bg-white text-bio-dark text-xs px-2 py-1 rounded font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">平台介紹</span>
     </button>
 
-    <!-- 1. GUIDE MODAL (Platform Intro) -->
     <div id="guideModal" class="fixed inset-0 z-[70] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="window.closeAllModals()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg p-4">
@@ -231,7 +223,6 @@
         </div>
     </div>
 
-    <!-- 2. CALCULATOR MODAL (Visitor Experience) -->
     <div id="calculatorModal" class="fixed inset-0 z-[70] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="window.closeAllModals()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4">
@@ -261,7 +252,6 @@
                     </button>
                 </div>
 
-                <!-- Result Area -->
                 <div id="calcResult" class="hidden mt-6 p-4 bg-slate-800/80 rounded-xl border border-white/10">
                     <h4 class="text-white font-bold mb-2 text-center">預估效益</h4>
                     <div class="grid grid-cols-2 gap-2 text-center">
@@ -279,14 +269,12 @@
         </div>
     </div>
 
-    <!-- 3. ADMIN LOGIN & INPUT MODAL -->
     <div id="adminModal" class="fixed inset-0 z-[70] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="window.closeAllModals()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4">
             <div class="glass-panel border border-red-500/30 rounded-2xl shadow-2xl relative overflow-hidden p-6 max-h-[90vh] overflow-y-auto">
                 <button onclick="window.closeAllModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
 
-                <!-- Login View -->
                 <div id="adminLoginView">
                     <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-user-shield text-red-400"></i> 管理員登入
@@ -298,7 +286,6 @@
                     </div>
                 </div>
 
-                <!-- Data Entry View (Hidden until logged in) -->
                 <div id="adminEntryView" class="hidden">
                     <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-database text-bio-accent"></i> 新增真實數據
@@ -311,8 +298,11 @@
                             <select id="realSource" class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600">
                                 <option value="Starbucks">Starbucks 星巴克</option>
                                 <option value="Louisa">Louisa 路易莎</option>
+                                <option value="Cama">Cama 咖啡</option>
+                                <option value="FamilyMart">FamilyMart 全家</option>
+                                <option value="7-Eleven">7-ELEVEN</option>
+                                <option value="Hi-Life">Hi-Life 萊爾富</option>
                                 <option value="Community">社區家庭回收</option>
-                                <option value="MycoTanJi">MycoTanJi 系統產出</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
@@ -341,7 +331,6 @@
                             <input type="text" id="realDesc" class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600" placeholder="例如: 來自北大星巴克 A 店">
                         </div>
                         
-                        <!-- Success Message Area -->
                         <div id="uploadSuccess" class="hidden p-2 bg-green-500/20 text-green-400 text-xs rounded text-center">
                             ✅ 上傳成功！表單已重置，可繼續輸入。
                         </div>
@@ -351,7 +340,6 @@
                         </button>
                     </form>
 
-                    <!-- DATA MANAGEMENT LIST -->
                     <div class="mt-6">
                         <h4 class="text-sm font-bold text-white mb-3">📋 最近 10 筆數據 (刪除管理)</h4>
                         <div id="adminDataList" class="space-y-2 text-xs text-slate-300 max-h-40 overflow-y-auto pr-1">
@@ -363,7 +351,6 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
     <header class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-40"></div>
         <div class="absolute inset-0 bg-gradient-to-b from-bio-dark/80 via-bio-dark/90 to-bio-dark"></div>
@@ -397,11 +384,9 @@
         </div>
     </header>
 
-    <!-- Concept Section -->
     <section id="concept" class="py-24 bg-bio-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <!-- Left: Network Viz -->
                 <div class="relative">
                     <div class="absolute -inset-4 bg-gradient-to-r from-bio-accent to-blue-600 rounded-2xl opacity-20 blur-xl"></div>
                     <div class="relative rounded-2xl glass-panel border border-white/10 overflow-hidden shadow-2xl">
@@ -417,7 +402,6 @@
                     </div>
                 </div>
 
-                <!-- Right: Content -->
                 <div class="space-y-8">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">自然界的<span class="text-bio-accent">資源調度員</span></h2>
@@ -460,7 +444,6 @@
         </div>
     </section>
 
-    <!-- Solution Section -->
     <section id="solution" class="py-24 bg-slate-900 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
@@ -468,7 +451,6 @@
                 <p class="text-slate-400 mt-4">連結 <span class="text-white font-bold">北大特區商家</span> 與 <span class="text-white font-bold">麗寶萊茵社區</span> 的實證計畫</p>
             </div>
             <div class="space-y-12">
-                <!-- Input -->
                 <div class="flex flex-col md:flex-row items-center justify-center gap-8">
                     <div class="w-full md:w-1/2 text-right md:pr-12 space-y-4 order-2 md:order-1">
                         <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">資源輸入</div>
@@ -478,7 +460,6 @@
                     <div class="w-full md:w-1/2 order-1 md:order-2 text-center">
                         <div class="relative inline-block">
                             <i class="fa-solid fa-mug-hot text-5xl text-amber-500 bg-slate-800 p-8 rounded-full border-2 border-slate-700 relative z-10"></i>
-                            <!-- Coffee Grounds Dots Effect -->
                             <div class="absolute top-2 right-2 w-2 h-2 bg-amber-800 rounded-full opacity-70"></div>
                             <div class="absolute bottom-4 left-0 w-3 h-3 bg-amber-800 rounded-full opacity-60"></div>
                             <div class="absolute top-10 -right-4 w-1.5 h-1.5 bg-amber-700 rounded-full opacity-80"></div>
@@ -486,7 +467,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Process -->
                 <div class="flex flex-col md:flex-row items-center justify-center gap-8">
                     <div class="w-full md:w-1/2 md:text-right order-1 text-center">
                         <i class="fa-solid fa-arrows-rotate text-6xl text-bio-accent animate-spin bg-slate-800 p-8 rounded-full border-2 border-bio-accent" style="animation-duration: 10s;"></i>
@@ -497,7 +477,6 @@
                         <p class="text-slate-400">將物資運回社區堆肥站，混合社區落葉（碳源），進行好氧發酵。</p>
                     </div>
                 </div>
-                <!-- Output -->
                 <div class="flex flex-col md:flex-row items-center justify-center gap-8">
                     <div class="w-full md:w-1/2 text-right md:pr-12 space-y-4 order-2 md:order-1">
                         <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">再生產出</div>
@@ -512,7 +491,6 @@
         </div>
     </section>
 
-    <!-- Timeline Section (Static Success Story) -->
     <section id="timeline" class="py-24 bg-slate-900 relative">
         <div class="max-w-5xl mx-auto px-4 relative">
             <div class="text-center mb-16">
@@ -521,7 +499,6 @@
             </div>
             <div class="relative py-10">
                 <div class="timeline-line"></div>
-                <!-- Static Story Items -->
                 <div class="mb-8 flex justify-between items-center w-full md:flex-row flex-col md:flex-row-reverse animate-grow" style="animation-delay: 0.1s">
                     <div class="order-1 w-5/12 hidden md:block"></div>
                     <div class="z-20 flex items-center order-1 bg-bio-dark border-2 border-bio-accent rounded-full w-8 h-8 justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
@@ -532,7 +509,6 @@
                                 <span class="text-xs text-slate-400">資源輸入</span>
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">Louisa 咖啡渣收集</h4>
-                            <!-- [TODO] Github: images/timeline_day1.jpg -->
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
                                 <img src="https://images.unsplash.com/photo-1544333323-1c39c81121df?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
                             </div>
@@ -551,7 +527,6 @@
                                 <span class="text-xs text-slate-400">循環轉化</span>
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">高溫好氧發酵</h4>
-                            <!-- [TODO] Github: images/timeline_day14.jpg -->
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
                                 <img src="https://images.unsplash.com/photo-1596434455581-4204c35e982c?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
                             </div>
@@ -570,7 +545,6 @@
                                 <span class="text-xs text-slate-400">腐植質完熟</span>
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">黑金土產出</h4>
-                            <!-- [TODO] Github: images/timeline_day30.jpg -->
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
                                 <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
                             </div>
@@ -589,7 +563,6 @@
                                 <span class="text-xs text-slate-400">再生產出</span>
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">社區香草採收</h4>
-                            <!-- [TODO] Github: images/timeline_day45.jpg -->
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
                                 <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
                             </div>
@@ -601,7 +574,6 @@
         </div>
     </section>
 
-    <!-- Dashboard Section -->
     <section id="dashboard" class="py-24 bg-bio-dark relative">
         <div class="max-w-7xl mx-auto px-4">
             <div class="glass-panel rounded-2xl p-6 md:p-8 border border-white/10 shadow-2xl relative overflow-hidden">
@@ -629,7 +601,6 @@
                     </div>
                 </div>
 
-                <!-- Stats Grid -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 relative z-10">
                     <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
                         <div class="text-xs text-slate-400 mb-1">總攔截廢棄物</div>
@@ -660,7 +631,6 @@
         </div>
     </section>
 
-    <!-- Impact Section -->
     <section id="impact" class="py-24 bg-slate-900 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -695,7 +665,6 @@
                 </div>
             </div>
 
-            <!-- Future Roadmap -->
             <div class="glass-panel border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden">
                 <div class="absolute -right-20 -top-20 w-64 h-64 bg-bio-accent/20 rounded-full blur-3xl"></div>
                 <h3 class="text-2xl font-bold text-white mb-8 flex items-center">
@@ -723,23 +692,25 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-bio-dark py-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
             <div class="flex items-center justify-center gap-2 mb-4">
                 <i class="fa-solid fa-circle-nodes text-bio-accent"></i>
                 <span class="font-bold text-lg text-white">MycoTanJi</span>
             </div>
-            <p class="text-slate-500 text-sm">2026 台灣仿生設計競賽參賽作品 | 新北市三峽區在地實踐</p>
+            <p class="text-slate-500 text-sm">
+                2026 台灣仿生設計競賽參賽作品 | 新北市三峽區在地實踐
+            </p>
+            <p class="text-slate-600 text-xs">
+                作品受著作權法保護，未經授權請勿複製轉載｜歡迎聯絡我們：tanji2026@gmail.com
+            </p>
         </div>
     </footer>
 
-    <!-- Firebase Logic & App Scripts -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // --- 1. CONFIG ---
         const firebaseConfig = {
             apiKey: "AIzaSyAVKyQBQUUyugoU2Xx-ZxLBBEoNrfASJT8",
             authDomain: "mycotanji.firebaseapp.com",
@@ -751,12 +722,10 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- 2. GLOBAL STATE ---
         let isAdmin = false;
         let chartInstance = null;
         let realData = [];
 
-        // --- 3. EXPORT FUNCTIONS ---
         window.openGuideModal = () => document.getElementById('guideModal').classList.remove('hidden');
         window.openCalculator = () => document.getElementById('calculatorModal').classList.remove('hidden');
         window.openAdminModal = () => {
@@ -775,14 +744,12 @@
             document.getElementById('uploadSuccess').classList.add('hidden');
         };
 
-        // Admin Logic
         window.checkAdminLogin = () => {
             const pass = document.getElementById('adminPass').value;
             if (pass === 'coco') {
                 isAdmin = true;
                 document.getElementById('adminLoginView').classList.add('hidden');
                 document.getElementById('adminEntryView').classList.remove('hidden');
-                // Change button state instead of hiding it
                 const btn = document.getElementById('navAdminBtn');
                 btn.innerHTML = '<i class="fa-solid fa-user-check"></i> 進入管理後台';
                 btn.classList.replace('border-slate-500', 'border-bio-accent');
@@ -793,7 +760,6 @@
             }
         };
 
-        // Image Handling (Resize & Convert to Base64)
         window.handleImageUpload = (event) => {
             const file = event.target.files[0];
             if (!file) return;
@@ -821,14 +787,13 @@
             reader.readAsDataURL(file);
         };
 
-        // Real Data Submission
         window.submitRealData = async (e) => {
             e.preventDefault();
             const source = document.getElementById('realSource').value;
             const type = document.getElementById('realType').value;
             const weight = parseFloat(document.getElementById('realWeight').value);
             const desc = document.getElementById('realDesc').value;
-            const imgBase64 = document.getElementById('realImgBase64').value; // Get compressed image
+            const imgBase64 = document.getElementById('realImgBase64').value; 
             const today = new Date().toISOString().split('T')[0];
 
             try {
@@ -838,12 +803,12 @@
                     type,
                     weight,
                     desc,
-                    img: imgBase64, // Save base64
+                    img: imgBase64, 
                     timestamp: Date.now()
                 });
                 document.getElementById('uploadSuccess').classList.remove('hidden');
                 e.target.reset(); 
-                document.getElementById('realImgBase64').value = ""; // Reset hidden input
+                document.getElementById('realImgBase64').value = ""; 
                 setTimeout(() => {
                     document.getElementById('uploadSuccess').classList.add('hidden');
                 }, 3000);
@@ -853,7 +818,6 @@
             }
         };
 
-        // Delete Record
         window.deleteRecord = async (id) => {
             if(confirm("確定要刪除這筆資料嗎？")) {
                 try {
@@ -864,14 +828,12 @@
             }
         };
 
-        // Render Admin Data List
         function renderAdminDataList(data) {
             const list = document.getElementById('adminDataList');
             if(data.length === 0) {
                 list.innerHTML = '<p class="text-center text-slate-500">尚無數據</p>';
                 return;
             }
-            // Show last 10 records, reverse chronological
             const recentData = [...data].reverse().slice(0, 10);
             
             list.innerHTML = recentData.map(item => `
@@ -887,13 +849,11 @@
             `).join('');
         }
 
-        // Export CSV Function (With BOM for Chinese support)
         window.exportCSV = () => {
             if (realData.length === 0) {
                 alert("目前沒有數據可匯出");
                 return;
             }
-            // Add \uFEFF for BOM
             let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
             csvContent += "日期,來源,類型,重量(kg),說明\n";
             
@@ -911,7 +871,6 @@
             document.body.removeChild(link);
         };
 
-        // Calculator Logic
         window.runSimulation = () => {
             const weight = parseFloat(document.getElementById('calcWeight').value) || 0;
             const carbon = (weight * 0.56).toFixed(2);
@@ -921,7 +880,6 @@
             document.getElementById('calcResult').classList.remove('hidden');
         };
 
-        // --- 4. REAL-TIME DATA LISTENER ---
         function initRealTimeData() {
             const q = query(collection(db, "records"), orderBy("date", "asc"));
             onSnapshot(q, (snapshot) => {
@@ -930,7 +888,7 @@
                     realData.push({ id: doc.id, ...doc.data() });
                 });
                 updateDashboard(realData);
-                renderAdminDataList(realData); // Update admin list
+                renderAdminDataList(realData); 
             });
         }
 
@@ -998,7 +956,6 @@
             }
         }
 
-        // --- 5. NETWORK CANVAS ---
         window.switchNetworkMode = (mode) => {
             if (window.networkApp) window.networkApp.switchMode(mode);
             document.querySelectorAll('.interactive-option').forEach(el => el.classList.remove('active'));
@@ -1052,7 +1009,6 @@
         setTimeout(initNetwork, 500);
         window.addEventListener('resize', () => { width = canvas.width = container.clientWidth; height = canvas.height = container.clientHeight; });
 
-        // Init App
         initRealTimeData();
     </script>
 </body>
