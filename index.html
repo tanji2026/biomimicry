@@ -148,6 +148,13 @@
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
         }
         .hidden { display: none; }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="bg-bio-dark text-slate-200 antialiased selection:bg-bio-accent selection:text-bio-dark relative">
@@ -233,7 +240,7 @@
                 <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-calculator text-blue-400"></i> 效益試算計算機
                 </h3>
-                <p class="text-slate-400 text-xs mb-6">輸入假設數值，看看您能為地球貢獻多少？(此模式不會儲存數據)</p>
+                <p class="text-slate-400 text-xs mb-6">輸入廢棄物重量，試算減碳效益。</p>
 
                 <div class="space-y-4">
                     <div>
@@ -327,21 +334,21 @@
                             <p class="text-[10px] text-slate-500 mt-1">* 系統將自動壓縮圖片以符合資料庫限制</p>
                         </div>
                         <div>
-                            <label class="text-xs text-slate-400">說明備註 (選填)</label>
+                            <label class="text-xs text-slate-400">備註 (選填)</label>
                             <input type="text" id="realDesc" class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600" placeholder="例如: 來自北大星巴克 A 店">
                         </div>
                         
                         <div id="uploadSuccess" class="hidden p-2 bg-green-500/20 text-green-400 text-xs rounded text-center">
-                            ✅ 上傳成功！表單已重置，可繼續輸入。
+                            ✅ 上傳成功！可繼續輸入。
                         </div>
                         
                         <button type="submit" class="w-full bg-bio-accent hover:bg-emerald-400 text-bio-dark font-bold py-3 rounded-xl mt-4 flex justify-center items-center gap-2" id="uploadBtn">
-                            <span>上傳至區塊資料庫</span>
+                            <span>上傳至資料庫</span>
                         </button>
                     </form>
 
                     <div class="mt-6">
-                        <h4 class="text-sm font-bold text-white mb-3">📋 最近 10 筆數據 (刪除管理)</h4>
+                        <h4 class="text-sm font-bold text-white mb-3">📋 最近 10 筆數據</h4>
                         <div id="adminDataList" class="space-y-2 text-xs text-slate-300 max-h-40 overflow-y-auto pr-1">
                             <p class="text-center text-slate-500">載入中...</p>
                         </div>
@@ -367,7 +374,7 @@
             </h1>
             
             <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-                <strong class="text-white">MycoTanJi</strong> 模仿森林地下的資源交換協議 (Mycorrhizal Network)，將北大特區的「廢棄物」轉化為「可食地景」的養分。<br>
+                <strong class="text-white">MycoTanJi</strong> 模仿森林地下的資源交換協議，將北大特區的「廢棄物」轉化為「可食地景」的養分。<br>
                 這不僅是回收，這是一場關於<strong class="text-bio-accent">「修復、增益、再生」</strong>的城市微革命。
             </p>
 
@@ -404,7 +411,7 @@
 
                 <div class="space-y-8">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">自然界的<span class="text-bio-accent">資源調度員</span></h2>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">自然界的資源調度站</h2>
                         <div class="h-1 w-20 bg-bio-accent rounded-full mb-6"></div>
                         <p class="text-slate-400 text-lg leading-relaxed mb-6">
                             森林地底下存在一個龐大的「互聯網」— <strong class="text-white">菌根菌網絡 (Mycorrhizal Network)</strong>。它不只是依附植物生存，更是森林生態系的主動管理者。
@@ -510,7 +517,7 @@
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">Louisa 咖啡渣收集</h4>
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
-                                <img src="https://images.unsplash.com/photo-1544333323-1c39c81121df?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
                             </div>
                             <p class="text-sm text-slate-300">從社區周邊路易莎門市回收當日新鮮咖啡渣，作為系統氮源。</p>
                         </div>
@@ -528,7 +535,7 @@
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">高溫好氧發酵</h4>
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
-                                <img src="https://images.unsplash.com/photo-1596434455581-4204c35e982c?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
+                                <img src="https://images.unsplash.com/photo-1621258079047-9e7949c86940?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
                             </div>
                             <p class="text-sm text-slate-300">混合落葉碳源，中心溫度達到 60°C 以上，有效殺菌並加速分解。</p>
                         </div>
@@ -627,6 +634,15 @@
                 <div class="relative h-64 w-full z-10">
                     <canvas id="carbonChart"></canvas>
                 </div>
+
+                <div class="mt-8 relative z-10 border-t border-white/5 pt-6">
+                    <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left text-bio-accent"></i> 即時數據履歷
+                    </h4>
+                    <div id="liveRecordsContainer" class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+                        <p class="text-slate-500 text-xs">尚無上傳數據...</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -645,7 +661,7 @@
                         <i class="fa-solid fa-wheat-awn"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 text-center">都市農業創新</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center">響應<strong>永續農漁業</strong>願景。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程至「0公里」。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">響應<strong>永續農漁業</strong>願景。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程至。</p>
                 </div>
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-amber-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
@@ -653,7 +669,7 @@
                         <i class="fa-solid fa-trash-arrow-up"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 text-center">循環經濟減量</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center">呼應<strong>循環經濟減量</strong>策略。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現「搖籃到搖籃」的閉鎖循環。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">呼應<strong>循環經濟減量</strong>策略。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現「搖籃到搖籃」。</p>
                 </div>
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-blue-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
@@ -661,7 +677,7 @@
                         <i class="fa-solid fa-city"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 text-center">永續韌性城市</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center">對接<strong>永續城市</strong>發展指標。透過公私協力夥伴關係 (SDG 17)，建構低碳韌性社區，實踐永續城鄉 (SDG 11) 願景。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">對接<strong>永續城市</strong>發展指標。透過公私協力夥伴關係 (SDG 17)，實踐永續城鄉 (SDG 11) 願景。</p>
                 </div>
             </div>
 
@@ -880,6 +896,33 @@
             document.getElementById('calcResult').classList.remove('hidden');
         };
 
+        function renderLiveRecords(data) {
+            const container = document.getElementById('liveRecordsContainer');
+            if(data.length === 0) {
+                container.innerHTML = '<p class="text-slate-500 text-xs">尚無上傳數據...</p>';
+                return;
+            }
+            const sorted = [...data].reverse();
+            container.innerHTML = sorted.map(item => `
+                <div class="flex-shrink-0 w-48 bg-slate-800/50 border border-white/10 rounded-xl overflow-hidden group hover:border-bio-accent/50 transition">
+                    <div class="h-32 w-full bg-slate-900 relative overflow-hidden">
+                        <img src="${item.img || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400'}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-2">
+                            <span class="text-[10px] font-mono text-white bg-bio-accent/20 px-1.5 py-0.5 rounded">${item.date}</span>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h5 class="text-white text-sm font-bold truncate">${item.source}</h5>
+                        <p class="text-xs text-slate-400 mb-1">${item.type}</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-bio-accent font-mono font-bold">${item.weight}kg</span>
+                            ${item.desc ? `<i class="fa-solid fa-circle-info text-slate-600 text-[10px]" title="${item.desc}"></i>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
         function initRealTimeData() {
             const q = query(collection(db, "records"), orderBy("date", "asc"));
             onSnapshot(q, (snapshot) => {
@@ -889,6 +932,7 @@
                 });
                 updateDashboard(realData);
                 renderAdminDataList(realData); 
+                renderLiveRecords(realData);
             });
         }
 
@@ -991,9 +1035,26 @@
                 ctxCanvas.fillStyle = n.type==='root'?'#4ade80':'rgba(255,255,255,0.2)'; 
                 ctxCanvas.fill(); 
             });
-            if(particles.length < 20) {
+            
+            let targetColor, targetSpeed;
+            if(window.currentMode === 'signal') {
+                targetColor = '#ef4444';
+                targetSpeed = 0.02;
+            } else if (window.currentMode === 'redistribute') {
+                targetColor = '#10b981';
+                targetSpeed = 0.008;
+            } else {
+                targetColor = null;
+                targetSpeed = 0.005;
+            }
+
+            if(particles.length < (window.currentMode === 'signal' ? 50 : 30)) {
                  const l = links[Math.floor(Math.random()*links.length)];
-                 if(l) particles.push({link:l, p:0, s:0.005+Math.random()*0.005, c: window.currentMode==='signal'?'#ef4444':(Math.random()>0.5?'#fbbf24':'#38bdf8')});
+                 if(l) {
+                    let c = targetColor;
+                    if(!c) c = Math.random()>0.5?'#fbbf24':'#38bdf8';
+                    particles.push({link:l, p:0, s:targetSpeed+Math.random()*0.005, c: c});
+                 }
             }
             particles.forEach((p, i) => {
                 p.p += p.s;
