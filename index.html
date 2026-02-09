@@ -29,13 +29,14 @@
                         }
                     },
                     backgroundImage: {
-                        'hero-pattern': "url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=2574&auto=format&fit=crop')",
+                        'hero-pattern': "url('./images/hero-bg.jpg')",
                         'noise': "url('https://www.transparenttextures.com/patterns/stardust.png')",
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'grow': 'grow 0.5s ease-out forwards',
+                        'highlight': 'highlight 2s ease-out infinite',
                     },
                     keyframes: {
                         float: {
@@ -45,6 +46,11 @@
                         grow: {
                             '0%': { opacity: '0', transform: 'scale(0.9) translateY(20px)' },
                             '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+                        },
+                        highlight: {
+                            '0%': { boxShadow: '0 0 0 0 rgba(16, 185, 129, 0.7)', borderColor: '#10b981' },
+                            '70%': { boxShadow: '0 0 0 20px rgba(16, 185, 129, 0)', borderColor: '#10b981' },
+                            '100%': { boxShadow: '0 0 0 0 rgba(16, 185, 129, 0)', borderColor: 'rgba(255, 255, 255, 0.1)' }
                         }
                     }
                 }
@@ -81,6 +87,11 @@
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+
+        .new-entry-highlight {
+            animation: highlight 2s ease-out 2; /* Runs twice then stops */
+            border-color: #10b981 !important;
+        }
     </style>
 </head>
 <body class="bg-bio-dark text-slate-200 antialiased selection:bg-bio-accent selection:text-bio-dark relative">
@@ -128,7 +139,7 @@
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-flask text-bio-accent"></i> 營養注入節點
+                            <i class="fa-solid fa-flask text-bio-accent"></i> 營養注入
                         </h3>
                         <button onclick="toggleInputModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
                     </div>
@@ -138,8 +149,9 @@
                             <select id="inputSource" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none transition">
                                 <option value="Starbucks">Starbucks 星巴克</option>
                                 <option value="Louisa">Louisa 路易莎</option>
-                                <option value="Community">社區家庭回收</option>
+                                <option value="FamilyMart">FamilyMart 全家</option>
                                 <option value="7-11">7-ELEVEN</option>
+                                <option value="Community">社區家庭回收</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
@@ -201,7 +213,7 @@
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <button onclick="document.getElementById('inputModal').classList.remove('hidden')" class="group relative px-8 py-4 bg-bio-accent text-bio-dark font-bold rounded-xl overflow-hidden hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)]">
                     <span class="relative z-10 flex items-center gap-2">
-                        <i class="fa-solid fa-plus"></i> 開始注入資源
+                        <i class="fa-solid fa-plus"></i> 開始注入營養
                     </span>
                 </button>
                 <a href="#dashboard" class="px-8 py-4 glass-panel text-white font-bold rounded-xl hover:bg-white/10 transition-all border border-white/20 flex items-center justify-center gap-2">
@@ -218,7 +230,7 @@
                 <div class="relative">
                     <div class="absolute -inset-4 bg-gradient-to-r from-bio-accent to-blue-600 rounded-2xl opacity-20 blur-xl"></div>
                     <div class="relative rounded-2xl overflow-hidden glass-panel border border-white/10">
-                        <img src="https://images.unsplash.com/photo-1629250005740-9e6347c4c34e?q=80&w=1000&auto=format&fit=crop" alt="Mycelium Network" class="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-700">
+                        <img src="./images/concept-network.jpg" alt="Mycelium Network" class="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-700">
                         <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-bio-dark to-transparent">
                             <span class="font-mono text-bio-accent text-xs">Fig 1.1</span>
                             <h3 class="text-xl font-bold text-white">Wood Wide Web (森林寬頻)</h3>
@@ -239,7 +251,7 @@
                                     <i class="fa-solid fa-handshake"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold">1. 交易 (Trade)</h4>
+                                    <h4 class="text-white font-bold">1. 交易</h4>
                                     <p class="text-sm text-slate-400">真菌提供土壤中難以取得的礦物質（磷、氮），換取植物光合作用產生的醣類（碳）。這是一種跨物種的經濟合約。</p>
                                 </div>
                             </div>
@@ -248,7 +260,7 @@
                                     <i class="fa-solid fa-tower-broadcast"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold">2. 通訊 (Communication)</h4>
+                                    <h4 class="text-white font-bold">2. 通訊</h4>
                                     <p class="text-sm text-slate-400">當一棵樹被蟲咬，它會透過菌絲向鄰近樹木發送化學警訊，啟動整體的防禦機制。</p>
                                 </div>
                             </div>
@@ -257,8 +269,8 @@
                                     <i class="fa-solid fa-truck-fast"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold">3. 重分配 (Redistribution)</h4>
-                                    <p class="text-sm text-slate-400">菌絲會偵測資源濃度，將養分從富饒的「源頭 (Source)」輸送到貧瘠的「庫 (Sink)」，維持生態平衡。</p>
+                                    <h4 class="text-white font-bold">3. 重分配</h4>
+                                    <p class="text-sm text-slate-400">菌絲會偵測資源濃度，將養分從富饒的「源頭」輸送到貧瘠的「庫」，維持生態平衡。</p>
                                 </div>
                             </div>
                         </div>
@@ -275,7 +287,7 @@
             <div class="text-center mb-16">
                 <span class="text-bio-accent font-mono text-sm tracking-wider uppercase">System Workflow</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">三峽在地循環模型</h2>
-                <p class="text-slate-400 mt-4">連結 <span class="text-white font-bold">北大特區咖啡店</span> 與 <span class="text-white font-bold">麗寶萊茵社區</span> 的實證計畫</p>
+                <p class="text-slate-400 mt-4">連結 <span class="text-white font-bold">北大特區商家</span> 與 <span class="text-white font-bold">麗寶萊茵社區</span> 的實證計畫</p>
             </div>
             <div class="space-y-12 md:space-y-24">
                 <!-- Input -->
@@ -283,7 +295,7 @@
                     <div class="w-full md:w-1/2 text-right md:pr-12 space-y-4 order-2 md:order-1">
                         <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">Input / 營養源</div>
                         <h3 class="text-2xl font-bold text-white">城市裡的有機礦脈</h3>
-                        <p class="text-slate-400">三峽北大特區密集分佈的連鎖咖啡店，每日產生大量潔淨的咖啡渣。這些是富含氮源的有機資材，目前卻多被視為垃圾。</p>
+                        <p class="text-slate-400">三峽北大特區密集分佈的連鎖便利商店與咖啡店，每日產生大量潔淨的咖啡渣。這些是富含氮源的有機資材，目前卻多被視為垃圾。</p>
                     </div>
                     <div class="w-full md:w-1/2 order-1 md:order-2">
                         <div class="relative w-32 h-32 md:w-48 md:h-48 mx-auto bg-slate-800 rounded-full border-2 border-slate-700 flex items-center justify-center overflow-hidden">
@@ -434,7 +446,7 @@
                         <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-bio-accent flex items-center justify-center text-white font-bold text-lg mb-4 shadow-[0_0_15px_rgba(16,185,129,0.3)]">2026</div>
                         <h4 class="text-lg font-bold text-bio-accent mb-2">北大特區示範點</h4>
                         <p class="text-sm text-slate-400 leading-relaxed">
-                            以三峽北大特區為起點，串聯 5 家咖啡店與 3 個大型社區，建立標準化 SOP 與數據驗證模型。
+                            以三峽北大特區為起點，串聯便利商店、咖啡店與社區，建立 SOP 與數據驗證模型。
                         </p>
                     </div>
 
@@ -443,7 +455,7 @@
                         <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-blue-400 flex items-center justify-center text-white font-bold text-lg mb-4">2027</div>
                         <h4 class="text-lg font-bold text-blue-400 mb-2">擴散至氣候挑戰區</h4>
                         <p class="text-sm text-slate-400 leading-relaxed">
-                            拓展至淡水、林口等新興市鎮，針對其低溫潮濕氣候特性，導入進階溫控與抗風植栽模組，驗證系統的高適應性。
+                            拓展至淡水、林口等新興市鎮，針對其低溫潮濕氣候特性，導入溫控與抗風植栽，驗證系統的高適應性。
                         </p>
                     </div>
 
@@ -452,7 +464,7 @@
                         <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-purple-500 flex items-center justify-center text-white font-bold text-lg mb-4">2030</div>
                         <h4 class="text-lg font-bold text-purple-500 mb-2">全市淨零模組</h4>
                         <p class="text-sm text-slate-400 leading-relaxed">
-                            納入新北市「2050 淨零路徑」，成為官方認證的「社區碳匯」模組，並建立市民個人的永續生活履歷。
+                            納入新北市「2050 淨零路徑」，建立「社區碳匯」模組，豐富市民的永續生活履歷。
                         </p>
                     </div>
                 </div>
@@ -485,7 +497,7 @@
                 source: 'Louisa',
                 type: 'Coffee Grounds',
                 weight: 3.5,
-                img: 'https://images.unsplash.com/photo-1511537632536-b7a4276ce9e5?q=80&w=2576&auto=format&fit=crop',
+                img: './images/timeline-1-louisa.jpg',
                 desc: '本月首批回收，啟動 1 號堆肥箱。'
             },
             {
@@ -494,7 +506,7 @@
                 source: 'Community',
                 type: 'Leaves',
                 weight: 1.2,
-                img: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2670&auto=format&fit=crop',
+                img: './images/timeline-2-leaves.jpg',
                 desc: '收集社區中庭落葉，調整碳氮比 (C/N)。'
             },
             {
@@ -503,7 +515,7 @@
                 source: 'Starbucks',
                 type: 'Coffee Grounds',
                 weight: 5.0,
-                img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2574&auto=format&fit=crop',
+                img: './images/timeline-3-starbucks.jpg',
                 desc: '星巴克夥伴支援，大量高品質咖啡渣注入！'
             },
             {
@@ -512,7 +524,7 @@
                 source: 'MycoTanJi',
                 type: 'Soil',
                 weight: 8.5,
-                img: 'https://images.unsplash.com/photo-1615486511484-92e590508b40?q=80&w=2574&auto=format&fit=crop',
+                img: './images/timeline-4-soil.jpg',
                 desc: '黑金土熟成完畢，開始定植迷迭香與萵苣。'
             },
             {
@@ -521,12 +533,13 @@
                 source: 'MycoTanJi',
                 type: 'Harvest',
                 weight: 2.0,
-                img: 'https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop',
+                img: './images/timeline-5-harvest.jpg',
                 desc: '首批可食地景採收，迷迭香回饋社區居民，共享低碳生活成果。'
             }
         ];
 
-        let appData = [...initialData];
+        // 優先讀取 localStorage 資料，如果沒有則使用 initialData
+        let appData = JSON.parse(localStorage.getItem('mycoData')) || [...initialData];
         let chartInstance = null;
 
         function initChart() {
@@ -583,7 +596,7 @@
             animateValue('totalMoney', totalM, 0);
         }
 
-        function renderTimeline() {
+        function renderTimeline(highlightId = null) {
             const container = document.getElementById('timelineContainer');
             container.innerHTML = '<div class="timeline-line"></div>';
             // Sorted Ascending: Oldest Top -> Newest Bottom
@@ -591,12 +604,15 @@
 
             sortedData.forEach((item, index) => {
                 const isLeft = index % 2 === 0;
+                // 如果是剛新增的 ID，加上 highlight class
+                const highlightClass = (highlightId && item.id === highlightId) ? 'new-entry-highlight' : '';
+                
                 const itemHTML = `
-                    <div class="mb-8 flex justify-between items-center w-full md:flex-row flex-col ${isLeft ? 'md:flex-row-reverse' : ''} animate-grow" style="animation-delay: ${index * 0.1}s">
+                    <div id="item-${item.id}" class="mb-8 flex justify-between items-center w-full md:flex-row flex-col ${isLeft ? 'md:flex-row-reverse' : ''} animate-grow" style="animation-delay: ${index * 0.1}s">
                         <div class="order-1 w-5/12 hidden md:block"></div>
                         <div class="z-20 flex items-center order-1 bg-bio-dark border-2 border-bio-accent rounded-full w-8 h-8 justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
                         <div class="order-1 md:w-5/12 w-full px-4 md:px-0 mt-4 md:mt-0">
-                            <div class="glass-panel border border-white/10 rounded-xl p-4 hover:border-bio-accent/50 transition duration-300">
+                            <div class="glass-panel border border-white/10 rounded-xl p-4 hover:border-bio-accent/50 transition duration-300 ${highlightClass}">
                                 <div class="flex justify-between items-start mb-2">
                                     <span class="text-xs font-mono text-bio-accent bg-bio-accent/10 px-2 py-1 rounded">${item.date}</span>
                                     <span class="text-xs text-slate-400 flex items-center gap-1"><i class="fa-solid fa-weight-hanging"></i> ${item.weight}kg</span>
@@ -638,13 +654,14 @@
             const imgInput = document.getElementById('inputImage');
             const today = new Date().toISOString().split('T')[0];
             
-            let imgUrl = 'https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?q=80&w=2674&auto=format&fit=crop';
+            let imgUrl = './images/default-upload.jpg';
             if (imgInput.files && imgInput.files[0]) {
                 imgUrl = URL.createObjectURL(imgInput.files[0]);
             }
 
+            const newId = Date.now();
             const newData = {
-                id: Date.now(),
+                id: newId,
                 date: today,
                 source: source,
                 type: type,
@@ -654,8 +671,12 @@
             };
 
             appData.push(newData);
+            
+            // 儲存到 LocalStorage
+            localStorage.setItem('mycoData', JSON.stringify(appData));
+
             updateDashboard();
-            renderTimeline();
+            renderTimeline(newId); // 傳入 newId 以觸發 highlight
             
             if(chartInstance) {
                 const newTotalWeight = appData.reduce((acc, cur) => acc + cur.weight, 0);
@@ -668,7 +689,14 @@
             document.getElementById('previewImg').classList.add('hidden');
             document.getElementById('imagePreviewBox').classList.remove('hidden');
             toggleInputModal();
-            alert(`✅ 注入成功！\n\n系統已捕捉 ${weight}kg 資源。\n碳帳本同步更新中...`);
+            
+            // 自動捲動到新項目
+            setTimeout(() => {
+                const newItem = document.getElementById(`item-${newId}`);
+                if (newItem) {
+                    newItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 300); // 稍微延遲確保 DOM 已渲染
         }
 
         function animateValue(id, end, decimals) {
