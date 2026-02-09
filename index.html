@@ -35,11 +35,16 @@
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'grow': 'grow 0.5s ease-out forwards',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
+                        },
+                        grow: {
+                            '0%': { opacity: '0', transform: 'scale(0.9) translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
                         }
                     }
                 }
@@ -56,27 +61,31 @@
         .text-glow {
             text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
         }
-        .fungi-glow {
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        /* Timeline Line */
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #10b981, #0f172a);
+        }
+        @media (min-width: 768px) {
+            .timeline-line {
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #10b981; 
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
     </style>
 </head>
-<body class="bg-bio-dark text-slate-200 antialiased selection:bg-bio-accent selection:text-bio-dark">
+<body class="bg-bio-dark text-slate-200 antialiased selection:bg-bio-accent selection:text-bio-dark relative">
 
+    <!-- Fixed Navigation -->
     <nav class="fixed w-full z-50 glass-panel border-b border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -90,11 +99,12 @@
                     </div>
                 </div>
                 
-                <div class="hidden md:flex space-x-8 items-center">
+                <div class="hidden md:flex space-x-6 items-center">
                     <a href="#concept" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">仿生概念</a>
                     <a href="#solution" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">運作機制</a>
+                    <a href="#timeline" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">生態演替</a>
                     <a href="#dashboard" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">碳儀表板</a>
-                    <a href="#impact" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">自然正向</a>
+                    <a href="#impact" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">永續效益</a>
                     <div class="px-3 py-1 rounded-full border border-bio-accent/30 text-bio-accent text-xs font-mono">
                         <span class="w-2 h-2 rounded-full bg-bio-accent inline-block mr-2 animate-pulse"></span>System Online
                     </div>
@@ -103,10 +113,74 @@
         </div>
     </nav>
 
-    <header class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Floating Action Button (FAB) -->
+    <button onclick="toggleInputModal()" class="fixed bottom-8 right-8 z-[60] w-16 h-16 rounded-full bg-bio-accent hover:bg-emerald-400 text-bio-dark shadow-[0_0_20px_rgba(16,185,129,0.5)] flex items-center justify-center transition-all transform hover:scale-110 group">
+        <i class="fa-solid fa-plus text-2xl group-hover:rotate-90 transition-transform duration-300"></i>
+        <span class="absolute -top-10 right-0 bg-white text-bio-dark text-xs px-2 py-1 rounded font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">注入營養源</span>
+    </button>
+
+    <!-- Input Modal -->
+    <div id="inputModal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleInputModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-6">
+            <div class="glass-panel border border-bio-accent/30 rounded-2xl shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-bio-accent to-blue-500"></div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-flask text-bio-accent"></i> 營養注入節點
+                        </h3>
+                        <button onclick="toggleInputModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+                    </div>
+                    <form id="dataForm" onsubmit="handleDataSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-mono text-bio-accent mb-1 uppercase">Source / 來源</label>
+                            <select id="inputSource" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none transition">
+                                <option value="Starbucks">Starbucks 星巴克</option>
+                                <option value="Louisa">Louisa 路易莎</option>
+                                <option value="Community">社區家庭回收</option>
+                                <option value="7-11">7-ELEVEN</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-mono text-bio-accent mb-1 uppercase">Type / 類型</label>
+                                <select id="inputType" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none transition">
+                                    <option value="Coffee Grounds">咖啡渣</option>
+                                    <option value="Food Waste">生廚餘</option>
+                                    <option value="Leaves">落葉碳源</option>
+                                    <option value="Harvest">香草採收</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-mono text-bio-accent mb-1 uppercase">Mass / 重量 (kg)</label>
+                                <input type="number" id="inputWeight" step="0.1" required class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none transition" placeholder="0.0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-bio-accent mb-1 uppercase">Evidence / 現場紀錄</label>
+                            <div class="relative border-2 border-dashed border-slate-600 rounded-lg p-4 text-center hover:border-bio-accent transition cursor-pointer" onclick="document.getElementById('inputImage').click()">
+                                <input type="file" id="inputImage" class="hidden" accept="image/*" onchange="previewImage(this)">
+                                <div id="imagePreviewBox">
+                                    <i class="fa-solid fa-camera text-slate-400 text-2xl mb-2"></i>
+                                    <p class="text-xs text-slate-500">點擊上傳照片</p>
+                                </div>
+                                <img id="previewImg" class="hidden w-full h-32 object-cover rounded-lg">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full bg-bio-accent hover:bg-emerald-400 text-bio-dark font-bold py-3 rounded-xl transition shadow-lg mt-4 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-upload"></i> 上鏈數據 (Upload)
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-40"></div>
         <div class="absolute inset-0 bg-gradient-to-b from-bio-dark/80 via-bio-dark/90 to-bio-dark"></div>
-        
         <div class="absolute inset-0 bg-noise opacity-20"></div>
         
         <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
@@ -125,26 +199,22 @@
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#concept" class="group relative px-8 py-4 bg-bio-accent text-bio-dark font-bold rounded-xl overflow-hidden hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                <button onclick="document.getElementById('inputModal').classList.remove('hidden')" class="group relative px-8 py-4 bg-bio-accent text-bio-dark font-bold rounded-xl overflow-hidden hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)]">
                     <span class="relative z-10 flex items-center gap-2">
-                        探索仿生機制 <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+                        <i class="fa-solid fa-plus"></i> 開始注入資源
                     </span>
-                </a>
+                </button>
                 <a href="#dashboard" class="px-8 py-4 glass-panel text-white font-bold rounded-xl hover:bg-white/10 transition-all border border-white/20 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-chart-pie text-bio-accent"></i> 查看減碳數據
+                    <i class="fa-solid fa-chart-line text-bio-accent"></i> 即時數據監測
                 </a>
             </div>
         </div>
-
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i class="fa-solid fa-chevron-down text-slate-500 text-xl"></i>
-        </div>
     </header>
 
+    <!-- Concept Section -->
     <section id="concept" class="py-24 bg-bio-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                
                 <div class="relative">
                     <div class="absolute -inset-4 bg-gradient-to-r from-bio-accent to-blue-600 rounded-2xl opacity-20 blur-xl"></div>
                     <div class="relative rounded-2xl overflow-hidden glass-panel border border-white/10">
@@ -155,332 +225,480 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="space-y-8">
                     <div>
                         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">自然界的<span class="text-bio-accent">資源調度員</span></h2>
                         <div class="h-1 w-20 bg-bio-accent rounded-full mb-6"></div>
-                        <p class="text-slate-400 text-lg leading-relaxed">
-                            森林沒有垃圾車，為什麼沒有廢棄物？<br>
-                            因為地下的<strong class="text-white">菌絲網絡 (Mycelium)</strong> 扮演了關鍵角色。它們連接植物根系，將 A 樹多餘的碳水化合物，傳輸給缺乏養分的 B 樹，並負責分解倒木，將有機質回歸土壤。
+                        <p class="text-slate-400 text-lg leading-relaxed mb-6">
+                            森林地底下存在一個龐大的「互聯網」— <strong class="text-white">菌根菌網絡 (Mycorrhizal Network)</strong>。它不只是依附植物生存，更是森林生態系的主動管理者。
                         </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-bio-accent/50 transition duration-300">
-                            <div class="w-10 h-10 rounded-full bg-bio-accent/10 flex items-center justify-center text-bio-accent mb-4">
-                                <i class="fa-solid fa-recycle"></i>
+                        
+                        <div class="space-y-4">
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-bio-accent/20 flex items-center justify-center text-bio-accent shrink-0">
+                                    <i class="fa-solid fa-handshake"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">1. 交易 (Trade)</h4>
+                                    <p class="text-sm text-slate-400">真菌提供土壤中難以取得的礦物質（磷、氮），換取植物光合作用產生的醣類（碳）。這是一種跨物種的經濟合約。</p>
+                                </div>
                             </div>
-                            <h4 class="text-lg font-bold text-white mb-2">倒木效應 (Nurse Log)</h4>
-                            <p class="text-sm text-slate-400">
-                                模仿森林中倒木就地分解的機制。社區產生的廢棄物（如咖啡渣），不需要運送到遙遠的焚化爐，而是成為滋養社區綠化的養分。
-                            </p>
-                        </div>
-                        <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-bio-accent/50 transition duration-300">
-                            <div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
-                                <i class="fa-solid fa-share-nodes"></i>
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                                    <i class="fa-solid fa-tower-broadcast"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">2. 通訊 (Communication)</h4>
+                                    <p class="text-sm text-slate-400">當一棵樹被蟲咬，它會透過菌絲向鄰近樹木發送化學警訊，啟動整體的防禦機制。</p>
+                                </div>
                             </div>
-                            <h4 class="text-lg font-bold text-white mb-2">源庫流動 (Source-Sink)</h4>
-                            <p class="text-sm text-slate-400">
-                                模仿菌絲的物質傳輸演算法。自動媒合「資源產生點（咖啡店）」與「資源需求點（社區農園）」，建立最短路徑的微型物流。
-                            </p>
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">3. 重分配 (Redistribution)</h4>
+                                    <p class="text-sm text-slate-400">菌絲會偵測資源濃度，將養分從富饒的「源頭 (Source)」輸送到貧瘠的「庫 (Sink)」，維持生態平衡。</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
+    <!-- Solution / Workflow Section -->
     <section id="solution" class="py-24 bg-slate-900 relative overflow-hidden">
         <div class="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-bio-accent/30 to-transparent hidden md:block"></div>
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16">
                 <span class="text-bio-accent font-mono text-sm tracking-wider uppercase">System Workflow</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">三峽在地循環模型</h2>
                 <p class="text-slate-400 mt-4">連結 <span class="text-white font-bold">北大特區咖啡店</span> 與 <span class="text-white font-bold">麗寶萊茵社區</span> 的實證計畫</p>
             </div>
-
             <div class="space-y-12 md:space-y-24">
-                
+                <!-- Input -->
                 <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
                     <div class="w-full md:w-1/2 text-right md:pr-12 space-y-4 order-2 md:order-1">
                         <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">Input / 營養源</div>
                         <h3 class="text-2xl font-bold text-white">城市裡的有機礦脈</h3>
-                        <p class="text-slate-400">
-                            三峽北大特區密集分佈的連鎖咖啡店（Louisa, Starbucks），每日產生大量潔淨的咖啡渣。這些是富含氮源的有機資材，目前卻多被視為垃圾。
-                        </p>
-                        <div class="flex justify-end gap-2">
-                            <span class="px-3 py-1 rounded-full bg-amber-900/30 text-amber-500 text-xs border border-amber-900/50">咖啡渣</span>
-                            <span class="px-3 py-1 rounded-full bg-green-900/30 text-green-500 text-xs border border-green-900/50">生廚餘</span>
-                        </div>
+                        <p class="text-slate-400">三峽北大特區密集分佈的連鎖咖啡店，每日產生大量潔淨的咖啡渣。這些是富含氮源的有機資材，目前卻多被視為垃圾。</p>
                     </div>
                     <div class="w-full md:w-1/2 order-1 md:order-2">
-                        <div class="relative group">
-                            <div class="absolute -inset-2 bg-amber-600 rounded-full opacity-20 blur-lg group-hover:opacity-40 transition"></div>
-                            <div class="relative w-32 h-32 md:w-48 md:h-48 mx-auto bg-slate-800 rounded-full border-2 border-slate-700 flex items-center justify-center overflow-hidden">
-                                <i class="fa-solid fa-mug-hot text-5xl md:text-7xl text-amber-500"></i>
-                            </div>
-                            <div class="absolute top-0 right-1/4 bg-bio-dark border border-slate-700 px-3 py-1 rounded text-xs text-white shadow-xl">
-                                Louisa Coffee<br>Sanxia
-                            </div>
+                        <div class="relative w-32 h-32 md:w-48 md:h-48 mx-auto bg-slate-800 rounded-full border-2 border-slate-700 flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-mug-hot text-5xl md:text-7xl text-amber-500"></i>
                         </div>
                     </div>
                 </div>
-
+                <!-- Process -->
                 <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
                     <div class="w-full md:w-1/2 md:text-right order-1">
-                        <div class="relative group">
-                            <div class="absolute -inset-2 bg-bio-accent rounded-full opacity-20 blur-lg group-hover:opacity-40 transition animate-pulse-slow"></div>
-                            <div class="relative w-40 h-40 md:w-56 md:h-56 mx-auto bg-slate-800 rounded-full border-2 border-bio-accent flex items-center justify-center overflow-hidden z-20">
-                                <i class="fa-solid fa-arrows-rotate text-6xl md:text-8xl text-bio-accent animate-spin" style="animation-duration: 10s;"></i>
-                            </div>
-                            <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-bio-dark border border-bio-accent/30 px-4 py-2 rounded-xl text-sm text-white shadow-2xl z-30 w-48 text-center glass-panel">
-                                <div class="flex items-center justify-between mb-1">
-                                    <span class="text-xs text-slate-400">Myco-TanJi App</span>
-                                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                                </div>
-                                <div class="text-xs font-mono text-bio-accent">媒合成功：路徑最佳化</div>
-                            </div>
+                        <div class="relative w-40 h-40 md:w-56 md:h-56 mx-auto bg-slate-800 rounded-full border-2 border-bio-accent flex items-center justify-center overflow-hidden z-20">
+                            <i class="fa-solid fa-arrows-rotate text-6xl md:text-8xl text-bio-accent animate-spin" style="animation-duration: 10s;"></i>
                         </div>
                     </div>
                     <div class="w-full md:w-1/2 md:pl-12 space-y-4 order-2">
                         <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">Process / 轉化</div>
                         <h3 class="text-2xl font-bold text-white">數位菌絲中繼站</h3>
-                        <p class="text-slate-400">
-                            透過 <strong class="text-white">Myco-TanJi 平台</strong>，社區志工接收到咖啡店的「釋出訊號」。利用回頭車或散步路徑，將物資運回社區堆肥站。混合社區落葉（碳源），進行好氧發酵。
-                        </p>
-                        <ul class="space-y-2 text-sm text-slate-400">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-bio-accent mr-2"></i> 自動計算碳氮比 (C/N Ratio)</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-bio-accent mr-2"></i> 追蹤發酵溫度與熟成度</li>
-                        </ul>
+                        <p class="text-slate-400">透過平台接收「釋出訊號」。利用回頭車或散步路徑，將物資運回社區堆肥站。混合社區落葉（碳源），進行好氧發酵。</p>
                     </div>
                 </div>
-
+                <!-- Output -->
                 <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
                     <div class="w-full md:w-1/2 text-right md:pr-12 space-y-4 order-2 md:order-1">
                         <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono mb-2">Output / 再生</div>
                         <h3 class="text-2xl font-bold text-white">社區可食地景</h3>
-                        <p class="text-slate-400">
-                            熟成的黑金堆肥，直接用於「麗寶萊茵社區」的頂樓農園與中庭植栽。種出的薄荷、迷迭香、萵苣，再回饋給住戶或咖啡店，完成完美的閉鎖循環。
-                        </p>
-                        <div class="flex justify-end gap-2">
-                            <span class="px-3 py-1 rounded-full bg-emerald-900/30 text-emerald-500 text-xs border border-emerald-900/50">零肥料成本</span>
-                            <span class="px-3 py-1 rounded-full bg-blue-900/30 text-blue-500 text-xs border border-blue-900/50">微氣候調節</span>
-                        </div>
+                        <p class="text-slate-400">熟成的黑金堆肥，直接用於頂樓農園。種出的薄荷、迷迭香、萵苣，再回饋給住戶或咖啡店，完成完美的閉鎖循環。</p>
                     </div>
                     <div class="w-full md:w-1/2 order-1 md:order-2">
-                        <div class="relative group">
-                            <div class="absolute -inset-2 bg-green-600 rounded-full opacity-20 blur-lg group-hover:opacity-40 transition"></div>
-                            <div class="relative w-32 h-32 md:w-48 md:h-48 mx-auto bg-slate-800 rounded-full border-2 border-slate-700 flex items-center justify-center overflow-hidden">
-                                <i class="fa-solid fa-seedling text-5xl md:text-7xl text-green-500 float-animation"></i>
-                            </div>
-                            <div class="absolute bottom-0 left-1/4 bg-bio-dark border border-slate-700 px-3 py-1 rounded text-xs text-white shadow-xl">
-                                Urban Farm
-                            </div>
+                        <div class="relative w-32 h-32 md:w-48 md:h-48 mx-auto bg-slate-800 rounded-full border-2 border-slate-700 flex items-center justify-center overflow-hidden">
+                            <i class="fa-solid fa-seedling text-5xl md:text-7xl text-green-500 float-animation"></i>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
+    <!-- Timeline Section (Updated: Oldest Top -> Newest Bottom) -->
+    <section id="timeline" class="py-24 bg-slate-900 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center mb-16">
+                <span class="text-bio-accent font-mono text-sm tracking-wider uppercase">Ecological Succession</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">生態演替時間軸</h2>
+                <p class="text-slate-400 mt-4">見證從「廢棄物」到「可食地景」的轉化過程</p>
+            </div>
+            <div class="relative py-10" id="timelineContainer">
+                <div class="timeline-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
     <section id="dashboard" class="py-24 bg-bio-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-1 space-y-6">
-                    <span class="text-bio-accent font-mono text-sm tracking-wider uppercase">Live Data</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-white">碳代謝戰情室</h2>
-                    <p class="text-slate-400">
-                        不只是做環保，我們用數據說話。系統內建 GHG Protocol 計算模組，將每一次的「菌絲傳輸」換算為具體的環境效益。
-                    </p>
-                    
-                    <div class="p-4 bg-slate-800 rounded-xl border-l-4 border-bio-accent">
-                        <h4 class="text-white font-bold mb-1">Scope 3 減量</h4>
-                        <p class="text-xs text-slate-400">透過在地循環，大幅減少廢棄物清運與化肥生產的間接排放。</p>
+            <div class="glass-panel rounded-2xl p-6 md:p-8 border border-white/10 shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-10"></div>
+                <div class="flex justify-between items-center mb-8 relative z-10">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">碳代謝戰情室 (Carbon Dashboard)</h3>
+                        <p class="text-xs text-slate-400 font-mono">Scope 3 Emissions Avoidance</p>
                     </div>
-
-                    <div class="p-4 bg-slate-800 rounded-xl border-l-4 border-blue-500">
-                        <h4 class="text-white font-bold mb-1">SDG 11 & 12 指標</h4>
-                        <p class="text-xs text-slate-400">直接對應聯合國永續發展目標，數據可匯出供新北市 VLR 報告使用。</p>
+                    <div class="text-right">
+                        <p class="text-xs text-slate-400">Last updated</p>
+                        <p class="text-bio-accent font-mono" id="current-time">Loading...</p>
                     </div>
                 </div>
-
-                <div class="lg:col-span-2">
-                    <div class="glass-panel rounded-2xl p-6 md:p-8 border border-white/10 shadow-2xl relative overflow-hidden">
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/graphy.png')] opacity-10"></div>
-                        
-                        <div class="flex justify-between items-center mb-8 relative z-10">
-                            <div>
-                                <h3 class="text-xl font-bold text-white">麗寶萊茵社區 - 即時監測</h3>
-                                <p class="text-xs text-slate-400 font-mono">Last updated: <span id="current-time">Loading...</span></p>
-                            </div>
-                            <div class="flex gap-2">
-                                <span class="w-3 h-3 rounded-full bg-red-500"></span>
-                                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
-                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 relative z-10">
-                            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
-                                <div class="text-xs text-slate-400 mb-1">本月攔截咖啡渣</div>
-                                <div class="text-2xl font-mono font-bold text-amber-400 count-up" data-target="125">0</div>
-                                <div class="text-[10px] text-slate-500">kg</div>
-                            </div>
-                            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
-                                <div class="text-xs text-slate-400 mb-1">累積減碳量</div>
-                                <div class="text-2xl font-mono font-bold text-bio-accent count-up" data-target="68.5">0</div>
-                                <div class="text-[10px] text-slate-500">kg CO2e</div>
-                            </div>
-                            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
-                                <div class="text-xs text-slate-400 mb-1">產出有機肥</div>
-                                <div class="text-2xl font-mono font-bold text-bio-soil count-up" data-target="80">0</div>
-                                <div class="text-[10px] text-slate-500">kg</div>
-                            </div>
-                            <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
-                                <div class="text-xs text-slate-400 mb-1">節省肥料費</div>
-                                <div class="text-2xl font-mono font-bold text-blue-400 count-up" data-target="2400">0</div>
-                                <div class="text-[10px] text-slate-500">TWD</div>
-                            </div>
-                        </div>
-
-                        <div class="relative h-64 w-full z-10">
-                            <canvas id="carbonChart"></canvas>
-                        </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 relative z-10">
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center group hover:border-bio-accent/50 transition">
+                        <div class="text-xs text-slate-400 mb-1">總攔截廢棄物</div>
+                        <div class="text-3xl font-mono font-bold text-amber-400" id="totalWeight">0</div>
+                        <div class="text-[10px] text-slate-500">kg</div>
                     </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center group hover:border-bio-accent/50 transition">
+                        <div class="text-xs text-slate-400 mb-1">迴避碳排放量</div>
+                        <div class="text-3xl font-mono font-bold text-bio-accent" id="totalCarbon">0</div>
+                        <div class="text-[10px] text-slate-500">kg CO2e</div>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center group hover:border-bio-accent/50 transition">
+                        <div class="text-xs text-slate-400 mb-1">產生有機沃土</div>
+                        <div class="text-3xl font-mono font-bold text-bio-soil" id="totalSoil">0</div>
+                        <div class="text-[10px] text-slate-500">kg (轉化率70%)</div>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center group hover:border-bio-accent/50 transition">
+                        <div class="text-xs text-slate-400 mb-1">節省社區公款</div>
+                        <div class="text-3xl font-mono font-bold text-blue-400" id="totalMoney">0</div>
+                        <div class="text-[10px] text-slate-500">TWD (肥料/垃圾費)</div>
+                    </div>
+                </div>
+                <div class="relative h-64 w-full z-10">
+                    <canvas id="carbonChart"></canvas>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Impact Section -->
     <section id="impact" class="py-24 bg-slate-900 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-bold text-white mb-16">全方位永續效益</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">全方位永續效益</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">對應新北市三大局處政策目標，實現 Nature Positive 願景</p>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+                <!-- Agriculture -->
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-green-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
                     <div class="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center text-green-500 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fa-solid fa-wheat-awn"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">都市農業創新</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        針對<strong>農業局</strong>目標。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程至「0公里」。
-                    </p>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center">都市農業創新</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">響應<strong>永續農漁業</strong>願景。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程至「0公里」，實踐都市農耕創新。</p>
                 </div>
-
+                <!-- Environment -->
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-amber-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
                     <div class="w-16 h-16 mx-auto bg-amber-500/10 rounded-full flex items-center justify-center text-amber-500 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fa-solid fa-trash-arrow-up"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">循環經濟減量</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        針對<strong>環保局</strong>目標。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現「搖籃到搖籃」的閉鎖循環。
-                    </p>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center">循環經濟減量</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">呼應<strong>循環經濟減量</strong>策略。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現「搖籃到搖籃」的閉鎖循環。</p>
                 </div>
-
+                <!-- City (Secretariat) -->
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-blue-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
                     <div class="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center text-blue-500 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fa-solid fa-city"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">永續韌性城市</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        針對<strong>秘書處</strong>目標。建立公私協力 (PPP) 的社區示範模組，強化社區氣候韌性與居民凝聚力。
-                    </p>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center">永續韌性城市</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">對接<strong>永續城市</strong>發展指標。透過公私協力夥伴關係 (SDG 17)，建構低碳韌性社區，實踐永續城鄉 (SDG 11) 願景，提升國際能見度。</p>
+                </div>
+            </div>
+
+            <!-- Future Roadmap -->
+            <div class="glass-panel border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-bio-accent/20 rounded-full blur-3xl"></div>
+                
+                <h3 class="text-2xl font-bold text-white mb-8 flex items-center">
+                    <i class="fa-solid fa-map-location-dot text-bio-accent mr-3"></i> 未來展望：新北市推動路徑
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                    <!-- Connecting Line -->
+                    <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-gradient-to-r from-bio-accent to-blue-500 opacity-30"></div>
+
+                    <!-- Phase 1 -->
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-bio-accent flex items-center justify-center text-white font-bold text-lg mb-4 shadow-[0_0_15px_rgba(16,185,129,0.3)]">2026</div>
+                        <h4 class="text-lg font-bold text-bio-accent mb-2">北大特區示範點</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            以三峽北大特區為起點，串聯 5 家咖啡店與 3 個大型社區，建立標準化 SOP 與數據驗證模型。
+                        </p>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-blue-400 flex items-center justify-center text-white font-bold text-lg mb-4">2027</div>
+                        <h4 class="text-lg font-bold text-blue-400 mb-2">擴散至氣候挑戰區</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            拓展至淡水、林口等新興市鎮，針對其低溫潮濕氣候特性，導入進階溫控與抗風植栽模組，驗證系統的高適應性。
+                        </p>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="relative z-10">
+                        <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-purple-500 flex items-center justify-center text-white font-bold text-lg mb-4">2030</div>
+                        <h4 class="text-lg font-bold text-purple-500 mb-2">全市淨零模組</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            納入新北市「2050 淨零路徑」，成為官方認證的「社區碳匯」模組，並建立市民個人的永續生活履歷。
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="bg-bio-dark py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 text-center">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
             <div class="flex items-center justify-center gap-2 mb-4">
                 <i class="fa-solid fa-circle-nodes text-bio-accent"></i>
                 <span class="font-bold text-lg text-white">Myco-TanJi</span>
             </div>
-            <p class="text-slate-500 text-sm mb-8">
+            <p class="text-slate-500 text-sm">
                 2026 台灣仿生設計競賽參賽作品 | 新北市三峽區在地實踐
             </p>
-            <div class="text-xs text-slate-600 font-mono">
-                Designed with <i class="fa-solid fa-heart text-red-900"></i> by Carbon Management Team
-            </div>
+            <p class="text-slate-600 text-xs">
+                作品受著作權法保護，未經授權請勿複製轉載｜歡迎聯絡我們：tanji2026@gmail.com
+            </p>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        // Update Time
+        const initialData = [
+            {
+                id: 1,
+                date: '2026-02-02',
+                source: 'Louisa',
+                type: 'Coffee Grounds',
+                weight: 3.5,
+                img: 'https://images.unsplash.com/photo-1511537632536-b7a4276ce9e5?q=80&w=2576&auto=format&fit=crop',
+                desc: '本月首批回收，啟動 1 號堆肥箱。'
+            },
+            {
+                id: 2,
+                date: '2026-02-05',
+                source: 'Community',
+                type: 'Leaves',
+                weight: 1.2,
+                img: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=2670&auto=format&fit=crop',
+                desc: '收集社區中庭落葉，調整碳氮比 (C/N)。'
+            },
+            {
+                id: 3,
+                date: '2026-02-08',
+                source: 'Starbucks',
+                type: 'Coffee Grounds',
+                weight: 5.0,
+                img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=2574&auto=format&fit=crop',
+                desc: '星巴克夥伴支援，大量高品質咖啡渣注入！'
+            },
+            {
+                id: 4,
+                date: '2026-02-20',
+                source: 'Myco-TanJi',
+                type: 'Soil',
+                weight: 8.5,
+                img: 'https://images.unsplash.com/photo-1615486511484-92e590508b40?q=80&w=2574&auto=format&fit=crop',
+                desc: '黑金土熟成完畢，開始定植迷迭香與萵苣。'
+            },
+            {
+                id: 5,
+                date: '2026-03-20',
+                source: 'Myco-TanJi',
+                type: 'Harvest',
+                weight: 2.0,
+                img: 'https://images.unsplash.com/photo-1556910103-1c02745a30bf?q=80&w=2670&auto=format&fit=crop',
+                desc: '首批可食地景採收，迷迭香回饋社區居民，共享低碳生活成果。'
+            }
+        ];
+
+        let appData = [...initialData];
+        let chartInstance = null;
+
+        function initChart() {
+            const ctx = document.getElementById('carbonChart').getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(16, 185, 129, 0.5)');
+            gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
+
+            const labels = appData.map(d => d.date.substring(5));
+            let cum = 0;
+            const dataPoints = appData.map(d => {
+                cum += d.weight * 0.56;
+                return cum;
+            });
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '累積減碳效益 (kg CO2e)',
+                        data: dataPoints,
+                        borderColor: '#10b981',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#10b981',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#94a3b8' } } },
+                    scales: {
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#64748b' } },
+                        x: { grid: { display: false }, ticks: { color: '#64748b' } }
+                    }
+                }
+            });
+        }
+
+        function updateDashboard() {
+            let totalW = 0;
+            appData.forEach(d => totalW += d.weight);
+            let totalC = totalW * 0.56; 
+            let totalS = totalW * 0.7; 
+            let totalM = totalW * 20;
+
+            animateValue('totalWeight', totalW, 1);
+            animateValue('totalCarbon', totalC, 1);
+            animateValue('totalSoil', totalS, 1);
+            animateValue('totalMoney', totalM, 0);
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timelineContainer');
+            container.innerHTML = '<div class="timeline-line"></div>';
+            // Sorted Ascending: Oldest Top -> Newest Bottom
+            const sortedData = [...appData].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            sortedData.forEach((item, index) => {
+                const isLeft = index % 2 === 0;
+                const itemHTML = `
+                    <div class="mb-8 flex justify-between items-center w-full md:flex-row flex-col ${isLeft ? 'md:flex-row-reverse' : ''} animate-grow" style="animation-delay: ${index * 0.1}s">
+                        <div class="order-1 w-5/12 hidden md:block"></div>
+                        <div class="z-20 flex items-center order-1 bg-bio-dark border-2 border-bio-accent rounded-full w-8 h-8 justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                        <div class="order-1 md:w-5/12 w-full px-4 md:px-0 mt-4 md:mt-0">
+                            <div class="glass-panel border border-white/10 rounded-xl p-4 hover:border-bio-accent/50 transition duration-300">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-mono text-bio-accent bg-bio-accent/10 px-2 py-1 rounded">${item.date}</span>
+                                    <span class="text-xs text-slate-400 flex items-center gap-1"><i class="fa-solid fa-weight-hanging"></i> ${item.weight}kg</span>
+                                </div>
+                                <h4 class="font-bold text-white mb-2 text-lg">${item.source} <span class="text-sm font-normal text-slate-400">/ ${item.type}</span></h4>
+                                ${item.img ? `<div class="h-32 w-full rounded-lg overflow-hidden mb-3"><img src="${item.img}" class="w-full h-full object-cover"></div>` : ''}
+                                <p class="text-sm text-slate-300">${item.desc}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', itemHTML);
+            });
+        }
+
+        function toggleInputModal() {
+            const modal = document.getElementById('inputModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('previewImg');
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                    document.getElementById('imagePreviewBox').classList.add('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function handleDataSubmit(e) {
+            e.preventDefault();
+            const source = document.getElementById('inputSource').value;
+            const type = document.getElementById('inputType').value;
+            const weight = parseFloat(document.getElementById('inputWeight').value);
+            const imgInput = document.getElementById('inputImage');
+            const today = new Date().toISOString().split('T')[0];
+            
+            let imgUrl = 'https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?q=80&w=2674&auto=format&fit=crop';
+            if (imgInput.files && imgInput.files[0]) {
+                imgUrl = URL.createObjectURL(imgInput.files[0]);
+            }
+
+            const newData = {
+                id: Date.now(),
+                date: today,
+                source: source,
+                type: type,
+                weight: weight,
+                img: imgUrl,
+                desc: `成功上鏈！來自 ${source} 的資源已進入循環系統。`
+            };
+
+            appData.push(newData);
+            updateDashboard();
+            renderTimeline();
+            
+            if(chartInstance) {
+                const newTotalWeight = appData.reduce((acc, cur) => acc + cur.weight, 0);
+                chartInstance.data.labels.push(today.substring(5));
+                chartInstance.data.datasets[0].data.push(newTotalWeight * 0.56);
+                chartInstance.update();
+            }
+
+            e.target.reset();
+            document.getElementById('previewImg').classList.add('hidden');
+            document.getElementById('imagePreviewBox').classList.remove('hidden');
+            toggleInputModal();
+            alert(`✅ 注入成功！\n\n系統已捕捉 ${weight}kg 資源。\n碳帳本同步更新中...`);
+        }
+
+        function animateValue(id, end, decimals) {
+            const obj = document.getElementById(id);
+            const start = parseFloat(obj.innerHTML);
+            const duration = 1000;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = (progress * (end - start) + start).toFixed(decimals);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
         function updateTime() {
             const now = new Date();
             document.getElementById('current-time').innerText = now.toLocaleString('zh-TW', { hour12: false });
         }
-        setInterval(updateTime, 1000);
-        updateTime();
 
-        // Counter Animation
-        const counters = document.querySelectorAll('.count-up');
-        counters.forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            const increment = target / 100;
-            const updateCount = () => {
-                const count = +counter.innerText;
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + increment);
-                    setTimeout(updateCount, 20);
-                } else {
-                    counter.innerText = target;
-                }
-            };
-            // Simple trigger on load
-            setTimeout(updateCount, 1000);
-        });
-
-        // Chart.js Configuration
-        const ctx = document.getElementById('carbonChart').getContext('2d');
-        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(16, 185, 129, 0.5)');
-        gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-                datasets: [{
-                    label: '碳排放減量 (kg CO2e)',
-                    data: [12, 19, 25, 45, 58, 68.5],
-                    borderColor: '#10b981',
-                    backgroundColor: gradient,
-                    borderWidth: 2,
-                    pointBackgroundColor: '#fff',
-                    pointBorderColor: '#10b981',
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: { color: '#94a3b8' }
-                    }
-                },
-                scales: {
-                    y: {
-                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                        ticks: { color: '#64748b' }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#64748b' }
-                    }
-                }
-            }
-        });
+        window.onload = function() {
+            updateTime();
+            setInterval(updateTime, 1000);
+            updateDashboard();
+            renderTimeline();
+            initChart();
+        };
     </script>
 </body>
 </html>
