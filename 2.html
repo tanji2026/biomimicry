@@ -3,157 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台電批次帳單匯出流程圖</title>
+    <title>操作說明 - 非電力能源數據搜集流程</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .canvas-bg {
-            background-color: #f8fafc;
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 20px 20px;
+        body {
+            background-color: #f1f5f9;
         }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center py-10 px-4">
 
-    <!-- 控制面板 -->
-    <div class="mb-6 bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex gap-4 items-center max-w-2xl w-full justify-between">
+    <!-- 頂部控制列 -->
+    <div class="mb-6 bg-white px-6 py-4 rounded-lg shadow-sm border border-slate-200 flex gap-6 items-center max-w-[1000px] w-full justify-between">
         <div>
-            <h1 class="text-lg font-bold text-slate-800">⚡ 3分鐘完成電費資料收集</h1>
-            <p class="text-sm text-slate-500">免找紙本，一鍵匯出全年碳盤查數據</p>
+            <h1 class="text-xl font-bold text-slate-800">企業碳盤查 - 非電力能源(化石燃料)數據搜集指南</h1>
+            <p class="text-sm text-slate-500 mt-1">適用對象：負責搜集天然氣、油料、燃煤等活動數據之廠務、總務與財會人員</p>
         </div>
-        <button id="download-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 shadow-sm">
+        <button id="download-btn" class="bg-slate-700 hover:bg-slate-800 text-white px-4 py-2 rounded text-sm font-medium transition-colors flex items-center gap-2 whitespace-nowrap">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            下載 SVG 圖片
+            下載說明圖 (SVG)
         </button>
     </div>
 
-    <!-- 獨立的 SVG 容器，方便直接另存 -->
-    <div id="svg-wrapper" class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 overflow-hidden canvas-bg flex justify-center w-full max-w-4xl">
+    <!-- 獨立的 SVG 容器 -->
+    <div id="svg-wrapper" class="bg-white p-8 rounded-lg shadow-md border border-slate-200 overflow-x-auto flex justify-center w-full max-w-[1000px]">
         
-        <!-- 手工打造的高質感 SVG 流程圖 -->
-        <svg id="workflow-svg" xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+        <!-- 專業版 SVG 說明圖 -->
+        <svg id="workflow-svg" xmlns="http://www.w3.org/2000/svg" width="900" height="750" viewBox="0 0 900 750" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #ffffff;">
             <defs>
-                <!-- 箭頭定義 -->
                 <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                     <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
                 </marker>
-                <!-- 陰影定義 -->
-                <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-                    <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.08"/>
-                </filter>
-                <filter id="shadow-light" x="-10%" y="-10%" width="120%" height="120%">
-                    <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.05"/>
+                <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+                    <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.06"/>
                 </filter>
             </defs>
 
-            <!-- ================= 連線 (Edges) ================= -->
-            <!-- 步驟1 到 步驟2 -->
-            <path d="M 200 120 C 200 180, 200 180, 200 240" fill="none" stroke="#64748b" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
+            <!-- ================= 標題區 ================= -->
+            <rect x="50" y="30" width="800" height="46" rx="6" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+            <text x="450" y="58" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">【操作手冊】廠內非電力能源 (化石燃料/蒸汽) 單據搜集與換算流程</text>
+
+            <!-- ================= 起點 ================= -->
+            <g transform="translate(350, 100)">
+                <rect width="200" height="50" rx="25" fill="#334155" filter="url(#shadow)"/>
+                <text x="100" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">Step 1. 盤點廠內耗能設備</text>
+            </g>
+
+            <!-- 主分流線 -->
+            <path d="M 450 150 L 450 170" fill="none" stroke="#64748b" stroke-width="2"/>
+            <path d="M 170 170 L 730 170" fill="none" stroke="#64748b" stroke-width="2"/>
             
-            <!-- 步驟2 到 步驟3 -->
-            <path d="M 200 320 C 200 370, 360 370, 400 370" fill="none" stroke="#64748b" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrowhead)"/>
-            
-            <!-- 大方向箭頭：免紙本直接跳到最後 -->
-            <path d="M 600 120 C 600 240, 600 240, 600 330" fill="none" stroke="#3b82f6" stroke-width="4" marker-end="url(#arrowhead)"/>
-            
-            <!-- 連接說明文字 -->
-            <line x1="280" y1="80" x2="350" y2="80" stroke="#cbd5e1" stroke-width="2"/>
-            <line x1="280" y1="280" x2="350" y2="280" stroke="#cbd5e1" stroke-width="2"/>
-            <line x1="680" y1="370" x2="720" y2="370" stroke="#cbd5e1" stroke-width="2"/>
+            <path d="M 170 170 L 170 200" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path d="M 450 170 L 450 200" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path d="M 730 170 L 730 200" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
 
+            <!-- ================= 第一欄：管線與特殊能源 (Left) ================= -->
+            <g transform="translate(50, 210)">
+                <!-- 標題 -->
+                <rect width="240" height="40" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+                <text x="120" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">A. 管線天然氣 / 特殊能源</text>
+                
+                <!-- 項目 -->
+                <text x="120" y="65" text-anchor="middle" font-size="13" fill="#0f766e">天然氣、外購蒸汽、冷能</text>
 
-            <!-- ================= 節點 (Nodes) ================= -->
-            
-            <!-- 標題區域 -->
-            <rect x="50" y="20" width="700" height="40" rx="8" fill="#f1f5f9" />
-            <text x="400" y="45" text-anchor="middle" font-size="16" font-weight="bold" fill="#334155">【企業碳盤查】台電電子帳單 批次匯出流程</text>
+                <!-- 單據搜集 -->
+                <rect y="90" width="240" height="90" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+                <rect y="90" width="240" height="26" fill="#e2e8f0" rx="6"/>
+                <text x="120" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">Step 2. 搜集佐證單據</text>
+                <circle cx="20" cy="140" r="4" fill="#64748b"/>
+                <text x="35" y="144" font-size="13" font-weight="bold" fill="#1e293b">天然氣帳單</text>
+                <text x="110" y="144" font-size="12" fill="#475569">(瓦斯公司繳費單)</text>
+                <circle cx="20" cy="165" r="4" fill="#64748b"/>
+                <text x="35" y="169" font-size="13" font-weight="bold" fill="#1e293b">合約結算單</text>
+                <text x="110" y="169" font-size="12" fill="#475569">(向鄰廠購買之憑證)</text>
 
-            <!-- 步驟 1 -->
-            <g transform="translate(120, 60)">
-                <rect width="160" height="60" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" filter="url(#shadow)"/>
-                <circle cx="20" cy="20" r="14" fill="#3b82f6" />
-                <text x="20" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="white">1</text>
-                <text x="80" y="35" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">登入台電系統</text>
-            </g>
-            <!-- 步驟 1 說明 -->
-            <g transform="translate(350, 65)">
-                <rect width="180" height="50" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" filter="url(#shadow-light)"/>
-                <text x="90" y="23" text-anchor="middle" font-size="12" fill="#475569">使用公司「統編」與「密碼」</text>
-                <text x="90" y="40" text-anchor="middle" font-size="12" fill="#475569">登入電子帳單服務網</text>
-            </g>
-
-            <!-- 步驟 2 -->
-            <g transform="translate(120, 240)">
-                <rect width="160" height="80" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" filter="url(#shadow)"/>
-                <circle cx="20" cy="20" r="14" fill="#3b82f6" />
-                <text x="20" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="white">2</text>
-                <text x="80" y="35" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">選擇批次匯出</text>
-                <text x="80" y="55" text-anchor="middle" font-size="12" fill="#64748b">帳單查詢 > 明細匯出</text>
-            </g>
-            <!-- 步驟 2 說明 -->
-            <g transform="translate(350, 255)">
-                <rect width="180" height="50" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" filter="url(#shadow-light)"/>
-                <text x="90" y="23" text-anchor="middle" font-size="12" fill="#475569">選擇需盤查的年度區間</text>
-                <text x="90" y="40" text-anchor="middle" font-size="12" fill="#475569">(例如：113年1月~12月)</text>
+                <!-- 單位換算 -->
+                <rect y="210" width="240" height="100" rx="6" fill="#fefce8" stroke="#fef08a" stroke-width="1.5" filter="url(#shadow)"/>
+                <rect y="210" width="240" height="26" fill="#fef08a" rx="6"/>
+                <text x="120" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#854d0e">Step 3. 單位換算公式</text>
+                <text x="15" y="255" font-size="12" font-weight="bold" fill="#713f12">天然氣 (立方公尺)：</text>
+                <text x="15" y="275" font-size="12" fill="#854d0e">直接加總帳單「度數」 (1度=1立方公尺)</text>
+                <text x="15" y="295" font-size="12" font-weight="bold" fill="#713f12">蒸汽 (單位依廠商)：</text>
+                <text x="15" y="315" font-size="12" fill="#854d0e">填寫「採購數量與計量單位」</text>
             </g>
 
-            <!-- 痛點對比 (右側) -->
-            <g transform="translate(520, 60)">
-                <rect width="160" height="60" rx="8" fill="#fee2e2" stroke="#fca5a5" stroke-width="2" stroke-dasharray="4"/>
-                <text x="80" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#b91c1c">❌ 傳統方式</text>
-                <text x="80" y="48" text-anchor="middle" font-size="12" fill="#991b1b">翻找一整年紙本帳單</text>
+            <!-- ================= 第二欄：散裝採購燃料 (Center) ================= -->
+            <g transform="translate(330, 210)">
+                <rect width="240" height="40" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+                <text x="120" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">B. 散裝採購類 (桶裝/槽車)</text>
+                
+                <text x="120" y="65" text-anchor="middle" font-size="13" fill="#0f766e">液化天然氣、桶裝瓦斯、燃料油、燃煤</text>
+
+                <rect y="90" width="240" height="90" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+                <rect y="90" width="240" height="26" fill="#e2e8f0" rx="6"/>
+                <text x="120" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">Step 2. 搜集佐證單據</text>
+                <circle cx="20" cy="140" r="4" fill="#64748b"/>
+                <text x="35" y="144" font-size="13" font-weight="bold" fill="#1e293b">供應商對帳單 / 採購發票</text>
+                <circle cx="20" cy="165" r="4" fill="#64748b"/>
+                <text x="35" y="169" font-size="13" font-weight="bold" fill="#1e293b">過磅單 (地磅單) / 簽收單</text>
+
+                <rect y="210" width="240" height="150" rx="6" fill="#fefce8" stroke="#fef08a" stroke-width="1.5" filter="url(#shadow)"/>
+                <rect y="210" width="240" height="26" fill="#fef08a" rx="6"/>
+                <text x="120" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#854d0e">Step 3. 單位換算公式</text>
+                
+                <text x="15" y="255" font-size="12" font-weight="bold" fill="#713f12">液化天然氣 (轉立方公尺)：</text>
+                <text x="15" y="270" font-size="11" fill="#854d0e">公斤 × 1.36 / 公噸 × 1360</text>
+                
+                <text x="15" y="295" font-size="12" font-weight="bold" fill="#713f12">液化石油氣/桶裝瓦斯 (轉公噸)：</text>
+                <text x="15" y="310" font-size="11" fill="#854d0e">公升 × 0.54 ÷ 1000 / 公秉 × 0.54</text>
+
+                <text x="15" y="335" font-size="12" font-weight="bold" fill="#713f12">燃料油 (轉公秉)：</text>
+                <text x="15" y="350" font-size="11" fill="#854d0e">公升 ÷ 1000 / 公噸 × 1.05</text>
             </g>
 
-            <!-- 最終成果：步驟 3 -->
-            <g transform="translate(400, 330)">
-                <rect width="280" height="80" rx="12" fill="#ecfeff" stroke="#06b6d4" stroke-width="2" filter="url(#shadow)"/>
-                <circle cx="20" cy="20" r="14" fill="#0ea5e9" />
-                <text x="20" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="white">3</text>
-                <text x="140" y="35" text-anchor="middle" font-size="16" font-weight="bold" fill="#0369a1">✅ 一鍵下載 Excel 總表</text>
-                <text x="140" y="55" text-anchor="middle" font-size="13" font-weight="bold" fill="#0ea5e9">包含所有廠區度數與「碳排量」</text>
+            <!-- ================= 第三欄：交通與機具油料 (Right) ================= -->
+            <g transform="translate(610, 210)">
+                <rect width="240" height="40" rx="4" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+                <text x="120" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#334155">C. 交通與機具油料</text>
+                
+                <text x="120" y="65" text-anchor="middle" font-size="13" fill="#0f766e">公務汽機車汽油、發電機/堆高機柴油</text>
+
+                <rect y="90" width="240" height="90" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+                <rect y="90" width="240" height="26" fill="#e2e8f0" rx="6"/>
+                <text x="120" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">Step 2. 搜集佐證單據</text>
+                <circle cx="20" cy="135" r="4" fill="#64748b"/>
+                <text x="35" y="139" font-size="13" font-weight="bold" fill="#1e293b">車隊加油卡月結報表</text>
+                <circle cx="20" cy="155" r="4" fill="#64748b"/>
+                <text x="35" y="159" font-size="13" font-weight="bold" fill="#1e293b">員工報帳之發票收據</text>
+                <circle cx="20" cy="175" r="4" fill="#64748b"/>
+                <text x="35" y="179" font-size="13" font-weight="bold" fill="#1e293b">廠內油槽採購單 / 設備加油紀錄</text>
+
+                <rect y="210" width="240" height="100" rx="6" fill="#fefce8" stroke="#fef08a" stroke-width="1.5" filter="url(#shadow)"/>
+                <rect y="210" width="240" height="26" fill="#fef08a" rx="6"/>
+                <text x="120" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#854d0e">Step 3. 單位換算公式</text>
+                <text x="15" y="255" font-size="12" font-weight="bold" fill="#713f12">汽油 / 柴油 (公升)：</text>
+                <text x="15" y="275" font-size="12" fill="#854d0e">發票上通常已標示「公升數」</text>
+                <text x="15" y="295" font-size="12" fill="#854d0e">若僅有金額，需依法定油價回推</text>
             </g>
 
-            <!-- 後續動作 -->
-            <g transform="translate(720, 350)">
-                <rect width="60" height="40" rx="4" fill="#22c55e" filter="url(#shadow-light)"/>
-                <text x="30" y="20" text-anchor="middle" font-size="12" font-weight="bold" fill="white">交給</text>
-                <text x="30" y="34" text-anchor="middle" font-size="12" font-weight="bold" fill="white">顧問</text>
+            <!-- ================= 箭頭連結到底部 ================= -->
+            <path d="M 170 310 L 170 340" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path d="M 450 310 L 450 340" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path d="M 730 310 L 730 340" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+            <path d="M 170 430 L 170 460" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path d="M 450 430 L 450 460" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+            <path d="M 730 430 L 730 460" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+            <!-- 匯流線 -->
+            <path d="M 170 550 L 170 600 L 430 600" fill="none" stroke="#64748b" stroke-width="2"/>
+            <path d="M 730 550 L 730 600 L 470 600" fill="none" stroke="#64748b" stroke-width="2"/>
+            <path d="M 450 590 L 450 630" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+            <!-- ================= 最終結果 ================= -->
+            <g transform="translate(300, 640)">
+                <rect width="300" height="70" rx="8" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="2" filter="url(#shadow)"/>
+                <circle cx="35" cy="35" r="16" fill="#0ea5e9" />
+                <path d="M 28 35 L 33 40 L 42 30" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                
+                <text x="65" y="30" font-size="16" font-weight="bold" fill="#0369a1">Step 4. 產出結果</text>
+                <text x="65" y="52" font-size="14" font-weight="bold" fill="#0f766e">依上述類別，填寫至「碳盤查活動數據表單」</text>
             </g>
-
-            <!-- 裝飾性線條與標籤 -->
-            <rect x="170" y="155" width="60" height="20" rx="10" fill="#e2e8f0" />
-            <text x="200" y="169" text-anchor="middle" font-size="11" font-weight="bold" fill="#64748b">系統自動</text>
-
-            <rect x="570" y="180" width="60" height="20" rx="10" fill="#bfdbfe" />
-            <text x="600" y="194" text-anchor="middle" font-size="11" font-weight="bold" fill="#1d4ed8">3 分鐘搞定</text>
 
         </svg>
     </div>
 
-    <!-- 腳本：處理下載功能 -->
+    <!-- 腳本：處理下載功能 "3. 天然氣（立方公尺）
+
+1 度 = 1 立方公尺
+
+同電費單加總邏輯
+
+若無請填 ""無"""	"4. 液化天然氣（立方公尺）
+通常為工業用槽裝，請將採購總量換算為「立方公尺」。
+請參考以下範例
+若單位是公斤：2000公斤 × 1.36 = 2720立方公尺
+若單位是公噸：2公噸 × 1360 = 2720立方公尺
+若無請填 ""無"""	"5. 液化石油氣（公噸）
+通常為桶裝瓦斯，請將採購總量換算為「公噸」。
+請參考以下範例
+若單位是公升：1000公升 × 0.54 ÷ 1000 = 0.54公噸
+若單位是公秉：1公秉 × 0.54 = 0.54公噸  
+若無請填 ""無"""	"6. 燃料油（公秉）
+常用於鍋爐或大型發電機，請將採購總量換算為「公秉」。
+請參考以下範例
+若單位是公升：5000公升 ÷ 1000 = 5公秉
+若單位是公噸：5公噸× 1.05 = 5.25公秉
+若無請填 ""無"""	"7. 柴油（公升）
+包含公司公務車、發電機或堆高機使用之柴油。
+若無請填 ""無"""	"8. 汽油（公升）
+包含公司所有公務汽、機車之加油總量。
+若無請填 ""無"""	"9. 燃煤（公噸）
+主要用於工業鍋爐產熱、特定製程加熱。
+若無請填 ""無"""	"10. 其他能源（單位）
+若有使用上述項目未涵蓋之能源（如：向鄰廠購買之蒸汽、冷能、或製程衍生之廢棄物燃料等），請清楚註明「能源種類、計量單位與 114 年總數量」。
+填寫範例：向鄰廠購買蒸汽 500 公噸
+若無請填 ""無"""-->
     <script>
         document.getElementById('download-btn').addEventListener('click', () => {
             const svgElement = document.getElementById('workflow-svg');
-            
-            // 獲取 SVG 字串
             const serializer = new XMLSerializer();
             let source = serializer.serializeToString(svgElement);
 
-            // 加入 XML 宣告
             if(!source.match(/^<\?xml[^>]+>/)){
                 source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
             }
 
-            // 轉換為 Blob
             const blob = new Blob([source], {type: "image/svg+xml;charset=utf-8"});
             const url = URL.createObjectURL(blob);
 
-            // 建立虛擬連結並觸發下載
             const link = document.createElement("a");
             link.href = url;
-            link.download = "台電電費單匯出流程.svg";
+            link.download = "操作手冊_非電力能源數據搜集流程.svg";
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
