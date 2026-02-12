@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字轉流程圖產生器 | SVG</title>
+    <!-- 引入 Tailwind CSS 以進行快速且美觀的排版 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 讓畫布區域有格線背景，看起來更專業 */
+        .canvas-bg {
+            background-image: 
+                linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+                linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #fdfdfd;
+        }
+        
+        /* 讓輸入框的字體為等寬字體 */
+        #input-text {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        /* SVG 內部元素的過渡動畫 */
+        svg .node { transition: all 0.3s ease; }
+        svg .node:hover rect { stroke: #3b82f6; stroke-width: 3; }
+        svg .edge { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 font-sans">
+
+    <!-- 頂部導航欄 -->
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                </svg>
+                <h1 class="text-xl font-bold text-slate-900">Text to SVG 流程圖產生器</h1>
+            </div>
+            <div>
+                <button id="download-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    下載 SVG
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-6 h-[calc(100vh-64px)]">
+        
+        <!-- 左側：輸入區 -->
+        <div class="w-full lg:w-1/3 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-slate-100 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+                <h2 class="text-sm font-semibold text-slate-700">文字輸入區</h2>
+                <span class="text-xs text-slate-500">語法：節點A -> 節點B : 標籤</span>
+            </div>
+            <textarea id="input-text" class="flex-1 w-full p-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm leading-relaxed" spellcheck="false" placeholder="請在此輸入流程圖結構...">
+# 在此輸入流程圖邏輯
+# 支援語法： 來源 -> 目的 : 動作說明
+
+找出痛點 -> 鎖定目標
+鎖定目標 -> 擬定話術 : 電話開發
+鎖定目標 -> 現場突襲 : 樓下鄰居
+擬定話術 -> 聯繫公會
+聯繫公會 -> 公會轉發 : Line/Email
+公會轉發 -> 廠商報名
+現場突襲 -> 廠商報名
+廠商報名 -> 收集電費單
+收集電費單 -> 顧問進場</textarea>
+            <div class="p-3 bg-slate-50 border-t border-slate-200 flex justify-between">
+                <button id="btn-example1" class="text-xs text-blue-600 hover:text-blue-800 font-medium px-2 py-1 rounded hover:bg-blue-50 transition-colors">範例：公文處理</button>
+                <button id="btn-example2" class="text-xs text-blue-600 hover:text-blue-800 font-medium px-2 py-1 rounded hover:bg-blue-50 transition-colors">範例：系統架構</button>
+            </div>
+        </div>
+
+        <!-- 右側：畫布預覽區 -->
+        <div class="w-full lg:w-2/3 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative">
+             <div class="bg-slate-100 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+                <h2 class="text-sm font-semibold text-slate-700">SVG 預覽</h2>
+                <div class="flex items-center gap-2">
+                    <label class="text-xs text-slate-600 flex items-center gap-1 cursor-pointer">
+                        <input type="checkbox" id="toggle-curve" checked class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                        使用曲線
+                    </label>
+                </div>
+            </div>
+            
+            <!-- 實際渲染 SVG 的容器 -->
+            <div id="canvas-container" class="flex-1 overflow-auto canvas-bg flex items-center justify-center p-8">
+                <!-- SVG 會被注入到這裡 -->
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // ==========================================
+        // 核心邏輯：Text to SVG 解析器與渲染器
+        // ==========================================
+        class TextToSvg {
+            constructor() {
+                this.nodes = {};
+                this.edges = [];
+                // 佈局參數
+                this.nodeWidth = 140;
+                this.nodeHeight = 44;
+                this.hSpacing = 60;
+                this.vSpacing = 80;
+                this.useCurve = true;
+            }
+
+            // 1. 解析文本
+            parse(text) {
+                this.nodes = {};
+                this.edges = [];
+                
+                const lines = text.split('\n');
+                lines.forEach(line => {
+                    line = line.trim();
+                    if (!line || line.startsWith('#')) return;
+
+                    // 匹配 "A -> B : label" 或 "A -> B"
+                    const match = line.match(/(.+?)\s*->\s*(.+?)(?:\s*:\s*(.+))?$/);
+                    
+                    if (match) {
+                        const fromId = match[1].trim();
+                        const toId = match[2].trim();
+                        const label = match[3] ? match[3].trim() : null;
+
+                        this.addNode(fromId);
+                        this.addNode(toId);
+                        this.edges.push({ from: fromId, to: toId, label: label });
+                    } else {
+                        // 單獨節點
+                        this.addNode(line);
+                    }
+                });
+            }
+
+            addNode(id) {
+                if (!this.nodes[id]) {
+                    this.nodes[id] = { id: id, label: id, x: 0, y: 0, level: 0 };
+                }
+            }
+
+            // 2. 佈局計算 (指派層級與座標)
+            calculateLayout() {
+                // A. 計算每個節點的層級 (Level)
+                const inDegree = {};
+                Object.keys(this.nodes).forEach(id => inDegree[id] = 0);
+                this.edges.forEach(e => inDegree[e.to]++);
+
+                let roots = Object.keys(this.nodes).filter(id => inDegree[id] === 0);
+                if (roots.length === 0 && Object.keys(this.nodes).length > 0) {
+                    roots = [Object.keys(this.nodes)[0]]; // 處理循環
+                }
+
+                const queue = roots.map(id => ({ id, level: 0 }));
+                const visited = {};
+
+                while (queue.length > 0) {
+                    const curr = queue.shift();
+                    if (visited[curr.id]) continue;
+
+                    this.nodes[curr.id].level = Math.max(this.nodes[curr.id].level, curr.level);
+                    visited[curr.id] = true;
+
+                    const children = this.edges.filter(e => e.from === curr.id).map(e => e.to);
+                    children.forEach(child => {
+                        queue.push({ id: child, level: curr.level + 1 });
+                    });
+                }
+
+                // B. 根據層級計算 X, Y 座標
+                const levelGroups = {};
+                Object.values(this.nodes).forEach(node => {
+                    if (!levelGroups[node.level]) levelGroups[node.level] = [];
+                    levelGroups[node.level].push(node);
+                });
+
+                let maxWidth = 0;
+                let maxLevel = -1;
+
+                Object.keys(levelGroups).forEach(levelStr => {
+                    const level = parseInt(levelStr);
+                    maxLevel = Math.max(maxLevel, level);
+                    const nodesInLevel = levelGroups[level];
+                    
+                    const totalWidth = (nodesInLevel.length * this.nodeWidth) + ((nodesInLevel.length - 1) * this.hSpacing);
+                    maxWidth = Math.max(maxWidth, totalWidth);
+                });
+
+                // 畫布基準大小
+                const padding = 60;
+                const startY = padding;
+                const canvasWidth = maxWidth + (padding * 2);
+                this.canvasHeight = startY + (maxLevel * (this.nodeHeight + this.vSpacing)) + this.nodeHeight + padding;
+                this.canvasWidth = Math.max(canvasWidth, 400); // 最小寬度
+
+                // 分配座標
+                Object.keys(levelGroups).forEach(levelStr => {
+                    const level = parseInt(levelStr);
+                    const nodesInLevel = levelGroups[level];
+                    const totalWidth = (nodesInLevel.length * this.nodeWidth) + ((nodesInLevel.length - 1) * this.hSpacing);
+                    
+                    // 置中計算
+                    const startX = (this.canvasWidth - totalWidth) / 2;
+
+                    nodesInLevel.forEach((node, index) => {
+                        node.x = startX + (index * (this.nodeWidth + this.hSpacing));
+                        node.y = startY + (level * (this.nodeHeight + this.vSpacing));
+                    });
+                });
+            }
+
+            // 3. 渲染為 SVG 字串
+            render() {
+                let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${this.canvasWidth}" height="${this.canvasHeight}" viewBox="0 0 ${this.canvasWidth} ${this.canvasHeight}" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">\n`;
+                
+                // 定義 Marker (箭頭) 和 Filter (陰影)
+                svg += `
+<defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8" />
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.06"/>
+    </filter>
+</defs>\n`;
+
+                // 渲染連線 (Edges)
+                this.edges.forEach(edge => {
+                    const fromNode = this.nodes[edge.from];
+                    const toNode = this.nodes[edge.to];
+                    
+                    const startX = fromNode.x + (this.nodeWidth / 2);
+                    const startY = fromNode.y + this.nodeHeight;
+                    const endX = toNode.x + (this.nodeWidth / 2);
+                    const endY = toNode.y;
+
+                    let pathD = "";
+                    if (this.useCurve) {
+                        // 貝茲曲線
+                        const cy1 = startY + (endY - startY) / 2;
+                        const cy2 = cy1;
+                        pathD = `M ${startX} ${startY} C ${startX} ${cy1}, ${endX} ${cy2}, ${endX} ${endY}`;
+                    } else {
+                        // 直線加折角 (Orthogonal)
+                        const midY = startY + (endY - startY) / 2;
+                        pathD = `M ${startX} ${startY} L ${startX} ${midY} L ${endX} ${midY} L ${endX} ${endY}`;
+                    }
+
+                    svg += `    <path class="edge" d="${pathD}" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" />\n`;
+
+                    // 渲染標籤
+                    if (edge.label) {
+                        const labelX = (startX + endX) / 2;
+                        const labelY = (startY + endY) / 2 - 8;
+                        // 背景方塊確保文字可讀
+                        svg += `
+    <rect x="${labelX - 40}" y="${labelY - 12}" width="80" height="24" rx="4" fill="#ffffff" opacity="0.8"/>
+    <text x="${labelX}" y="${labelY}" dominant-baseline="middle" text-anchor="middle" fill="#64748b" font-size="12" font-weight="500">${this.escapeXml(edge.label)}</text>\n`;
+                    }
+                });
+
+                // 渲染節點 (Nodes)
+                Object.values(this.nodes).forEach(node => {
+                    svg += `
+    <g class="node" transform="translate(${node.x}, ${node.y})">
+        <rect width="${this.nodeWidth}" height="${this.nodeHeight}" rx="8" ry="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+        <text x="${this.nodeWidth / 2}" y="${this.nodeHeight / 2}" dominant-baseline="middle" text-anchor="middle" fill="#334155" font-size="14" font-weight="600">${this.escapeXml(node.label)}</text>
+    </g>\n`;
+                });
+
+                svg += `</svg>`;
+                return svg;
+            }
+
+            escapeXml(unsafe) {
+                return unsafe.replace(/[<>&'"]/g, function (c) {
+                    switch (c) {
+                        case '<': return '&lt;';
+                        case '>': return '&gt;';
+                        case '&': return '&amp;';
+                        case '\'': return '&apos;';
+                        case '"': return '&quot;';
+                    }
+                });
+            }
+
+            generate(text, useCurve = true) {
+                this.useCurve = useCurve;
+                this.parse(text);
+                if (Object.keys(this.nodes).length === 0) {
+                    return `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200"><text x="200" y="100" text-anchor="middle" fill="#94a3b8">請輸入流程圖結構</text></svg>`;
+                }
+                this.calculateLayout();
+                return this.render();
+            }
+        }
+
+        // ==========================================
+        // UI 互動邏輯
+        // ==========================================
+        const inputTextArea = document.getElementById('input-text');
+        const canvasContainer = document.getElementById('canvas-container');
+        const toggleCurve = document.getElementById('toggle-curve');
+        const downloadBtn = document.getElementById('download-btn');
+        
+        const engine = new TextToSvg();
+
+        // 核心更新函數
+        function updateGraph() {
+            const text = inputTextArea.value;
+            const useCurve = toggleCurve.checked;
+            try {
+                const svgContent = engine.generate(text, useCurve);
+                canvasContainer.innerHTML = svgContent;
+            } catch (e) {
+                console.error("生成圖表失敗", e);
+            }
+        }
+
+        // 監聽輸入變化
+        inputTextArea.addEventListener('input', updateGraph);
+        toggleCurve.addEventListener('change', updateGraph);
+
+        // 下載功能
+        downloadBtn.addEventListener('click', () => {
+            const svgElement = canvasContainer.querySelector('svg');
+            if (!svgElement) return;
+
+            // 獲取 SVG 字串
+            const serializer = new XMLSerializer();
+            let source = serializer.serializeToString(svgElement);
+
+            // 加入 XML 宣告
+            if(!source.match(/^<\?xml[^>]+>/)){
+                source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+            }
+
+            // 轉換為 Blob
+            const blob = new Blob([source], {type: "image/svg+xml;charset=utf-8"});
+            const url = URL.createObjectURL(blob);
+
+            // 建立虛擬連結並觸發下載
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "workflow_chart.svg";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // 範本按鈕
+        document.getElementById('btn-example1').addEventListener('click', () => {
+            inputTextArea.value = `# 公文處理流程
+收到經發局公文 -> 拆閱信件
+拆閱信件 -> 確認承辦單位
+確認承辦單位 -> 環安衛部門 : 是碳盤查
+確認承辦單位 -> 總務部 : 一般行政
+環安衛部門 -> 評估需求
+評估需求 -> 填寫報名表 : 需要補助
+填寫報名表 -> 匯出台電清單
+匯出台電清單 -> 專案啟動
+總務部 -> 歸檔`;
+            updateGraph();
+        });
+
+        document.getElementById('btn-example2').addEventListener('click', () => {
+            inputTextArea.value = `# Web 應用架構
+使用者瀏覽器 -> 負載平衡器 : HTTP請求
+負載平衡器 -> Web伺服器1
+負載平衡器 -> Web伺服器2
+Web伺服器1 -> 應用程式層
+Web伺服器2 -> 應用程式層
+應用程式層 -> 快取伺服器 : 讀取(Redis)
+應用程式層 -> 主資料庫 : 寫入(PostgreSQL)
+主資料庫 -> 備用資料庫 : 複製`;
+            updateGraph();
+        });
+
+        // 初始化第一次渲染
+        updateGraph();
+
+    </script>
+</body>
+</html>
