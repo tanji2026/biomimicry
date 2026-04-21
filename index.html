@@ -178,6 +178,7 @@
                     <a href="#timeline" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">生態演替</a>
                     <a href="#dashboard" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">監測站</a>
                     <a href="#impact" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">永續效益</a>
+                    <a href="#ecosystem" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">生態藍圖</a>
                     
                     <button id="navAdminBtn" onclick="window.openAdminModal()" class="px-3 py-1 rounded-full border border-slate-500 text-slate-300 hover:text-white hover:border-white text-xs font-mono transition flex items-center gap-2">
                         <i class="fa-solid fa-lock text-[10px]"></i> 管理員登入
@@ -287,7 +288,7 @@
                         <i class="fa-solid fa-user-shield text-red-400"></i> 管理員登入
                     </h3>
                     <div class="space-y-4">
-                        <input type="password" id="adminPass" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-red-400 focus:outline-none" placeholder="請輸入密碼">
+                        <input type="password" id="adminPass" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-red-400 focus:outline-none" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter') window.checkAdminLogin()">
                         <button onclick="window.checkAdminLogin()" class="w-full bg-slate-700 hover:bg-red-600 text-white font-bold py-2 rounded-lg transition">登入</button>
                         <p id="loginError" class="text-red-500 text-xs text-center hidden">密碼錯誤</p>
                     </div>
@@ -318,28 +319,28 @@
                                 <select id="realType" class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600">
                                     <option value="Coffee Grounds">咖啡渣</option>
                                     <option value="Leaves">落葉碳源</option>
-                                    <option value="Soil">有機沃土 (產出)</option>
-                                    <option value="Harvest">香草採收 (產出)</option>
+                                    <option value="Soil">有機沃土</option>
+                                    <option value="Harvest">香草採收</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="text-xs text-slate-400">重量 (kg)</label>
+                                <label class="text-xs text-slate-400">重量</label>
                                 <input type="number" id="realWeight" step="0.1" required class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600">
                             </div>
                         </div>
                         <div>
-                            <label class="text-xs text-slate-400">現場照片 (上傳)</label>
+                            <label class="text-xs text-slate-400">現場照片</label>
                             <input type="file" id="realImgFile" accept="image/*" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-bio-accent file:text-bio-dark hover:file:bg-emerald-400" onchange="window.handleImageUpload(event)">
                             <input type="hidden" id="realImgBase64">
-                            <p class="text-[10px] text-slate-500 mt-1">* 系統將自動壓縮圖片以符合資料庫限制</p>
+                            <p class="text-[10px] text-slate-500 mt-1">系統將自動壓縮圖片</p>
                         </div>
                         <div>
-                            <label class="text-xs text-slate-400">備註 (選填)</label>
+                            <label class="text-xs text-slate-400">備註</label>
                             <input type="text" id="realDesc" class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600" placeholder="例如: 來自北大星巴克 A 店">
                         </div>
                         
                         <div id="uploadSuccess" class="hidden p-2 bg-green-500/20 text-green-400 text-xs rounded text-center">
-                            ✅ 上傳成功！可繼續輸入。
+                            上傳成功
                         </div>
                         
                         <button type="submit" class="w-full bg-bio-accent hover:bg-emerald-400 text-bio-dark font-bold py-3 rounded-xl mt-4 flex justify-center items-center gap-2" id="uploadBtn">
@@ -348,9 +349,9 @@
                     </form>
 
                     <div class="mt-6">
-                        <h4 class="text-sm font-bold text-white mb-3">📋 最近 10 筆數據</h4>
+                        <h4 class="text-sm font-bold text-white mb-3">最近 10 筆數據</h4>
                         <div id="adminDataList" class="space-y-2 text-xs text-slate-300 max-h-40 overflow-y-auto pr-1">
-                            <p class="text-center text-slate-500">載入中...</p>
+                            <p class="text-center text-slate-500">載入中</p>
                         </div>
                     </div>
                 </div>
@@ -369,13 +370,13 @@
             </div>
             
             <h1 class="text-5xl md:text-7xl font-black text-white mb-8 leading-tight tracking-tight">
-                仿生<span class="text-transparent bg-clip-text bg-gradient-to-r from-bio-accent to-blue-500 text-glow">菌絲網絡</span>：<br>
+                仿生<span class="text-transparent bg-clip-text bg-gradient-to-r from-bio-accent to-blue-500 text-glow">菌絲網絡</span><br>
                 重塑社區資源循環
             </h1>
             
             <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-                <strong class="text-white">MycoTanji</strong> 模仿森林地下的資源交換協議，將北大特區的「廢棄物」轉化為「可食地景」的養分。<br>
-                這不僅是回收，這是一場關於<strong class="text-bio-accent">「修復、增益、再生」</strong>的城市微革命。
+                <strong class="text-white">MycoTanji</strong> 模仿森林地下的資源交換協議，將北大特區的廢棄物轉化為可食地景的養分。<br>
+                這不僅是回收，這是一場關於<strong class="text-bio-accent">修復、增益、再生</strong>的城市微革命。
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -400,10 +401,10 @@
                         <div id="canvas-container" class="network-container">
                             <div class="trees-bg"></div>
                             <div class="ground-line"></div>
-                            <div id="c-label" class="floating-label text-yellow-400" style="top: 35%; left: 30%;">醣類 (C)</div>
-                            <div id="p-label" class="floating-label text-blue-400" style="top: 70%; left: 55%;">磷 (P)</div>
-                            <div id="n-label" class="floating-label text-blue-300" style="top: 80%; left: 20%;">氮 (N)</div>
-                            <div id="sig-label" class="floating-label text-red-500 font-bold" style="top: 60%; left: 70%; opacity: 0; background: rgba(0,0,0,0.5); padding: 2px 6px rounded;">⚠️ 茉莉酸警訊</div>
+                            <div id="c-label" class="floating-label text-yellow-400" style="top: 35%; left: 30%;">醣類</div>
+                            <div id="p-label" class="floating-label text-blue-400" style="top: 70%; left: 55%;">磷</div>
+                            <div id="n-label" class="floating-label text-blue-300" style="top: 80%; left: 20%;">氮</div>
+                            <div id="sig-label" class="floating-label text-red-500 font-bold" style="top: 60%; left: 70%; opacity: 0; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px;">茉莉酸警訊</div>
                             <canvas id="network-canvas"></canvas>
                         </div>
                     </div>
@@ -414,7 +415,7 @@
                         <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">自然界的資源調度站</h2>
                         <div class="h-1 w-20 bg-bio-accent rounded-full mb-6"></div>
                         <p class="text-slate-400 text-lg leading-relaxed mb-6">
-                            森林地底下存在一個龐大的「互聯網」— <strong class="text-white">菌根菌網絡 (Mycorrhizal Network)</strong>。它不只是依附植物生存，更是森林生態系的主動管理者。
+                            森林地底下存在一個龐大的互聯網 <strong class="text-white">菌根菌網絡</strong>。它不只是依附植物生存，更是森林生態系的主動管理者。
                         </p>
                         <div class="space-y-4">
                             <div class="interactive-option rounded-xl p-3 flex gap-4 active" id="opt-trade" onclick="window.switchNetworkMode('trade')">
@@ -422,8 +423,8 @@
                                     <i class="fa-solid fa-handshake text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold text-lg mb-1">1. 交易 (Trade)</h4>
-                                    <p class="text-sm text-slate-400">真菌提供礦物質（P、N），換取植物的醣類（C）。</p>
+                                    <h4 class="text-white font-bold text-lg mb-1">交易</h4>
+                                    <p class="text-sm text-slate-400">真菌提供礦物質換取植物的醣類。</p>
                                 </div>
                             </div>
                             <div class="interactive-option rounded-xl p-3 flex gap-4" id="opt-signal" onclick="window.switchNetworkMode('signal')">
@@ -431,8 +432,8 @@
                                     <i class="fa-solid fa-tower-broadcast text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold text-lg mb-1">2. 通訊 (Communication)</h4>
-                                    <p class="text-sm text-slate-400">傳遞化學警訊（如茉莉酸），啟動防禦機制。</p>
+                                    <h4 class="text-white font-bold text-lg mb-1">通訊</h4>
+                                    <p class="text-sm text-slate-400">傳遞化學警訊啟動防禦機制。</p>
                                 </div>
                             </div>
                             <div class="interactive-option rounded-xl p-3 flex gap-4" id="opt-redistribute" onclick="window.switchNetworkMode('redistribute')">
@@ -440,8 +441,8 @@
                                     <i class="fa-solid fa-truck-fast text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold text-lg mb-1">3. 重分配 (Redistribution)</h4>
-                                    <p class="text-sm text-slate-400">將養分從「源」輸送到「庫」，維持平衡。</p>
+                                    <h4 class="text-white font-bold text-lg mb-1">重分配</h4>
+                                    <p class="text-sm text-slate-400">將養分從源輸送到庫維持平衡。</p>
                                 </div>
                             </div>
                         </div>
@@ -468,7 +469,7 @@
                     </div>
                     <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono">資源輸入</div>
                     <h3 class="text-2xl font-bold text-white">城市裡的有機礦脈</h3>
-                    <p class="text-slate-400">三峽北大特區的連鎖便利商店與咖啡店，每日產生大量潔淨的咖啡渣。這些是富含氮源的有機資材。</p>
+                    <p class="text-slate-400">回收北大特區每日產生的大量潔淨咖啡渣，作為系統氮源。</p>
                 </div>
                 <div class="flex flex-col items-center text-center space-y-4 relative">
                     <div class="hidden md:block absolute top-16 -left-12 w-24 border-t-2 border-dashed border-slate-700"></div>
@@ -477,7 +478,7 @@
                     </div>
                     <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono">循環轉化</div>
                     <h3 class="text-2xl font-bold text-white">數位菌絲中繼站</h3>
-                    <p class="text-slate-400">將物資運回社區堆肥站，混合社區落葉（碳源），進行好氧發酵。</p>
+                    <p class="text-slate-400">混合社區落葉碳源進行好氧發酵，轉化為高品質有機肥。</p>
                 </div>
                 <div class="flex flex-col items-center text-center space-y-4 relative">
                     <div class="hidden md:block absolute top-16 -left-12 w-24 border-t-2 border-dashed border-slate-700"></div>
@@ -486,7 +487,7 @@
                     </div>
                     <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono">再生產出</div>
                     <h3 class="text-2xl font-bold text-white">社區可食地景</h3>
-                    <p class="text-slate-400">熟成的黑金堆肥，直接用於頂樓農園，種出的薄荷、迷迭香、萵苣，再回饋給住戶。</p>
+                    <p class="text-slate-400">熟成的黑金堆肥用於頂樓農園，生產香草蔬菜回饋住戶。</p>
                 </div>
             </div>
         </div>
@@ -496,7 +497,7 @@
         <div class="max-w-5xl mx-auto px-4 relative">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">生態演替時間軸</h2>
-                <p class="text-slate-400 mt-4">標準流程：從「廢棄物」到「可食地景」的完美轉化</p>
+                <p class="text-slate-400 mt-4">標準流程從廢棄物到可食地景的完美轉化</p>
             </div>
             <div class="relative py-10">
                 <div class="timeline-line"></div>
@@ -509,11 +510,11 @@
                                 <span class="text-xs font-mono text-bio-accent bg-bio-accent/10 px-2 py-1 rounded">Day 1</span>
                                 <span class="text-xs text-slate-400">資源輸入</span>
                             </div>
-                            <h4 class="font-bold text-white mb-2 text-lg">Louisa 咖啡渣收集</h4>
+                            <h4 class="font-bold text-white mb-2 text-lg">資源收集</h4>
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
-                                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600" data-github-src="timeline_day1.jpg" class="w-full h-full object-cover">
+                                <img src="assets/timeline/timeline_day1.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600'" class="w-full h-full object-cover" alt="資源收集">
                             </div>
-                            <p class="text-sm text-slate-300">從社區周邊路易莎門市回收當日新鮮咖啡渣，作為系統氮源。</p>
+                            <p class="text-sm text-slate-300">收集周邊咖啡門市新鮮咖啡渣。</p>
                         </div>
                     </div>
                 </div>
@@ -527,11 +528,11 @@
                                 <span class="text-xs font-mono text-bio-accent bg-bio-accent/10 px-2 py-1 rounded">Day 14</span>
                                 <span class="text-xs text-slate-400">循環轉化</span>
                             </div>
-                            <h4 class="font-bold text-white mb-2 text-lg">高溫好氧發酵</h4>
+                            <h4 class="font-bold text-white mb-2 text-lg">高溫發酵</h4>
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
-                                <img src="https://images.unsplash.com/photo-1592439272693-c56a0d123e47?auto=format&fit=crop&q=80&w=600" data-github-src="timeline_day14.jpg" class="w-full h-full object-cover">
+                                <img src="assets/timeline/timeline_day14.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592439272693-c56a0d123e47?auto=format&fit=crop&q=80&w=600'" class="w-full h-full object-cover" alt="高溫發酵">
                             </div>
-                            <p class="text-sm text-slate-300">混合落葉碳源，中心溫度達到 60°C 以上，有效殺菌並加速分解。</p>
+                            <p class="text-sm text-slate-300">混合落葉中心溫度達 60度 以上有效殺菌。</p>
                         </div>
                     </div>
                 </div>
@@ -547,13 +548,13 @@
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">黑金土產出</h4>
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
-                                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=600" data-github-src="timeline_day30.jpg" class="w-full h-full object-cover">
+                                <img src="assets/timeline/timeline_day30.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=600'" class="w-full h-full object-cover" alt="黑金土產出">
                             </div>
-                            <p class="text-sm text-slate-300">顏色轉黑、充滿森林泥土香氣，富含有機質的土壤改良劑製作完成。</p>
+                            <p class="text-sm text-slate-300">顏色轉黑且富含腐植質堆肥熟成。</p>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mb-8 flex justify-between items-center w-full md:flex-row flex-col animate-grow" style="animation-delay: 0.4s">
                     <div class="order-1 w-5/12 hidden md:block"></div>
                     <div class="z-20 flex items-center order-1 bg-bio-dark border-2 border-bio-accent rounded-full w-8 h-8 justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
@@ -565,7 +566,7 @@
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">社區香草採收</h4>
                             <div class="h-32 w-full rounded-lg overflow-hidden mb-3">
-                                <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=600" data-github-src="timeline_day45.jpg" class="w-full h-full object-cover">
+                                <img src="assets/timeline/timeline_day45.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=600'" class="w-full h-full object-cover" alt="社區香草採收">
                             </div>
                             <p class="text-sm text-slate-300">將黑金土施用於頂樓農園，採收薄荷與迷迭香，回饋給社區住戶。</p>
                         </div>
@@ -655,7 +656,7 @@
                         <i class="fa-solid fa-wheat-awn"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 text-center">都市農業創新</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center">響應<strong>永續農漁業</strong>願景。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程至。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">響應永續農漁業願景。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程。</p>
                 </div>
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-amber-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
@@ -663,7 +664,7 @@
                         <i class="fa-solid fa-trash-arrow-up"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 text-center">循環經濟減量</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center">呼應<strong>循環經濟減量</strong>策略。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現「搖籃到搖籃」。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">呼應循環經濟減量策略。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現搖籃到搖籃。</p>
                 </div>
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-blue-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
@@ -671,7 +672,7 @@
                         <i class="fa-solid fa-city"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3 text-center">永續韌性城市</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center">對接<strong>永續城市</strong>發展指標。透過公私協力夥伴關係 (SDG 17)，實踐永續城鄉 (SDG 11) 願景。</p>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">對接永續城市發展指標。透過公私協力夥伴關係，實踐永續城鄉願景。</p>
                 </div>
             </div>
 
@@ -698,6 +699,54 @@
                         <p class="text-sm text-slate-400 leading-relaxed">納入新北市「2050 淨零路徑」，建立「社區碳匯」模組，豐富市民的永續生活履歷。</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ecosystem" class="py-24 bg-bio-dark relative border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">永續生態系藍圖</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">從宏觀氣候診斷到微觀真實場域落地</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <a href="https://tanji2026.github.io/nbs/" target="_blank" rel="noopener noreferrer" class="group glass-panel rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/50 transition-all duration-500 flex flex-col">
+                    <div class="h-48 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-blue-500/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="assets/ecosystem/tanji_platform.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600'" alt="碳吉 TanJi" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 z-20">
+                            <span class="bg-blue-500/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]">系統大腦 / 氣候診斷</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors flex items-center justify-between">
+                            碳吉 TanJi 微氣候韌性決策平台
+                            <i class="fa-solid fa-arrow-up-right-from-square text-sm opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            作為 MycoTanji 的上游決策引擎。結合 GIS 風險快篩與 NbS 自然解方評估，為社區提供氣候韌性診斷，進而催生出本仿生碳循環計畫。
+                        </p>
+                    </div>
+                </a>
+
+                <a href="https://tanji2026.github.io/wonderfulplace/" target="_blank" rel="noopener noreferrer" class="group glass-panel rounded-2xl overflow-hidden border border-white/10 hover:border-emerald-500/50 transition-all duration-500 flex flex-col">
+                    <div class="h-48 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-emerald-500/20 group-hover:bg-transparent transition-colors z-10"></div>
+                        <img src="assets/ecosystem/living_lab.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592507671040-a3df426639c4?auto=format&fit=crop&q=80&w=600'" alt="麗寶萊茵 Living Lab" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 left-4 z-20">
+                            <span class="bg-emerald-500/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]">實證基地 / Living Lab</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors flex items-center justify-between">
+                            麗寶萊茵 社區生態導覽
+                            <i class="fa-solid fa-arrow-up-right-from-square text-sm opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            MycoTanji 系統的首發測試站。這是一個具備高度環保共識與完善綠化基礎的真實社區，提供從廢棄物回收到可食地景的完整封閉式實驗環境。
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -829,7 +878,7 @@
         };
 
         window.deleteRecord = async (id) => {
-            if(confirm("確定要刪除這筆資料嗎？")) {
+            if(confirm("確定要刪除這筆資料嗎")) {
                 try {
                     await deleteDoc(doc(db, "records", id));
                 } catch(error) {
