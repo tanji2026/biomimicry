@@ -73,7 +73,7 @@
         }
         .timeline-line {
             position: absolute;
-            left: 20px;
+            left: 28px;
             top: 0;
             bottom: 0;
             width: 2px;
@@ -158,9 +158,6 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        .break-keep {
-            word-break: keep-all;
-        }
     </style>
 </head>
 <body class="bg-bio-dark text-slate-200 antialiased selection:bg-bio-accent selection:text-bio-dark relative">
@@ -173,19 +170,19 @@
                         <i class="fa-solid fa-circle-nodes text-bio-accent text-3xl animate-pulse-slow"></i>
                     </div>
                     <div class="flex flex-col">
-                        <span class="font-bold text-xl tracking-wider text-white break-keep">Myco<span class="text-bio-accent">Tanji</span></span>
-                        <span class="text-[10px] text-slate-400 tracking-[0.2em] uppercase break-keep">Biomimicry Carbon Lab</span>
+                        <span class="font-bold text-xl tracking-wider text-white">Myco<span class="text-bio-accent">Tanji</span></span>
+                        <span class="text-[10px] text-slate-400 tracking-[0.2em] uppercase">Biomimicry Carbon Lab</span>
                     </div>
                 </div>
                 
                 <div class="hidden md:flex space-x-6 items-center">
-                    <a href="#challenge" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition break-keep">城市痛點</a>
-                    <a href="#concept" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition break-keep">仿生概念</a>
-                    <a href="#solution" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition break-keep">運作機制</a>
-                    <a href="#dashboard" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition break-keep">監測站</a>
-                    <a href="#ecosystem" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition break-keep">生態藍圖</a>
+                    <a href="#challenge" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">城市痛點</a>
+                    <a href="#concept" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">仿生概念</a>
+                    <a href="#solution" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">運作機制</a>
+                    <a href="#dashboard" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">監測站</a>
+                    <a href="#ecosystem" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">生態藍圖</a>
                     
-                    <button id="navAdminBtn" onclick="window.openAdminModal()" class="px-3 py-1 rounded-full border border-slate-500 text-slate-300 hover:text-white hover:border-white text-xs font-mono transition flex items-center justify-center gap-2 break-keep">
+                    <button id="navAdminBtn" onclick="window.openAdminModal()" class="px-3 py-1 rounded-full border border-slate-500 text-slate-300 hover:text-white hover:border-white text-xs font-mono transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-lock text-[10px]"></i> 管理員登入
                     </button>
                 </div>
@@ -195,40 +192,40 @@
 
     <button onclick="window.openGuideModal()" class="fixed bottom-8 right-8 z-[60] w-14 h-14 rounded-full bg-slate-700 hover:bg-slate-600 border border-slate-500 hover:border-bio-accent text-white shadow-[0_0_20px_rgba(0,0,0,0.5)] flex items-center justify-center transition-all transform hover:scale-110 group">
         <i class="fa-solid fa-info text-xl group-hover:text-bio-accent transition-colors duration-300"></i>
-        <span class="absolute -top-10 right-0 bg-white text-bio-dark text-xs px-2 py-1 rounded font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg break-keep">平台介紹</span>
+        <span class="absolute -top-10 right-0 bg-white text-bio-dark text-xs px-2 py-1 rounded font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">平台介紹</span>
     </button>
 
     <div id="guideModal" class="fixed inset-0 z-[70] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="window.closeAllModals()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-lg p-4">
-            <div class="glass-panel border border-bio-accent/30 rounded-2xl shadow-2xl relative overflow-hidden p-8">
+            <div class="glass-panel border border-bio-accent/30 rounded-2xl shadow-2xl relative overflow-hidden p-8 max-h-[90vh] overflow-y-auto">
                 <button onclick="window.closeAllModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
                 
-                <h3 class="text-2xl font-bold text-white mb-2 flex items-center gap-3 break-keep">
+                <h3 class="text-2xl font-bold text-white mb-2 flex items-center gap-3">
                     <i class="fa-solid fa-circle-nodes text-bio-accent"></i> 關於 MycoTanji
                 </h3>
-                <p class="text-slate-400 text-sm mb-6 break-keep">本平台模仿自然界「菌根菌網絡」的資源調度邏輯，應用於社區廢棄物管理。</p>
+                <p class="text-slate-400 text-sm mb-6">本平台模仿自然界「菌根菌網絡」的資源調度邏輯，應用於社區廢棄物管理。</p>
 
                 <div class="space-y-4">
                     <div class="flex gap-4">
                         <div class="w-8 h-8 rounded-full bg-bio-accent/20 flex items-center justify-center text-bio-accent shrink-0 font-bold">1</div>
                         <div>
-                            <h4 class="text-white font-bold text-sm break-keep">仿生邏輯</h4>
-                            <p class="text-xs text-slate-400 mt-1 break-keep">如森林地下的真菌交換養分，社區透過數位網絡交換「廢棄物」與「堆肥」。</p>
+                            <h4 class="text-white font-bold text-sm">仿生邏輯</h4>
+                            <p class="text-xs text-slate-400 mt-1">如森林地下的真菌交換養分，社區透過數位網絡交換「廢棄物」與「堆肥」。</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
                         <div class="w-8 h-8 rounded-full bg-bio-accent/20 flex items-center justify-center text-bio-accent shrink-0 font-bold">2</div>
                         <div>
-                            <h4 class="text-white font-bold text-sm break-keep">真實數據</h4>
-                            <p class="text-xs text-slate-400 mt-1 break-keep">下方「社區碳循環監測站」連結資料庫，即時呈現麗寶萊茵社區的減碳成果。</p>
+                            <h4 class="text-white font-bold text-sm">真實數據</h4>
+                            <p class="text-xs text-slate-400 mt-1">下方「社區碳循環監測站」連結資料庫，即時呈現麗寶萊茵社區的減碳成果。</p>
                         </div>
                     </div>
                     <div class="flex gap-4">
                         <div class="w-8 h-8 rounded-full bg-bio-accent/20 flex items-center justify-center text-bio-accent shrink-0 font-bold">3</div>
                         <div>
-                            <h4 class="text-white font-bold text-sm break-keep">效益試算</h4>
-                            <p class="text-xs text-slate-400 mt-1 break-keep">點擊首頁「效益試算體驗」，您可以試算自己的回收行動能帶來多少環境效益。</p>
+                            <h4 class="text-white font-bold text-sm">效益試算</h4>
+                            <p class="text-xs text-slate-400 mt-1">點擊首頁「效益試算體驗」，您可以試算自己的回收行動能帶來多少環境效益。</p>
                         </div>
                     </div>
                 </div>
@@ -239,45 +236,45 @@
     <div id="calculatorModal" class="fixed inset-0 z-[70] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="window.closeAllModals()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4">
-            <div class="glass-panel border border-blue-400/30 rounded-2xl shadow-2xl relative overflow-hidden p-6">
+            <div class="glass-panel border border-blue-400/30 rounded-2xl shadow-2xl relative overflow-hidden p-6 max-h-[90vh] overflow-y-auto">
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-purple-500"></div>
                 <button onclick="window.closeAllModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
 
-                <h3 class="text-xl font-bold text-white mb-4 flex items-center justify-center gap-2 break-keep">
+                <h3 class="text-xl font-bold text-white mb-4 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-calculator text-blue-400"></i> 效益試算計算機
                 </h3>
-                <p class="text-slate-400 text-xs mb-6 text-center break-keep">輸入廢棄物重量，試算減碳效益。</p>
+                <p class="text-slate-400 text-xs mb-6 text-center">輸入廢棄物重量，試算減碳效益。</p>
 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-mono text-blue-300 mb-1 break-keep">廢棄物類型</label>
+                        <label class="block text-xs font-mono text-blue-300 mb-1">廢棄物類型</label>
                         <select id="calcType" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-2 text-white">
                             <option value="coffee">咖啡渣</option>
                             <option value="food">生廚餘</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-mono text-blue-300 mb-1 break-keep">重量 (kg)</label>
+                        <label class="block text-xs font-mono text-blue-300 mb-1">重量 (kg)</label>
                         <input type="number" id="calcWeight" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-2 text-white" placeholder="例如: 5">
                     </div>
-                    <button onclick="window.runSimulation()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg transition mt-2 flex justify-center items-center break-keep">
+                    <button onclick="window.runSimulation()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg transition mt-2 flex justify-center items-center">
                         開始計算
                     </button>
                 </div>
 
                 <div id="calcResult" class="hidden mt-6 p-4 bg-slate-800/80 rounded-xl border border-white/10">
-                    <h4 class="text-white font-bold mb-2 text-center break-keep">預估效益</h4>
+                    <h4 class="text-white font-bold mb-2 text-center">預估效益</h4>
                     <div class="grid grid-cols-2 gap-2 text-center mb-4">
                         <div>
                             <div class="text-xl font-bold text-bio-accent" id="resCarbon">0</div>
-                            <div class="text-[10px] text-slate-400 break-keep">kg CO2e 減碳</div>
+                            <div class="text-[10px] text-slate-400">kg CO2e 減碳</div>
                         </div>
                         <div>
                             <div class="text-xl font-bold text-amber-500" id="resSoil">0</div>
-                            <div class="text-[10px] text-slate-400 break-keep">kg 黑金土產出</div>
+                            <div class="text-[10px] text-slate-400">kg 黑金土產出</div>
                         </div>
                     </div>
-                    <button onclick="window.shareResult()" class="w-full bg-slate-700 hover:bg-bio-accent hover:text-bio-dark text-white text-xs font-bold py-2 rounded transition flex items-center justify-center gap-2 break-keep">
+                    <button onclick="window.shareResult()" class="w-full bg-slate-700 hover:bg-bio-accent hover:text-bio-dark text-white text-xs font-bold py-2 rounded transition flex items-center justify-center gap-2">
                         <i class="fa-solid fa-share-nodes"></i> 複製成果分享
                     </button>
                 </div>
@@ -292,25 +289,25 @@
                 <button onclick="window.closeAllModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
 
                 <div id="adminLoginView">
-                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2 break-keep">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-user-shield text-red-400"></i> 管理員登入
                     </h3>
                     <div class="space-y-4">
                         <input type="password" id="adminPass" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-red-400 focus:outline-none" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter') window.checkAdminLogin()">
-                        <button onclick="window.checkAdminLogin()" class="w-full bg-slate-700 hover:bg-red-600 text-white font-bold py-2 rounded-lg transition flex justify-center break-keep">登入</button>
-                        <p id="loginError" class="text-red-500 text-xs text-center hidden break-keep">密碼錯誤</p>
+                        <button onclick="window.checkAdminLogin()" class="w-full bg-slate-700 hover:bg-red-600 text-white font-bold py-2 rounded-lg transition flex justify-center">登入</button>
+                        <p id="loginError" class="text-red-500 text-xs text-center hidden">密碼錯誤</p>
                     </div>
                 </div>
 
                 <div id="adminEntryView" class="hidden">
-                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2 break-keep">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-database text-bio-accent"></i> 新增真實數據
                     </h3>
-                    <p class="text-slate-400 text-xs mb-4 break-keep">此處輸入將直接寫入資料庫並更新前台顯示。</p>
+                    <p class="text-slate-400 text-xs mb-4">此處輸入將直接寫入資料庫並更新前台顯示。</p>
                     
                     <form onsubmit="window.submitRealData(event)" class="space-y-3 pb-6 border-b border-white/10">
                         <div>
-                            <label class="text-xs text-slate-400 break-keep">來源</label>
+                            <label class="text-xs text-slate-400">來源</label>
                             <select id="realSource" class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600">
                                 <option value="CoffeeA">連鎖咖啡品牌 A</option>
                                 <option value="CoffeeB">連鎖咖啡品牌 B</option>
@@ -323,7 +320,7 @@
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="text-xs text-slate-400 break-keep">類型</label>
+                                <label class="text-xs text-slate-400">類型</label>
                                 <select id="realType" class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600">
                                     <option value="Coffee Grounds">咖啡渣</option>
                                     <option value="Leaves">落葉碳源</option>
@@ -332,42 +329,42 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="text-xs text-slate-400 break-keep">重量</label>
+                                <label class="text-xs text-slate-400">重量</label>
                                 <input type="number" id="realWeight" step="0.1" required class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600">
                             </div>
                         </div>
                         <div>
-                            <label class="text-xs text-slate-400 break-keep">現場照片</label>
+                            <label class="text-xs text-slate-400">現場照片</label>
                             <input type="file" id="realImgFile" accept="image/*" class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-bio-accent file:text-bio-dark hover:file:bg-emerald-400" onchange="window.handleImageUpload(event)">
                             <input type="hidden" id="realImgBase64">
-                            <p class="text-[10px] text-slate-500 mt-1 break-keep">系統將自動壓縮圖片</p>
+                            <p class="text-[10px] text-slate-500 mt-1">系統將自動壓縮圖片</p>
                         </div>
                         <div>
-                            <label class="text-xs text-slate-400 break-keep">備註</label>
+                            <label class="text-xs text-slate-400">備註</label>
                             <input type="text" id="realDesc" class="w-full bg-slate-800 p-2 rounded text-white border border-slate-600" placeholder="例如: 來自北大連鎖咖啡 A 店">
                         </div>
                         
-                        <div id="uploadSuccess" class="hidden p-2 bg-green-500/20 text-green-400 text-xs rounded text-center break-keep">
+                        <div id="uploadSuccess" class="hidden p-2 bg-green-500/20 text-green-400 text-xs rounded text-center">
                             上傳成功
                         </div>
                         
-                        <button type="submit" class="w-full bg-bio-accent hover:bg-emerald-400 text-bio-dark font-bold py-3 rounded-xl mt-4 flex justify-center items-center gap-2 break-keep" id="uploadBtn">
+                        <button type="submit" class="w-full bg-bio-accent hover:bg-emerald-400 text-bio-dark font-bold py-3 rounded-xl mt-4 flex justify-center items-center gap-2" id="uploadBtn">
                             <span>上傳至資料庫</span>
                         </button>
                     </form>
 
                     <div class="mt-6">
-                        <h4 class="text-sm font-bold text-white mb-3 break-keep">最近 10 筆數據</h4>
+                        <h4 class="text-sm font-bold text-white mb-3">最近 10 筆數據</h4>
                         <div id="adminDataList" class="space-y-2 text-xs text-slate-300 max-h-40 overflow-y-auto pr-1">
-                            <p class="text-center text-slate-500 break-keep">載入中</p>
+                            <p class="text-center text-slate-500">載入中</p>
                         </div>
                     </div>
 
                     <div class="mt-6 pt-4 border-t border-white/10">
-                        <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2 break-keep">
+                        <h4 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
                             <i class="fa-solid fa-users text-blue-400"></i> 意願名單管理
                         </h4>
-                        <button onclick="window.exportJoinRequestsCSV()" class="w-full bg-slate-700 hover:bg-blue-600 text-white text-xs font-bold py-2 rounded transition flex justify-center items-center gap-2 break-keep">
+                        <button onclick="window.exportJoinRequestsCSV()" class="w-full bg-slate-700 hover:bg-blue-600 text-white text-xs font-bold py-2 rounded transition flex justify-center items-center gap-2">
                             <i class="fa-solid fa-download"></i> 匯出參與意願名單 (CSV)
                         </button>
                     </div>
@@ -383,26 +380,26 @@
         
         <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
             <div class="inline-block mb-6 px-4 py-2 rounded-full glass-panel border-bio-accent/20">
-                <span class="text-bio-accent font-mono text-xs sm:text-sm tracking-widest uppercase break-keep">2026 Biomimicry Design Challenge</span>
+                <span class="text-bio-accent font-mono text-xs sm:text-sm tracking-widest uppercase">2026 Biomimicry Design Challenge</span>
             </div>
             
-            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-8 leading-tight tracking-tight break-keep">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-8 leading-tight tracking-tight">
                 仿生<span class="text-transparent bg-clip-text bg-gradient-to-r from-bio-accent to-blue-500 text-glow">菌絲網絡</span><br class="hidden sm:block">
                 重塑社區資源循環
             </h1>
             
-            <p class="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed break-keep">
+            <p class="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
                 <strong class="text-white">MycoTanji</strong> 模仿森林的資源交換協議，將廢棄物轉化為可食地景養分。<br class="hidden sm:block">
                 這不僅是回收，這是一場關於<strong class="text-bio-accent">修復、增益、再生</strong>的城市微革命。
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-lg mx-auto">
-                <button onclick="window.openCalculator()" class="group relative px-8 py-4 bg-bio-accent text-bio-dark font-bold rounded-xl overflow-hidden hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] w-full sm:w-auto flex items-center justify-center break-keep">
+                <button onclick="window.openCalculator()" class="group relative px-8 py-4 bg-bio-accent text-bio-dark font-bold rounded-xl overflow-hidden hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.4)] w-full sm:w-auto flex items-center justify-center">
                     <span class="relative z-10 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-calculator"></i> 效益試算體驗
                     </span>
                 </button>
-                <a href="#dashboard" class="px-8 py-4 glass-panel text-white font-bold rounded-xl hover:bg-white/10 transition-all border border-white/20 flex items-center justify-center gap-2 w-full sm:w-auto break-keep">
+                <a href="#dashboard" class="px-8 py-4 glass-panel text-white font-bold rounded-xl hover:bg-white/10 transition-all border border-white/20 flex items-center justify-center gap-2 w-full sm:w-auto">
                     <i class="fa-solid fa-chart-line text-bio-accent"></i> 觀看真實成果
                 </a>
             </div>
@@ -412,16 +409,16 @@
     <section id="challenge" class="py-24 bg-slate-900 border-b border-white/5 relative">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 break-keep">為什麼選擇三峽北大特區？</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto break-keep">都市發展與有機廢棄物的隱形負擔</p>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">為什麼選擇三峽北大特區？</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">都市發展與有機廢棄物的隱形負擔</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 <div class="bg-bio-dark p-8 rounded-2xl border border-slate-800 hover:border-red-500/50 transition">
                     <div class="w-12 h-12 bg-red-500/20 text-red-400 rounded-full flex items-center justify-center text-xl mb-6">
                         <i class="fa-solid fa-fire"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 break-keep">焚化爐超載危機</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed break-keep">
+                    <h3 class="text-xl font-bold text-white mb-3">焚化爐超載危機</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
                         新北市每日產生大量垃圾，含水量高的咖啡渣與生廚餘進入焚化爐，不僅降低燃燒效率，更會大幅增加碳排放與爐體耗損。
                     </p>
                 </div>
@@ -429,8 +426,8 @@
                     <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center text-xl mb-6">
                         <i class="fa-solid fa-store"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 break-keep">高密度咖啡商圈</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed break-keep">
+                    <h3 class="text-xl font-bold text-white mb-3">高密度咖啡商圈</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
                         北大特區擁有密集的住宅人口，連鎖咖啡與獨立小店林立，每日產生的潔淨咖啡渣是一座尚未被開採的「都市有機礦脈」。
                     </p>
                 </div>
@@ -438,8 +435,8 @@
                     <div class="w-12 h-12 bg-bio-accent/20 text-bio-accent rounded-full flex items-center justify-center text-xl mb-6">
                         <i class="fa-solid fa-leaf"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 break-keep">錯置的珍貴碳源</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed break-keep">
+                    <h3 class="text-xl font-bold text-white mb-3">錯置的珍貴碳源</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
                         社區內擁有大量行道樹與中庭花園，清掃出的落葉通常被視為一般垃圾丟棄，卻是製作高品質有機肥不可或缺的最佳碳源。
                     </p>
                 </div>
@@ -467,9 +464,9 @@
 
                 <div class="space-y-8">
                     <div>
-                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 break-keep">自然界的資源調度站</h2>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">自然界的資源調度站</h2>
                         <div class="h-1 w-20 bg-bio-accent rounded-full mb-6"></div>
-                        <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-6 break-keep">
+                        <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-6">
                             森林地底下存在一個龐大的互聯網 <strong class="text-white">菌根菌網絡</strong>。它不只是依附植物生存，更是森林生態系的主動管理者。
                         </p>
                         <div class="space-y-4">
@@ -478,8 +475,8 @@
                                     <i class="fa-solid fa-handshake text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold text-lg mb-1 break-keep">交易</h4>
-                                    <p class="text-sm text-slate-400 break-keep">真菌提供礦物質換取植物的醣類。</p>
+                                    <h4 class="text-white font-bold text-lg mb-1">交易</h4>
+                                    <p class="text-sm text-slate-400">真菌提供礦物質換取植物的醣類。</p>
                                 </div>
                             </div>
                             <div class="interactive-option rounded-xl p-3 flex gap-4" id="opt-signal" onclick="window.switchNetworkMode('signal')">
@@ -487,8 +484,8 @@
                                     <i class="fa-solid fa-tower-broadcast text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold text-lg mb-1 break-keep">通訊</h4>
-                                    <p class="text-sm text-slate-400 break-keep">傳遞化學警訊啟動防禦機制。</p>
+                                    <h4 class="text-white font-bold text-lg mb-1">通訊</h4>
+                                    <p class="text-sm text-slate-400">傳遞化學警訊啟動防禦機制。</p>
                                 </div>
                             </div>
                             <div class="interactive-option rounded-xl p-3 flex gap-4" id="opt-redistribute" onclick="window.switchNetworkMode('redistribute')">
@@ -496,8 +493,8 @@
                                     <i class="fa-solid fa-truck-fast text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold text-lg mb-1 break-keep">重分配</h4>
-                                    <p class="text-sm text-slate-400 break-keep">將養分從源輸送到庫維持平衡。</p>
+                                    <h4 class="text-white font-bold text-lg mb-1">重分配</h4>
+                                    <p class="text-sm text-slate-400">將養分從源輸送到庫維持平衡。</p>
                                 </div>
                             </div>
                         </div>
@@ -510,8 +507,8 @@
     <section id="solution" class="py-24 bg-slate-900 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 break-keep">三峽在地循環模型</h2>
-                <p class="text-slate-400 mt-4 break-keep">連結 <span class="text-white font-bold">北大特區商家</span> 與 <span class="text-white font-bold">麗寶萊茵社區</span> 的實證計畫</p>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2">三峽在地循環模型</h2>
+                <p class="text-slate-400 mt-4">連結 <span class="text-white font-bold">北大特區商家</span> 與 <span class="text-white font-bold">麗寶萊茵社區</span> 的實證計畫</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
                 <div class="flex flex-col items-center text-center space-y-4">
@@ -522,52 +519,52 @@
                         <div class="absolute top-10 -right-4 w-1.5 h-1.5 bg-amber-700 rounded-full opacity-80 animate-pulse-slow" style="animation-delay: 1s;"></div>
                         <div class="absolute -bottom-2 right-10 w-2 h-2 bg-amber-900 rounded-full opacity-50 animate-float" style="animation-duration: 5s;"></div>
                     </div>
-                    <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono break-keep">資源輸入</div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white break-keep">城市裡的有機礦脈</h3>
-                    <p class="text-slate-400 break-keep">回收北大特區每日產生的大量潔淨咖啡渣，作為系統氮源。</p>
+                    <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono">資源輸入</div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">城市裡的有機礦脈</h3>
+                    <p class="text-slate-400">回收北大特區每日產生的大量潔淨咖啡渣，作為系統氮源。</p>
                 </div>
                 <div class="flex flex-col items-center text-center space-y-4 relative">
                     <div class="hidden md:block absolute top-16 -left-12 w-24 border-t-2 border-dashed border-slate-700"></div>
                     <div class="relative inline-block mb-2 h-32 flex items-center justify-center">
                         <i class="fa-solid fa-arrows-rotate text-6xl text-bio-accent animate-spin bg-slate-800 p-8 rounded-full border-2 border-bio-accent" style="animation-duration: 10s;"></i>
                     </div>
-                    <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono break-keep">循環轉化</div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white break-keep">數位菌絲中繼站</h3>
-                    <p class="text-slate-400 break-keep">混合社區落葉碳源進行好氧發酵，轉化為高品質有機肥。</p>
+                    <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono">循環轉化</div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">數位菌絲中繼站</h3>
+                    <p class="text-slate-400">混合社區落葉碳源進行好氧發酵，轉化為高品質有機肥。</p>
                 </div>
                 <div class="flex flex-col items-center text-center space-y-4 relative">
                     <div class="hidden md:block absolute top-16 -left-12 w-24 border-t-2 border-dashed border-slate-700"></div>
                     <div class="relative inline-block mb-2 h-32 flex items-center justify-center">
                         <i class="fa-solid fa-seedling text-5xl text-green-500 bg-slate-800 p-8 rounded-full border-2 border-slate-700 animate-float"></i>
                     </div>
-                    <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono break-keep">再生產出</div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white break-keep">社區可食地景</h3>
-                    <p class="text-slate-400 break-keep">熟成的黑金堆肥用於頂樓農園，生產香草蔬菜回饋住戶。</p>
+                    <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-300 text-xs font-mono">再生產出</div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white">社區可食地景</h3>
+                    <p class="text-slate-400">熟成的黑金堆肥用於頂樓農園，生產香草蔬菜回饋住戶。</p>
                 </div>
             </div>
 
             <div class="mt-20 pt-16 border-t border-slate-800 text-center max-w-4xl mx-auto">
-                <h4 class="text-xl font-bold text-white mb-8 break-keep">首波實證合作夥伴</h4>
+                <h4 class="text-xl font-bold text-white mb-8">首波實證合作夥伴</h4>
                 <div class="flex flex-wrap justify-center items-center gap-4 md:gap-8">
                     <div class="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
                         <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-                        <span class="text-slate-300 text-sm font-bold break-keep">麗寶萊茵社區</span>
+                        <span class="text-slate-300 text-sm font-bold">麗寶萊茵社區</span>
                     </div>
                     <div class="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
                         <div class="w-2 h-2 rounded-full bg-green-700"></div>
-                        <span class="text-slate-300 text-sm break-keep">連鎖咖啡品牌 A 北大店</span>
+                        <span class="text-slate-300 text-sm">連鎖咖啡品牌 A 北大店</span>
                     </div>
                     <div class="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
                         <div class="w-2 h-2 rounded-full bg-orange-500"></div>
-                        <span class="text-slate-300 text-sm break-keep">連鎖咖啡品牌 B 三峽店</span>
+                        <span class="text-slate-300 text-sm">連鎖咖啡品牌 B 三峽店</span>
                     </div>
                     <div class="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
                         <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-                        <span class="text-slate-300 text-sm break-keep">連鎖便利商店 A 學勤店</span>
+                        <span class="text-slate-300 text-sm">連鎖便利商店 A 學勤店</span>
                     </div>
                     <div class="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
                         <div class="w-2 h-2 rounded-full bg-red-500"></div>
-                        <span class="text-slate-300 text-sm break-keep">連鎖便利商店 B 萊茵店</span>
+                        <span class="text-slate-300 text-sm">連鎖便利商店 B 萊茵店</span>
                     </div>
                 </div>
             </div>
@@ -577,83 +574,79 @@
     <section id="timeline" class="py-24 bg-slate-900 relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-4 relative">
             <div class="text-center mb-16">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2 break-keep">生態演替時間軸</h2>
-                <p class="text-slate-400 mt-4 break-keep">標準流程從廢棄物到可食地景的完美轉化</p>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-2">生態演替時間軸</h2>
+                <p class="text-slate-400 mt-4">標準流程從廢棄物到可食地景的完美轉化</p>
             </div>
             
             <div class="relative py-10 w-full">
                 <div class="timeline-line"></div>
                 
-                <div class="relative mb-12 flex flex-col md:flex-row justify-between items-start md:items-center w-full animate-grow" style="animation-delay: 0.1s">
-                    <div class="hidden md:block w-5/12"></div>
-                    <div class="absolute left-[20px] md:left-1/2 transform -translate-x-[15px] md:-translate-x-1/2 mt-6 md:mt-0 z-20 w-8 h-8 bg-bio-dark border-2 border-bio-accent rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-                    <div class="w-full pl-12 md:pl-0 md:w-5/12">
+                <div class="relative w-full mb-12 animate-grow" style="animation-delay: 0.1s">
+                    <div class="absolute left-[28px] md:left-1/2 transform -translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 z-20 w-8 h-8 bg-bio-dark border-2 border-bio-accent rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                    <div class="w-full pl-[70px] md:pl-0 md:w-[45%] ml-auto">
                         <div class="glass-panel border border-white/10 rounded-xl p-4 hover:border-bio-accent/50 transition duration-300">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-mono text-bio-accent bg-bio-accent/10 px-2 py-1 rounded">Day 1</span>
-                                <span class="text-xs text-slate-400 break-keep">資源輸入</span>
+                                <span class="text-xs text-slate-400">資源輸入</span>
                             </div>
-                            <h4 class="font-bold text-white mb-2 text-lg break-keep">資源收集</h4>
+                            <h4 class="font-bold text-white mb-2 text-lg">資源收集</h4>
                             <div class="h-40 sm:h-48 w-full rounded-lg overflow-hidden mb-3 bg-slate-800">
                                 <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="資源收集" data-custom-img="true">
                             </div>
-                            <p class="text-sm text-slate-300 break-keep">收集周邊咖啡門市新鮮咖啡渣與社區落葉。</p>
+                            <p class="text-sm text-slate-300">收集周邊咖啡門市新鮮咖啡渣與社區落葉。</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="relative mb-12 flex flex-col md:flex-row justify-between items-start md:items-center w-full animate-grow" style="animation-delay: 0.2s">
-                    <div class="w-full pl-12 md:pl-0 md:w-5/12 order-2 md:order-1">
+                <div class="relative w-full mb-12 animate-grow" style="animation-delay: 0.2s">
+                    <div class="absolute left-[28px] md:left-1/2 transform -translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 z-20 w-8 h-8 bg-bio-dark border-2 border-bio-accent rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                    <div class="w-full pl-[70px] md:pl-0 md:w-[45%] mr-auto">
                         <div class="glass-panel border border-white/10 rounded-xl p-4 hover:border-bio-accent/50 transition duration-300">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-mono text-bio-accent bg-bio-accent/10 px-2 py-1 rounded">Day 14</span>
-                                <span class="text-xs text-slate-400 break-keep">循環轉化</span>
+                                <span class="text-xs text-slate-400">循環轉化</span>
                             </div>
-                            <h4 class="font-bold text-white mb-2 text-lg break-keep">高溫發酵</h4>
+                            <h4 class="font-bold text-white mb-2 text-lg">高溫發酵</h4>
                             <div class="h-40 sm:h-48 w-full rounded-lg overflow-hidden mb-3 bg-slate-800">
-                                <img src="https://images.unsplash.com/photo-1592424001807-6e93d39eb2ab?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="高溫發酵" data-custom-img="true">
+                                <img src="https://images.unsplash.com/photo-1505589139634-62df40ed6fbf?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="高溫發酵" data-custom-img="true">
                             </div>
-                            <p class="text-sm text-slate-300 break-keep">混合落葉中心溫度達 60度 以上有效殺菌與轉化。</p>
+                            <p class="text-sm text-slate-300">混合落葉中心溫度達 60度 以上有效殺菌與轉化。</p>
                         </div>
                     </div>
-                    <div class="absolute left-[20px] md:left-1/2 transform -translate-x-[15px] md:-translate-x-1/2 mt-6 md:mt-0 z-20 w-8 h-8 bg-bio-dark border-2 border-bio-accent rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)] order-1 md:order-2"></div>
-                    <div class="hidden md:block w-5/12 order-3"></div>
                 </div>
                 
-                <div class="relative mb-12 flex flex-col md:flex-row justify-between items-start md:items-center w-full animate-grow" style="animation-delay: 0.3s">
-                    <div class="hidden md:block w-5/12"></div>
-                    <div class="absolute left-[20px] md:left-1/2 transform -translate-x-[15px] md:-translate-x-1/2 mt-6 md:mt-0 z-20 w-8 h-8 bg-bio-dark border-2 border-bio-accent rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
-                    <div class="w-full pl-12 md:pl-0 md:w-5/12">
+                <div class="relative w-full mb-12 animate-grow" style="animation-delay: 0.3s">
+                    <div class="absolute left-[28px] md:left-1/2 transform -translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 z-20 w-8 h-8 bg-bio-dark border-2 border-bio-accent rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                    <div class="w-full pl-[70px] md:pl-0 md:w-[45%] ml-auto">
                         <div class="glass-panel border border-white/10 rounded-xl p-4 hover:border-bio-accent/50 transition duration-300">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-mono text-bio-accent bg-bio-accent/10 px-2 py-1 rounded">Day 30</span>
-                                <span class="text-xs text-slate-400 break-keep">腐植質完熟</span>
+                                <span class="text-xs text-slate-400">腐植質完熟</span>
                             </div>
-                            <h4 class="font-bold text-white mb-2 text-lg break-keep">黑金土產出</h4>
+                            <h4 class="font-bold text-white mb-2 text-lg">黑金土產出</h4>
                             <div class="h-40 sm:h-48 w-full rounded-lg overflow-hidden mb-3 bg-slate-800">
                                 <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="黑金土產出" data-custom-img="true">
                             </div>
-                            <p class="text-sm text-slate-300 break-keep">顏色轉黑且富含腐植質的優質有機堆肥熟成。</p>
+                            <p class="text-sm text-slate-300">顏色轉黑且富含腐植質的優質有機堆肥熟成。</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative mb-12 flex flex-col md:flex-row justify-between items-start md:items-center w-full animate-grow" style="animation-delay: 0.4s">
-                    <div class="w-full pl-12 md:pl-0 md:w-5/12 order-2 md:order-1">
+                <div class="relative w-full mb-12 animate-grow" style="animation-delay: 0.4s">
+                    <div class="absolute left-[28px] md:left-1/2 transform -translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 z-20 w-8 h-8 bg-bio-dark border-2 border-bio-accent rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                    <div class="w-full pl-[70px] md:pl-0 md:w-[45%] mr-auto">
                         <div class="glass-panel border border-white/10 rounded-xl p-4 hover:border-bio-accent/50 transition duration-300">
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-xs font-mono text-bio-accent bg-bio-accent/10 px-2 py-1 rounded">Day 45</span>
-                                <span class="text-xs text-slate-400 break-keep">再生產出</span>
+                                <span class="text-xs text-slate-400">再生產出</span>
                             </div>
-                            <h4 class="font-bold text-white mb-2 text-lg break-keep">社區香草採收</h4>
+                            <h4 class="font-bold text-white mb-2 text-lg">社區香草採收</h4>
                             <div class="h-40 sm:h-48 w-full rounded-lg overflow-hidden mb-3 bg-slate-800">
                                 <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="社區香草採收" data-custom-img="true">
                             </div>
-                            <p class="text-sm text-slate-300 break-keep">將黑金土施用於頂樓農園，採收薄荷與迷迭香，回饋社區。</p>
+                            <p class="text-sm text-slate-300">將黑金土施用於頂樓農園，採收薄荷與迷迭香，回饋社區。</p>
                         </div>
                     </div>
-                    <div class="absolute left-[20px] md:left-1/2 transform -translate-x-[15px] md:-translate-x-1/2 mt-6 md:mt-0 z-20 w-8 h-8 bg-bio-dark border-2 border-bio-accent rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.5)] order-1 md:order-2"></div>
-                    <div class="hidden md:block w-5/12 order-3"></div>
                 </div>
             </div>
         </div>
@@ -666,13 +659,13 @@
                 
                 <div class="flex justify-between items-center mb-6 relative z-10">
                     <div>
-                        <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2 break-keep">
+                        <h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-chart-pie text-bio-accent"></i> 社區碳循環監測站
                             <button onclick="window.exportCSV()" class="hidden sm:flex ml-4 px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white text-xs rounded border border-slate-500 transition items-center gap-1">
                                 <i class="fa-solid fa-file-csv"></i> 匯出報表
                             </button>
                         </h3>
-                        <p class="text-xs text-slate-400 mt-1 break-keep">即時數據同步中</p>
+                        <p class="text-xs text-slate-400 mt-1">即時數據同步中</p>
                         <button onclick="window.exportCSV()" class="flex sm:hidden mt-2 px-3 py-1 bg-slate-700 hover:bg-slate-600 text-white text-xs rounded border border-slate-500 transition items-center gap-1 w-max">
                             <i class="fa-solid fa-file-csv"></i> 匯出報表
                         </button>
@@ -691,7 +684,7 @@
 
                 <div class="mb-8 bg-slate-800/80 p-5 rounded-xl border border-white/5 relative z-10 shadow-inner">
                     <div class="flex flex-col sm:flex-row justify-between text-sm mb-3 gap-2">
-                        <span class="text-white font-bold flex items-center gap-2 break-keep">
+                        <span class="text-white font-bold flex items-center gap-2">
                             <i class="fa-solid fa-flag-checkered text-amber-400"></i> 2026 第一階段減碳目標 (500 kg CO2e)
                         </span>
                         <span class="text-bio-accent font-mono font-bold sm:text-right" id="progressText">0%</span>
@@ -705,22 +698,22 @@
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 relative z-10">
                     <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
-                        <div class="text-xs text-slate-400 mb-1 break-keep">總攔截廢棄物</div>
+                        <div class="text-xs text-slate-400 mb-1">總攔截廢棄物</div>
                         <div class="text-2xl sm:text-3xl font-mono font-bold text-amber-400" id="totalWeight">0</div>
                         <div class="text-[10px] text-slate-500">kg</div>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
-                        <div class="text-xs text-slate-400 mb-1 break-keep">迴避碳排放量</div>
+                        <div class="text-xs text-slate-400 mb-1">迴避碳排放量</div>
                         <div class="text-2xl sm:text-3xl font-mono font-bold text-bio-accent" id="totalCarbon">0</div>
                         <div class="text-[10px] text-slate-500">kg CO2e</div>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
-                        <div class="text-xs text-slate-400 mb-1 break-keep">產生有機沃土</div>
+                        <div class="text-xs text-slate-400 mb-1">產生有機沃土</div>
                         <div class="text-2xl sm:text-3xl font-mono font-bold text-bio-soil" id="totalSoil">0</div>
                         <div class="text-[10px] text-slate-500">kg</div>
                     </div>
                     <div class="bg-slate-800/50 p-4 rounded-xl border border-white/5 text-center">
-                        <div class="text-xs text-slate-400 mb-1 break-keep">節省社區公款</div>
+                        <div class="text-xs text-slate-400 mb-1">節省社區公款</div>
                         <div class="text-2xl sm:text-3xl font-mono font-bold text-blue-400" id="totalMoney">0</div>
                         <div class="text-[10px] text-slate-500">TWD</div>
                     </div>
@@ -731,11 +724,11 @@
                 </div>
 
                 <div class="mt-8 relative z-10 border-t border-white/5 pt-6">
-                    <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2 break-keep">
+                    <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-clock-rotate-left text-bio-accent"></i> 即時數據履歷
                     </h4>
                     <div id="liveRecordsContainer" class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-                        <p class="text-slate-500 text-xs break-keep">尚無上傳數據...</p>
+                        <p class="text-slate-500 text-xs">尚無上傳數據...</p>
                     </div>
                 </div>
             </div>
@@ -745,8 +738,8 @@
     <section id="impact" class="py-24 bg-slate-900 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4 break-keep">全方位永續效益</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto break-keep">對應新北市三大局處政策目標，實現 Nature Positive 願景</p>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">全方位永續效益</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">對應新北市三大局處政策目標，實現 Nature Positive 願景</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
@@ -755,48 +748,48 @@
                     <div class="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center text-green-500 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fa-solid fa-wheat-awn"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 text-center break-keep">都市農業創新</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center break-keep">響應永續農漁業願景。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程。</p>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center">都市農業創新</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">響應永續農漁業願景。將水泥叢林轉化為生產基地，利用回收養分種植蔬菜，縮短食物里程。</p>
                 </div>
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-amber-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
                     <div class="w-16 h-16 mx-auto bg-amber-500/10 rounded-full flex items-center justify-center text-amber-500 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fa-solid fa-trash-arrow-up"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 text-center break-keep">循環經濟減量</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center break-keep">呼應循環經濟減量策略。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現搖籃到搖籃。</p>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center">循環經濟減量</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">呼應循環經濟減量策略。從源頭分流有機廢棄物，減輕新北市焚化爐負荷，實現搖籃到搖籃。</p>
                 </div>
                 <div class="group p-8 rounded-2xl bg-bio-dark border border-slate-800 hover:border-blue-500 transition duration-500 relative overflow-hidden">
                     <div class="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
                     <div class="w-16 h-16 mx-auto bg-blue-500/10 rounded-full flex items-center justify-center text-blue-500 text-2xl mb-6 group-hover:scale-110 transition">
                         <i class="fa-solid fa-city"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3 text-center break-keep">永續韌性城市</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed text-center break-keep">對接永續城市發展指標。透過公私協力夥伴關係，實踐永續城鄉願景。</p>
+                    <h3 class="text-xl font-bold text-white mb-3 text-center">永續韌性城市</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed text-center">對接永續城市發展指標。透過公私協力夥伴關係，實踐永續城鄉願景。</p>
                 </div>
             </div>
 
             <div class="glass-panel border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden">
                 <div class="absolute -right-20 -top-20 w-64 h-64 bg-bio-accent/20 rounded-full blur-3xl"></div>
-                <h3 class="text-xl sm:text-2xl font-bold text-white mb-8 flex items-center break-keep">
+                <h3 class="text-xl sm:text-2xl font-bold text-white mb-8 flex items-center">
                     <i class="fa-solid fa-map-location-dot text-bio-accent mr-3"></i> 未來展望：新北市推動路徑
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
                     <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-gradient-to-r from-bio-accent to-blue-500 opacity-30"></div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-bio-accent flex items-center justify-center text-white font-bold text-lg mb-4 shadow-[0_0_15px_rgba(16,185,129,0.3)]">2026</div>
-                        <h4 class="text-lg font-bold text-bio-accent mb-2 break-keep">北大特區示範點</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed break-keep">以三峽北大特區為起點，串聯便利商店、咖啡店與社區，建立 SOP 與數據驗證模型。</p>
+                        <h4 class="text-lg font-bold text-bio-accent mb-2">北大特區示範點</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">以三峽北大特區為起點，串聯便利商店、咖啡店與社區，建立 SOP 與數據驗證模型。</p>
                     </div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-blue-400 flex items-center justify-center text-white font-bold text-lg mb-4">2027</div>
-                        <h4 class="text-lg font-bold text-blue-400 mb-2 break-keep">擴散至氣候挑戰區</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed break-keep">拓展至淡水、林口等新興市鎮，針對其低溫潮濕氣候特性，導入溫控與抗風植栽。</p>
+                        <h4 class="text-lg font-bold text-blue-400 mb-2">擴散至氣候挑戰區</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">拓展至淡水、林口等新興市鎮，針對其低溫潮濕氣候特性，導入溫控與抗風植栽。</p>
                     </div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 rounded-full bg-bio-dark border-2 border-purple-500 flex items-center justify-center text-white font-bold text-lg mb-4">2030</div>
-                        <h4 class="text-lg font-bold text-purple-500 mb-2 break-keep">全市淨零模組</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed break-keep">納入新北市「2050 淨零路徑」，建立「社區碳匯」模組，豐富市民的永續生活履歷。</p>
+                        <h4 class="text-lg font-bold text-purple-500 mb-2">全市淨零模組</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">納入新北市「2050 淨零路徑」，建立「社區碳匯」模組，豐富市民的永續生活履歷。</p>
                     </div>
                 </div>
             </div>
@@ -806,8 +799,8 @@
     <section id="ecosystem" class="py-24 bg-bio-dark relative border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4 break-keep">永續生態系藍圖</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto break-keep">從宏觀氣候診斷到微觀真實場域落地</p>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">永續生態系藍圖</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">從宏觀氣候診斷到微觀真實場域落地</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 <a href="https://tanji2026.github.io/nbs/" target="_blank" rel="noopener noreferrer" class="group glass-panel rounded-2xl overflow-hidden border border-white/10 hover:border-blue-500/50 transition-all duration-500 flex flex-col">
@@ -815,15 +808,15 @@
                         <div class="absolute inset-0 bg-blue-500/20 group-hover:bg-transparent transition-colors z-10"></div>
                         <img src="./assets/ecosystem/tanji_platform.png" onerror="this.src='https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800'" alt="碳吉 TanJi" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" data-custom-img="true">
                         <div class="absolute top-4 left-4 z-20">
-                            <span class="bg-blue-500/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)] break-keep">系統大腦 / 氣候診斷</span>
+                            <span class="bg-blue-500/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]">系統大腦 / 氣候診斷</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors flex items-center justify-between break-keep">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors flex items-center justify-between">
                             碳吉 TanJi 微氣候韌性決策平台
                             <i class="fa-solid fa-arrow-up-right-from-square text-sm opacity-0 group-hover:opacity-100 transition-opacity"></i>
                         </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed break-keep">
+                        <p class="text-slate-400 text-sm leading-relaxed">
                             作為 MycoTanji 的上游決策引擎。結合 GIS 風險快篩與 NbS 自然解方評估，為社區提供氣候韌性診斷，進而催生出本仿生碳循環計畫。
                         </p>
                     </div>
@@ -834,15 +827,15 @@
                         <div class="absolute inset-0 bg-emerald-500/20 group-hover:bg-transparent transition-colors z-10"></div>
                         <img src="./assets/ecosystem/living_lab.png" onerror="this.src='https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&q=80&w=800'" alt="麗寶萊茵 Living Lab" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" data-custom-img="true">
                         <div class="absolute top-4 left-4 z-20">
-                            <span class="bg-emerald-500/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)] break-keep">實證基地 / Living Lab</span>
+                            <span class="bg-emerald-500/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.5)]">實證基地 / Living Lab</span>
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors flex items-center justify-between break-keep">
+                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors flex items-center justify-between">
                             麗寶萊茵 社區生態導覽
                             <i class="fa-solid fa-arrow-up-right-from-square text-sm opacity-0 group-hover:opacity-100 transition-opacity"></i>
                         </h3>
-                        <p class="text-slate-400 text-sm leading-relaxed break-keep">
+                        <p class="text-slate-400 text-sm leading-relaxed">
                             MycoTanji 系統的首發測試站。這是一個具備高度環保共識與完善綠化基礎的真實社區，提供從廢棄物回收到可食地景的完整封閉式實驗環境。
                         </p>
                     </div>
@@ -856,42 +849,42 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4 break-keep">加入菌絲網絡</h2>
-                    <p class="text-slate-400 mb-8 leading-relaxed break-keep">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">加入菌絲網絡</h2>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
                         我們正在尋找更多願意參與循環的咖啡門市、社區與志工。留下您的聯絡方式，讓我們一起將都市廢棄物轉化為綠色生機。
                     </p>
                     <form id="joinForm" onsubmit="window.submitJoinRequest(event)" class="space-y-4">
                         <div class="grid grid-cols-2 gap-4">
-                            <input type="text" id="joinName" placeholder="您的稱呼" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none break-keep">
-                            <select id="joinRole" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none break-keep">
+                            <input type="text" id="joinName" placeholder="您的稱呼" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none">
+                            <select id="joinRole" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none">
                                 <option value="shop">在地商家</option>
                                 <option value="community">社區管委會</option>
                                 <option value="citizen">一般市民</option>
                             </select>
                         </div>
                         <input type="email" id="joinEmail" placeholder="電子郵件" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none">
-                        <button type="submit" class="w-full bg-bio-accent hover:bg-emerald-400 text-bio-dark font-bold py-3 rounded-lg transition shadow-lg flex justify-center items-center gap-2 break-keep">
+                        <button type="submit" class="w-full bg-bio-accent hover:bg-emerald-400 text-bio-dark font-bold py-3 rounded-lg transition shadow-lg flex justify-center items-center gap-2">
                             <i class="fa-solid fa-paper-plane"></i> 送出參與意願
                         </button>
                     </form>
                 </div>
                 
                 <div class="bg-bio-dark p-8 rounded-2xl border border-white/10 shadow-xl">
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2 break-keep">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-book-open text-bio-accent"></i> 仿生科學文獻與團隊
                     </h3>
                     <div class="space-y-4">
                         <a href="https://asknature.org/strategy/mycorrhizal-fungi-networks/" target="_blank" rel="noopener noreferrer" class="block p-4 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-bio-accent transition group">
-                            <h4 class="text-white font-bold text-sm mb-1 group-hover:text-bio-accent transition break-keep">AskNature 仿生資料庫</h4>
-                            <p class="text-xs text-slate-400 break-keep">探討菌根菌網絡如何在森林生態系統中進行資源調度與化學訊號傳遞。</p>
+                            <h4 class="text-white font-bold text-sm mb-1 group-hover:text-bio-accent transition">AskNature 仿生資料庫</h4>
+                            <p class="text-xs text-slate-400">探討菌根菌網絡如何在森林生態系統中進行資源調度與化學訊號傳遞。</p>
                         </a>
                         <a href="https://www.nature.com/articles/nature14998" target="_blank" rel="noopener noreferrer" class="block p-4 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-bio-accent transition group">
-                            <h4 class="text-white font-bold text-sm mb-1 group-hover:text-bio-accent transition break-keep">Nature 期刊：地下生態學</h4>
-                            <p class="text-xs text-slate-400 break-keep">全球真菌共生網絡的分佈圖譜與碳循環機制研究。</p>
+                            <h4 class="text-white font-bold text-sm mb-1 group-hover:text-bio-accent transition">Nature 期刊：地下生態學</h4>
+                            <p class="text-xs text-slate-400">全球真菌共生網絡的分佈圖譜與碳循環機制研究。</p>
                         </a>
                         <div class="pt-4 border-t border-slate-700 mt-4">
-                            <h4 class="text-white font-bold text-sm mb-2 break-keep">MycoTanji 研發團隊</h4>
-                            <p class="text-xs text-slate-400 leading-relaxed break-keep">
+                            <h4 class="text-white font-bold text-sm mb-2">MycoTanji 研發團隊</h4>
+                            <p class="text-xs text-slate-400 leading-relaxed">
                                 由環境工程、仿生設計與程式開發專長成員組成。致力於將大自然的智慧轉譯為解決都市氣候問題的數位實體解方。
                             </p>
                         </div>
@@ -905,12 +898,12 @@
         <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
             <div class="flex items-center justify-center gap-2 mb-4">
                 <i class="fa-solid fa-circle-nodes text-bio-accent"></i>
-                <span class="font-bold text-lg text-white break-keep">MycoTanji</span>
+                <span class="font-bold text-lg text-white">MycoTanji</span>
             </div>
-            <p class="text-slate-500 text-sm break-keep">
+            <p class="text-slate-500 text-sm">
                 2026 台灣仿生設計競賽參賽作品
             </p>
-            <p class="text-slate-600 text-xs break-keep">
+            <p class="text-slate-600 text-xs">
                 作品受著作權法保護，未經授權請勿複製轉載｜歡迎聯絡我們：tanji2026@gmail.com
             </p>
         </div>
@@ -1061,7 +1054,7 @@
         function renderAdminDataList(data) {
             const list = document.getElementById('adminDataList');
             if(data.length === 0) {
-                list.innerHTML = '<p class="text-center text-slate-500 break-keep">尚無數據</p>';
+                list.innerHTML = '<p class="text-center text-slate-500">尚無數據</p>';
                 return;
             }
             const recentData = [...data].reverse().slice(0, 10);
@@ -1069,8 +1062,8 @@
             list.innerHTML = recentData.map(item => `
                 <div class="flex justify-between items-center bg-slate-800 p-2 rounded border border-white/5">
                     <div>
-                        <div class="font-bold text-white break-keep">${item.type} <span class="text-bio-accent">${item.weight}kg</span></div>
-                        <div class="text-[10px] text-slate-400 break-keep">${item.date} | ${item.source}</div>
+                        <div class="font-bold text-white">${item.type} <span class="text-bio-accent">${item.weight}kg</span></div>
+                        <div class="text-[10px] text-slate-400">${item.date} | ${item.source}</div>
                     </div>
                     <button onclick="window.deleteRecord('${item.id}')" class="text-red-400 hover:text-red-300 p-1 flex items-center justify-center">
                         <i class="fa-solid fa-trash"></i>
@@ -1164,7 +1157,7 @@
         function renderLiveRecords(data) {
             const container = document.getElementById('liveRecordsContainer');
             if(data.length === 0) {
-                container.innerHTML = '<p class="text-slate-500 text-xs break-keep">尚無上傳數據...</p>';
+                container.innerHTML = '<p class="text-slate-500 text-xs">尚無上傳數據...</p>';
                 return;
             }
             const sorted = [...data].reverse();
@@ -1173,14 +1166,14 @@
                     <div class="h-32 w-full bg-slate-900 relative overflow-hidden flex items-center justify-center">
                         <img src="${item.img || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400'}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                         <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent p-2">
-                            <span class="text-[10px] font-mono text-white bg-bio-accent/20 px-1.5 py-0.5 rounded break-keep">${item.date}</span>
+                            <span class="text-[10px] font-mono text-white bg-bio-accent/20 px-1.5 py-0.5 rounded">${item.date}</span>
                         </div>
                     </div>
                     <div class="p-3">
-                        <h5 class="text-white text-sm font-bold truncate break-keep">${item.source}</h5>
-                        <p class="text-xs text-slate-400 mb-1 break-keep">${item.type}</p>
+                        <h5 class="text-white text-sm font-bold truncate">${item.source}</h5>
+                        <p class="text-xs text-slate-400 mb-1">${item.type}</p>
                         <div class="flex justify-between items-center mt-2">
-                            <span class="text-bio-accent font-mono font-bold break-keep">${item.weight}kg</span>
+                            <span class="text-bio-accent font-mono font-bold">${item.weight}kg</span>
                             ${item.desc ? `<i class="fa-solid fa-circle-info text-slate-600 text-[10px]" title="${item.desc}"></i>` : ''}
                         </div>
                     </div>
