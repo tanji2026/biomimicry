@@ -591,7 +591,7 @@
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">資源收集</h4>
                             <div class="h-40 sm:h-48 w-full rounded-lg overflow-hidden mb-3 bg-slate-800">
-                                <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="資源收集" data-custom-img="true">
+                                <img src="./assets/timeline/day1.png" class="w-full h-full object-cover" alt="資源收集" data-custom-img="true">
                             </div>
                             <p class="text-sm text-slate-300">收集周邊咖啡門市新鮮咖啡渣與社區落葉。</p>
                         </div>
@@ -608,7 +608,7 @@
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">高溫發酵</h4>
                             <div class="h-40 sm:h-48 w-full rounded-lg overflow-hidden mb-3 bg-slate-800">
-                                <img src="https://images.unsplash.com/photo-1505589139634-62df40ed6fbf?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="高溫發酵" data-custom-img="true">
+                                <img src="./assets/timeline/day14.png" class="w-full h-full object-cover" alt="高溫發酵" data-custom-img="true">
                             </div>
                             <p class="text-sm text-slate-300">混合落葉中心溫度達 60度 以上有效殺菌與轉化。</p>
                         </div>
@@ -625,7 +625,7 @@
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">黑金土產出</h4>
                             <div class="h-40 sm:h-48 w-full rounded-lg overflow-hidden mb-3 bg-slate-800">
-                                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="黑金土產出" data-custom-img="true">
+                                <img src="./assets/timeline/day30.png" class="w-full h-full object-cover" alt="黑金土產出" data-custom-img="true">
                             </div>
                             <p class="text-sm text-slate-300">顏色轉黑且富含腐植質的優質有機堆肥熟成。</p>
                         </div>
@@ -642,7 +642,7 @@
                             </div>
                             <h4 class="font-bold text-white mb-2 text-lg">社區香草採收</h4>
                             <div class="h-40 sm:h-48 w-full rounded-lg overflow-hidden mb-3 bg-slate-800">
-                                <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="社區香草採收" data-custom-img="true">
+                                <img src="./assets/timeline/day45.png" class="w-full h-full object-cover" alt="社區香草採收" data-custom-img="true">
                             </div>
                             <p class="text-sm text-slate-300">將黑金土施用於頂樓農園，採收薄荷與迷迭香，回饋社區。</p>
                         </div>
@@ -1277,68 +1277,191 @@
         const ctxCanvas = canvas.getContext('2d');
         const container = document.getElementById('canvas-container');
         let width, height, particles = [], nodes = [], links = [], currentMode = 'trade';
+        let time = 0;
+        let ripple = null; 
 
         function initNetwork() {
             width = canvas.width = container.clientWidth;
             height = canvas.height = container.clientHeight;
             nodes = []; links = [];
-            for(let i=0; i<5; i++) nodes.push({x:(width/6)*(i+1), y:20, type:'root', color:'#4ade80'});
-            for(let r=0; r<4; r++) for(let c=0; c<8; c++) nodes.push({x:(width/9)*(c+1)+(Math.random()*40-20), y:(height/5)*(r+1)+30, type:'fungi', color:'#444'});
+            
+            for(let i=0; i<5; i++) {
+                nodes.push({
+                    x:(width/6)*(i+1), 
+                    y:20, 
+                    type:'root', 
+                    color:'#4ade80',
+                    baseX: (width/6)*(i+1),
+                    baseY: 20,
+                    phase: Math.random() * Math.PI * 2
+                });
+            }
+            
+            for(let r=0; r<4; r++) {
+                for(let c=0; c<8; c++) {
+                    const bx = (width/9)*(c+1)+(Math.random()*40-20);
+                    const by = (height/5)*(r+1)+30;
+                    nodes.push({
+                        x: bx, 
+                        y: by, 
+                        type:'fungi', 
+                        color:'#444',
+                        baseX: bx,
+                        baseY: by,
+                        phase: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+            
             nodes.forEach((n1, i) => nodes.forEach((n2, j) => {
                 if(i===j) return;
-                const d = Math.hypot(n1.x-n2.x, n1.y-n2.y);
-                if(d < width*0.15 && (Math.random()>0.85 || (n1.type==='root' && d<100))) links.push({from:n1, to:n2});
+                const d = Math.hypot(n1.baseX-n2.baseX, n1.baseY-n2.baseY);
+                if(d < width*0.15 && (Math.random()>0.85 || (n1.type==='root' && d<100))) {
+                    const cx = (n1.baseX + n2.baseX) / 2 + (Math.random() * 20 - 10);
+                    const cy = (n1.baseY + n2.baseY) / 2 + (Math.random() * 20 - 10);
+                    links.push({from:n1, to:n2, cx: cx, cy: cy});
+                }
             }));
             animateNetwork();
         }
 
+        function drawBezierCurve(ctx, p0, p1, p2) {
+            ctx.beginPath();
+            ctx.moveTo(p0.x, p0.y);
+            ctx.quadraticCurveTo(p1.x, p1.y, p2.x, p2.y);
+            ctx.stroke();
+        }
+
+        function getBezierPoint(p0, p1, p2, t) {
+            const invT = 1 - t;
+            return {
+                x: invT * invT * p0.x + 2 * invT * t * p1.x + t * t * p2.x,
+                y: invT * invT * p0.y + 2 * invT * t * p1.y + t * t * p2.y
+            };
+        }
+
         function animateNetwork() {
-            ctxCanvas.clearRect(0,0,width,height);
-            ctxCanvas.strokeStyle = 'rgba(255,255,255,0.05)';
-            links.forEach(l => { ctxCanvas.beginPath(); ctxCanvas.moveTo(l.from.x, l.from.y); ctxCanvas.lineTo(l.to.x, l.to.y); ctxCanvas.stroke(); });
+            time += 0.05;
+            
+            ctxCanvas.fillStyle = 'rgba(10, 13, 10, 0.2)';
+            ctxCanvas.fillRect(0, 0, width, height);
+
+            nodes.forEach(n => {
+                const floatOffset = n.type === 'root' ? 2 : 5;
+                n.x = n.baseX + Math.sin(time * 0.5 + n.phase) * floatOffset;
+                n.y = n.baseY + Math.cos(time * 0.7 + n.phase) * floatOffset;
+            });
+
+            if (ripple) {
+                ripple.radius += ripple.speed;
+                ripple.alpha -= 0.02;
+                if (ripple.alpha <= 0) {
+                    ripple = null;
+                } else {
+                    ctxCanvas.beginPath();
+                    ctxCanvas.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+                    ctxCanvas.strokeStyle = `rgba(${ripple.color}, ${ripple.alpha})`;
+                    ctxCanvas.lineWidth = 2;
+                    ctxCanvas.stroke();
+                }
+            }
+
+            ctxCanvas.strokeStyle = 'rgba(255,255,255,0.08)';
+            ctxCanvas.lineWidth = 1;
+            links.forEach(l => { 
+                drawBezierCurve(ctxCanvas, l.from, {x: l.cx, y: l.cy}, l.to);
+            });
+
             nodes.forEach(n => { 
-                ctxCanvas.beginPath(); ctxCanvas.arc(n.x, n.y, n.type==='root'?8:3, 0, 6.28); 
-                ctxCanvas.fillStyle = n.type==='root'?'#4ade80':'rgba(255,255,255,0.2)'; 
+                ctxCanvas.beginPath(); 
+                ctxCanvas.arc(n.x, n.y, n.type==='root'?8:3, 0, 6.28); 
+                
+                if (n.type === 'root') {
+                    ctxCanvas.shadowBlur = 10;
+                    ctxCanvas.shadowColor = '#4ade80';
+                    ctxCanvas.fillStyle = '#4ade80';
+                } else {
+                    ctxCanvas.shadowBlur = 0;
+                    ctxCanvas.fillStyle = 'rgba(255,255,255,0.3)'; 
+                }
                 ctxCanvas.fill(); 
+                ctxCanvas.shadowBlur = 0; 
             });
             
-            let targetColor, targetSpeed, targetSize, maxParticles;
+            let targetColor, targetSpeed, targetSize, maxParticles, targetShadowColor;
             if(window.currentMode === 'signal') {
                 targetColor = '#ef4444';
-                targetSpeed = 0.02;
+                targetShadowColor = 'rgba(239, 68, 68, 0.8)';
+                targetSpeed = 0.03;
                 targetSize = 3;
-                maxParticles = 50;
+                maxParticles = 60;
             } else if (window.currentMode === 'redistribute') {
                 targetColor = '#3b82f6';
-                targetSpeed = 0.015;
-                targetSize = 5;
-                maxParticles = 120;
+                targetShadowColor = 'rgba(59, 130, 246, 0.8)';
+                targetSpeed = 0.02;
+                targetSize = 4;
+                maxParticles = 100;
             } else {
                 targetColor = null;
-                targetSpeed = 0.005;
-                targetSize = 3;
-                maxParticles = 30;
+                targetShadowColor = 'rgba(251, 191, 36, 0.8)';
+                targetSpeed = 0.01;
+                targetSize = 2.5;
+                maxParticles = 40;
             }
 
             if(particles.length < maxParticles) {
                  const l = links[Math.floor(Math.random()*links.length)];
                  if(l) {
                     let c = targetColor;
-                    if(!c) c = Math.random()>0.5?'#fbbf24':'#38bdf8';
-                    particles.push({link:l, p:0, s:targetSpeed+Math.random()*0.005, c: c, size: targetSize});
+                    let sc = targetShadowColor;
+                    if(!c) {
+                        const isCarb = Math.random()>0.5;
+                        c = isCarb ? '#fbbf24' : '#38bdf8';
+                        sc = isCarb ? 'rgba(251, 191, 36, 0.8)' : 'rgba(56, 189, 248, 0.8)';
+                    }
+                    particles.push({link:l, p:0, s:targetSpeed+Math.random()*0.01, c: c, sc: sc, size: targetSize});
                  }
             }
+
             particles.forEach((p, i) => {
                 p.p += p.s;
                 if(p.p >= 1) { particles.splice(i, 1); return; }
-                const x = p.link.from.x + (p.link.to.x - p.link.from.x) * p.p;
-                const y = p.link.from.y + (p.link.to.y - p.link.from.y) * p.p;
-                ctxCanvas.beginPath(); ctxCanvas.arc(x,y,p.size || 3,0,6.28); ctxCanvas.fillStyle=p.c; ctxCanvas.fill();
+                
+                const pos = getBezierPoint(p.link.from, {x: p.link.cx, y: p.link.cy}, p.link.to, p.p);
+                
+                ctxCanvas.beginPath(); 
+                ctxCanvas.arc(pos.x, pos.y, p.size, 0, 6.28); 
+                ctxCanvas.fillStyle = p.c; 
+                ctxCanvas.shadowBlur = 8;
+                ctxCanvas.shadowColor = p.sc;
+                ctxCanvas.fill();
+                ctxCanvas.shadowBlur = 0; 
             });
+
             requestAnimationFrame(animateNetwork);
         }
         
-        window.networkApp = { switchMode: (m) => window.currentMode = m };
+        window.networkApp = { 
+            switchMode: (m) => {
+                window.currentMode = m;
+                let colorVal = '16, 185, 129'; 
+                if (m === 'signal') colorVal = '239, 68, 68';
+                if (m === 'redistribute') colorVal = '59, 130, 246';
+                
+                const centerNode = nodes.find(n => n.type === 'root') || nodes[0];
+                if (centerNode) {
+                    ripple = {
+                        x: centerNode.x,
+                        y: centerNode.y,
+                        radius: 10,
+                        alpha: 1,
+                        speed: 3,
+                        color: colorVal
+                    };
+                }
+            } 
+        };
+
         setTimeout(initNetwork, 500);
         window.addEventListener('resize', () => { width = canvas.width = container.clientWidth; height = canvas.height = container.clientHeight; });
 
