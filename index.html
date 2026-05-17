@@ -120,8 +120,8 @@
         </div>
     </nav>
 
-    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-bio-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex flex-col pt-20 px-6 pb-6 h-screen overflow-y-auto">
-        <div class="flex justify-between items-center mb-10">
+    <div id="mobileMenu" class="fixed inset-0 z-[60] bg-bio-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex flex-col pt-16 px-6 pb-6 h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-8">
             <div class="flex items-center gap-3">
                 <i class="fa-solid fa-circle-nodes text-bio-accent text-3xl"></i>
                 <div class="flex flex-col">
@@ -131,22 +131,22 @@
             <button onclick="window.toggleMobileMenu()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-3xl"></i></button>
         </div>
         
-        <div class="flex flex-col space-y-6 flex-grow">
-            <a href="#challenge" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-4 border-b border-white/5">城市痛點</a>
-            <a href="#concept" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-4 border-b border-white/5">仿生概念</a>
-            <a href="#solution" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-4 border-b border-white/5">運作機制</a>
-            <a href="#dashboard" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-4 border-b border-white/5">監測站</a>
-            <a href="#ecosystem" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-4 border-b border-white/5">生態藍圖</a>
+        <div class="flex flex-col space-y-4 flex-grow">
+            <a href="#challenge" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-3 border-b border-white/5">城市痛點</a>
+            <a href="#concept" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-3 border-b border-white/5">仿生概念</a>
+            <a href="#solution" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-3 border-b border-white/5">運作機制</a>
+            <a href="#dashboard" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-3 border-b border-white/5">監測站</a>
+            <a href="#ecosystem" onclick="window.toggleMobileMenu()" class="text-lg font-medium text-slate-300 hover:text-bio-accent transition pb-3 border-b border-white/5">生態藍圖</a>
         </div>
         
-        <div class="mt-auto pt-8 flex flex-col space-y-4">
-            <button id="navLoginBtnMobile" onclick="window.openAuthModal(); window.toggleMobileMenu()" class="w-full py-4 rounded-xl border border-bio-accent text-bio-accent hover:bg-bio-accent hover:text-bio-dark text-sm font-mono transition flex items-center justify-center gap-2 font-bold">
+        <div class="mt-4 flex flex-col space-y-3 pb-8">
+            <button id="navLoginBtnMobile" onclick="window.openAuthModal(); window.toggleMobileMenu()" class="w-full py-3 rounded-xl border border-bio-accent text-bio-accent hover:bg-bio-accent hover:text-bio-dark text-sm font-mono transition flex items-center justify-center gap-2 font-bold">
                 <i class="fa-solid fa-user"></i> 登入 / 註冊
             </button>
-            <button id="navAdminBtnMobile" onclick="window.openAdminModal(); window.toggleMobileMenu()" class="hidden w-full py-4 rounded-xl border border-red-400 text-red-400 hover:bg-red-400 hover:text-white text-sm font-mono transition flex items-center justify-center gap-2 font-bold">
+            <button id="navAdminBtnMobile" onclick="window.openAdminModal(); window.toggleMobileMenu()" class="hidden w-full py-3 rounded-xl border border-red-400 text-red-400 hover:bg-red-400 hover:text-white text-sm font-mono transition flex items-center justify-center gap-2 font-bold">
                 <i class="fa-solid fa-shield-halved"></i> 管理後台
             </button>
-            <button id="navLogoutBtnMobile" onclick="window.logoutUser(); window.toggleMobileMenu()" class="hidden w-full py-4 rounded-xl border border-slate-500 text-slate-300 hover:text-white hover:bg-slate-800 text-sm font-mono transition flex items-center justify-center gap-2 font-bold">
+            <button id="navLogoutBtnMobile" onclick="window.logoutUser(); window.toggleMobileMenu()" class="hidden w-full py-3 rounded-xl border border-slate-500 text-slate-300 hover:text-white hover:bg-slate-800 text-sm font-mono transition flex items-center justify-center gap-2 font-bold">
                 登出
             </button>
         </div>
