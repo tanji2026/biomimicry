@@ -233,9 +233,6 @@
                         <div class="flex-grow border-t border-slate-600"></div>
                     </div>
 
-                    <button onclick="window.loginGoogle()" class="w-full bg-white hover:bg-gray-100 text-gray-900 font-bold py-2 rounded-lg transition flex justify-center items-center gap-2">
-                        <i class="fa-brands fa-google text-red-500"></i> 使用 Google 登入
-                    </button>
                     <button onclick="window.loginAnonymous()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-lg transition border border-slate-600 flex justify-center items-center gap-2">
                         <i class="fa-solid fa-user-secret"></i> 訪客匿名登入
                     </button>
@@ -851,20 +848,16 @@
                 <i class="fa-solid fa-circle-nodes text-bio-accent"></i>
                 <span class="font-bold text-lg text-white">MycoTanji</span>
             </div>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 text-xs text-slate-500">
-                <span>2026台灣仿生設計競賽參賽作品</span>
-                <span class="hidden md:inline text-slate-700">|</span>
-                <span>作品受著作權法保護，未經授權請勿複製轉載</span>
-                <span class="hidden md:inline text-slate-700">|</span>
-                <span>歡迎聯絡我們：tanji2026@gmail.com</span>
-            </div>
+            <p class="text-xs text-slate-500 leading-relaxed break-words px-4">
+                2026台灣仿生設計競賽參賽作品|作品受著作權法保護，未經授權請勿複製轉載|歡迎聯絡我們：tanji2026@gmail.com
+            </p>
         </div>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, getDocs, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signInAnonymously, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInAnonymously, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAVKyQBQUUyugoU2Xx-ZxLBBEoNrfASJT8",
@@ -877,7 +870,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
 
         let isAdmin = false;
         let chartInstance = null;
@@ -915,10 +907,6 @@
             document.querySelectorAll('[id$="Modal"]').forEach(el => el.classList.add('hidden'));
             document.getElementById('calcResult').classList.add('hidden');
             document.getElementById('uploadSuccess').classList.add('hidden');
-        };
-
-        window.loginGoogle = () => {
-            signInWithPopup(auth, provider).catch(error => alert("登入失敗：" + error.message));
         };
 
         window.loginAnonymous = () => {
