@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
     <title>MycoTanji | 仿生社區碳循環系統</title>
-    <meta name="description" content="2026 台灣仿生設計競賽參賽作品 - 基於菌絲網絡邏輯的社區碳循環平台">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -24,9 +23,9 @@
                         bio: {
                             dark: '#0f172a',
                             light: '#f1f5f9',
-                            accent: '#10b981', 
-                            fungi: '#fbbf24',  
-                            soil: '#78350f',   
+                            accent: '#10b981',
+                            fungi: '#fbbf24',
+                            soil: '#78350f',
                         }
                     },
                     backgroundImage: {
@@ -59,105 +58,26 @@
         }
     </script>
     <style>
-        body {
-            overflow-x: hidden;
-        }
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .text-glow {
-            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-        }
-        .timeline-line {
-            position: absolute;
-            left: 28px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, #10b981, #0f172a);
-        }
-        @media (min-width: 768px) {
-            .timeline-line {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        }
+        body { overflow-x: hidden; }
+        .glass-panel { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .text-glow { text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+        .timeline-line { position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #10b981, #0f172a); }
+        @media (min-width: 768px) { .timeline-line { left: 50%; transform: translateX(-50%); } }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #10b981; }
-
-        .network-container {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            background: linear-gradient(to bottom, #1a2f1a 0%, #0a0d0a 100%);
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-        .trees-bg {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 45%;
-            background: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80&w=800') center bottom/cover no-repeat;
-            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-            opacity: 0.8;
-            pointer-events: none;
-        }
-        .ground-line {
-            position: absolute;
-            top: 45%;
-            width: 100%;
-            height: 2px;
-            background: rgba(139, 94, 60, 0.4);
-            box-shadow: 0 0 20px rgba(0, 255, 100, 0.2);
-            z-index: 10;
-        }
-        canvas#network-canvas {
-            position: absolute;
-            top: 45%;
-            left: 0;
-            width: 100%;
-            height: 55%;
-            z-index: 5;
-        }
-        .floating-label {
-            position: absolute;
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(0,0,0,0.8);
-            pointer-events: none;
-            z-index: 15;
-            transition: opacity 0.5s;
-        }
-        .interactive-option {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-        .interactive-option:hover, .interactive-option.active {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(16, 185, 129, 0.3);
-            transform: translateX(10px);
-        }
-        .interactive-option.active .icon-box {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-        }
+        .network-container { position: relative; width: 100%; height: 500px; background: linear-gradient(to bottom, #1a2f1a 0%, #0a0d0a 100%); border-radius: 1rem; overflow: hidden; }
+        .trees-bg { position: absolute; top: 0; width: 100%; height: 45%; background: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&q=80&w=800') center bottom/cover no-repeat; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); opacity: 0.8; pointer-events: none; }
+        .ground-line { position: absolute; top: 45%; width: 100%; height: 2px; background: rgba(139, 94, 60, 0.4); box-shadow: 0 0 20px rgba(0, 255, 100, 0.2); z-index: 10; }
+        canvas#network-canvas { position: absolute; top: 45%; left: 0; width: 100%; height: 55%; z-index: 5; }
+        .floating-label { position: absolute; font-size: 0.75rem; font-weight: bold; text-shadow: 0 0 5px rgba(0,0,0,0.8); pointer-events: none; z-index: 15; transition: opacity 0.5s; }
+        .interactive-option { transition: all 0.3s ease; cursor: pointer; border: 1px solid transparent; }
+        .interactive-option:hover, .interactive-option.active { background: rgba(255, 255, 255, 0.05); border-color: rgba(16, 185, 129, 0.3); transform: translateX(10px); }
+        .interactive-option.active .icon-box { background: rgba(16, 185, 129, 0.2); color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
         .hidden { display: none; }
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="bg-bio-dark text-slate-200 antialiased selection:bg-bio-accent selection:text-bio-dark relative">
@@ -182,8 +102,14 @@
                     <a href="#dashboard" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">監測站</a>
                     <a href="#ecosystem" class="text-sm font-medium text-slate-300 hover:text-bio-accent transition">生態藍圖</a>
                     
-                    <button id="navAdminBtn" onclick="window.openAdminModal()" class="px-3 py-1 rounded-full border border-slate-500 text-slate-300 hover:text-white hover:border-white text-xs font-mono transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-lock text-[10px]"></i> 管理員登入
+                    <button id="navLoginBtn" onclick="window.openAuthModal()" class="px-3 py-1 rounded-full border border-bio-accent text-bio-accent hover:bg-bio-accent hover:text-bio-dark text-xs font-mono transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-user"></i> 登入/註冊
+                    </button>
+                    <button id="navAdminBtn" onclick="window.openAdminModal()" class="hidden px-3 py-1 rounded-full border border-red-400 text-red-400 hover:bg-red-400 hover:text-white text-xs font-mono transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-shield-halved"></i> 管理後台
+                    </button>
+                    <button id="navLogoutBtn" onclick="window.logoutUser()" class="hidden px-3 py-1 rounded-full border border-slate-500 text-slate-300 hover:text-white hover:border-white text-xs font-mono transition flex items-center justify-center gap-2">
+                        登出
                     </button>
                 </div>
             </div>
@@ -282,24 +208,49 @@
         </div>
     </div>
 
+    <div id="authModal" class="fixed inset-0 z-[80] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="window.closeAllModals()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-sm p-4">
+            <div class="glass-panel border border-bio-accent/30 rounded-2xl shadow-2xl relative overflow-hidden p-6 max-h-[90vh] overflow-y-auto">
+                <button onclick="window.closeAllModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket text-bio-accent"></i> 會員登入
+                </h3>
+                
+                <div class="space-y-4">
+                    <input type="email" id="authEmail" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none" placeholder="電子郵件信箱">
+                    <input type="password" id="authPassword" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-bio-accent focus:outline-none" placeholder="密碼">
+                    
+                    <div class="flex gap-2">
+                        <button onclick="window.loginEmail()" class="w-1/2 bg-bio-accent hover:bg-emerald-400 text-bio-dark font-bold py-2 rounded-lg transition">登入</button>
+                        <button onclick="window.registerEmail()" class="w-1/2 bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded-lg transition border border-slate-500">註冊</button>
+                    </div>
+
+                    <div class="relative flex items-center py-2">
+                        <div class="flex-grow border-t border-slate-600"></div>
+                        <span class="flex-shrink-0 mx-4 text-slate-400 text-xs">或</span>
+                        <div class="flex-grow border-t border-slate-600"></div>
+                    </div>
+
+                    <button onclick="window.loginGoogle()" class="w-full bg-white hover:bg-gray-100 text-gray-900 font-bold py-2 rounded-lg transition flex justify-center items-center gap-2">
+                        <i class="fa-brands fa-google text-red-500"></i> 使用 Google 登入
+                    </button>
+                    <button onclick="window.loginAnonymous()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-lg transition border border-slate-600 flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-user-secret"></i> 訪客匿名登入
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="adminModal" class="fixed inset-0 z-[70] hidden">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="window.closeAllModals()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4">
             <div class="glass-panel border border-red-500/30 rounded-2xl shadow-2xl relative overflow-hidden p-6 max-h-[90vh] overflow-y-auto">
                 <button onclick="window.closeAllModals()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
 
-                <div id="adminLoginView">
-                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-user-shield text-red-400"></i> 管理員登入
-                    </h3>
-                    <div class="space-y-4">
-                        <input type="password" id="adminPass" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-white focus:border-red-400 focus:outline-none" placeholder="請輸入密碼" onkeydown="if(event.key==='Enter') window.checkAdminLogin()">
-                        <button onclick="window.checkAdminLogin()" class="w-full bg-slate-700 hover:bg-red-600 text-white font-bold py-2 rounded-lg transition flex justify-center">登入</button>
-                        <p id="loginError" class="text-red-500 text-xs text-center hidden">密碼錯誤</p>
-                    </div>
-                </div>
-
-                <div id="adminEntryView" class="hidden">
+                <div id="adminEntryView">
                     <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-database text-bio-accent"></i> 新增真實數據
                     </h3>
@@ -895,23 +846,25 @@
     </section>
 
     <footer class="bg-bio-dark py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
-            <div class="flex items-center justify-center gap-2 mb-4">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center text-center space-y-4">
+            <div class="flex items-center justify-center gap-2 mb-2">
                 <i class="fa-solid fa-circle-nodes text-bio-accent"></i>
                 <span class="font-bold text-lg text-white">MycoTanji</span>
             </div>
-            <p class="text-slate-500 text-sm">
-                2026 台灣仿生設計競賽參賽作品
-            </p>
-            <p class="text-slate-600 text-xs">
-                作品受著作權法保護，未經授權請勿複製轉載｜歡迎聯絡我們：tanji2026@gmail.com
-            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 text-xs text-slate-500">
+                <span>115年度第二屆CCUS創意教案</span>
+                <span class="hidden md:inline text-slate-700">|</span>
+                <span>作品受著作權法保護，未經授權請勿複製轉載</span>
+                <span class="hidden md:inline text-slate-700">|</span>
+                <span>歡迎聯絡我們：tanji2026@gmail.com</span>
+            </div>
         </div>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, getDocs, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signInAnonymously, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAVKyQBQUUyugoU2Xx-ZxLBBEoNrfASJT8",
@@ -923,44 +876,70 @@
         };
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
 
         let isAdmin = false;
         let chartInstance = null;
         let realData = [];
 
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                document.getElementById('navLoginBtn').classList.add('hidden');
+                document.getElementById('navLogoutBtn').classList.remove('hidden');
+                
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                if (!userDoc.exists()) {
+                    await setDoc(doc(db, 'users', user.uid), { role: 'user', email: user.email || 'anonymous' });
+                } else {
+                    if (userDoc.data().role === 'admin') {
+                        isAdmin = true;
+                        document.getElementById('navAdminBtn').classList.remove('hidden');
+                    }
+                }
+                window.closeAllModals();
+            } else {
+                isAdmin = false;
+                document.getElementById('navLoginBtn').classList.remove('hidden');
+                document.getElementById('navLogoutBtn').classList.add('hidden');
+                document.getElementById('navAdminBtn').classList.add('hidden');
+            }
+        });
+
+        window.openAuthModal = () => document.getElementById('authModal').classList.remove('hidden');
         window.openGuideModal = () => document.getElementById('guideModal').classList.remove('hidden');
         window.openCalculator = () => document.getElementById('calculatorModal').classList.remove('hidden');
-        window.openAdminModal = () => {
-            document.getElementById('adminModal').classList.remove('hidden');
-            if (isAdmin) {
-                document.getElementById('adminLoginView').classList.add('hidden');
-                document.getElementById('adminEntryView').classList.remove('hidden');
-            } else {
-                document.getElementById('adminLoginView').classList.remove('hidden');
-                document.getElementById('adminEntryView').classList.add('hidden');
-            }
-        };
+        window.openAdminModal = () => document.getElementById('adminModal').classList.remove('hidden');
+        
         window.closeAllModals = () => {
             document.querySelectorAll('[id$="Modal"]').forEach(el => el.classList.add('hidden'));
             document.getElementById('calcResult').classList.add('hidden');
             document.getElementById('uploadSuccess').classList.add('hidden');
         };
 
-        window.checkAdminLogin = () => {
-            const pass = document.getElementById('adminPass').value;
-            if (pass === 'coco') {
-                isAdmin = true;
-                document.getElementById('adminLoginView').classList.add('hidden');
-                document.getElementById('adminEntryView').classList.remove('hidden');
-                const btn = document.getElementById('navAdminBtn');
-                btn.innerHTML = '<i class="fa-solid fa-user-check"></i> 進入管理後台';
-                btn.classList.replace('border-slate-500', 'border-bio-accent');
-                btn.classList.replace('text-slate-300', 'text-bio-accent');
-                btn.classList.remove('hover:text-white', 'hover:border-white');
-            } else {
-                document.getElementById('loginError').classList.remove('hidden');
-            }
+        window.loginGoogle = () => {
+            signInWithPopup(auth, provider).catch(error => alert("登入失敗：" + error.message));
         };
+
+        window.loginAnonymous = () => {
+            signInAnonymously(auth).catch(error => alert("登入失敗：" + error.message));
+        };
+
+        window.registerEmail = () => {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            if(!email || !pass) return alert("請輸入信箱與密碼");
+            createUserWithEmailAndPassword(auth, email, pass).catch(error => alert("註冊失敗：" + error.message));
+        };
+
+        window.loginEmail = () => {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            if(!email || !pass) return alert("請輸入信箱與密碼");
+            signInWithEmailAndPassword(auth, email, pass).catch(error => alert("登入失敗：" + error.message));
+        };
+
+        window.logoutUser = () => signOut(auth);
 
         window.handleImageUpload = (event) => {
             const file = event.target.files[0];
@@ -995,7 +974,7 @@
             const type = document.getElementById('realType').value;
             const weight = parseFloat(document.getElementById('realWeight').value);
             const desc = document.getElementById('realDesc').value;
-            const imgBase64 = document.getElementById('realImgBase64').value; 
+            const imgBase64 = document.getElementById('realImgBase64').value;
             const today = new Date().toISOString().split('T')[0];
 
             try {
@@ -1005,17 +984,17 @@
                     type,
                     weight,
                     desc,
-                    img: imgBase64, 
+                    img: imgBase64,
                     timestamp: Date.now()
                 });
                 document.getElementById('uploadSuccess').classList.remove('hidden');
-                e.target.reset(); 
-                document.getElementById('realImgBase64').value = ""; 
+                e.target.reset();
+                document.getElementById('realImgBase64').value = "";
                 setTimeout(() => {
                     document.getElementById('uploadSuccess').classList.add('hidden');
                 }, 3000);
             } catch (error) {
-                alert("上傳失敗，請檢查網路連線");
+                alert("上傳失敗，權限不足或網路異常");
             }
         };
 
