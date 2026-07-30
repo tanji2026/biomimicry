@@ -266,10 +266,9 @@ canvas#network-canvas{position:absolute;top:45%;left:0;width:100%;height:55%;z-i
 </div>
 </section>
 
-<!-- 新增：分散式網絡地圖 -->
 <section id="network-map" class="py-24 bg-bio-dark relative border-t border-slate-800">
 <div class="max-w-5xl mx-auto px-4 relative z-10">
-<div class="text-center mb-16"><h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">北大特區低碳網絡地圖</h2><p class="text-slate-400 max-w-2xl mx-auto">分散式就地轉化，實現零碳排運輸的城市微氣候基礎建設</p></div>
+<div class="text-center mb-16"><h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">北大特區低碳網絡地圖</h2><p class="text-slate-400 max-w-2xl mx-auto">點擊地圖節點，檢視分散式就地轉化的實證數據</p></div>
 <div class="glass-panel rounded-2xl border border-white/10 relative overflow-hidden h-[450px] w-full flex items-center justify-center shadow-2xl">
 <svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 1;">
 <path d="M 20% 30% Q 40% 25% 50% 50%" fill="none" stroke="rgba(16, 185, 129, 0.4)" stroke-width="2" stroke-dasharray="5,5" class="animate-pulse" />
@@ -277,23 +276,27 @@ canvas#network-canvas{position:absolute;top:45%;left:0;width:100%;height:55%;z-i
 <path d="M 80% 30% Q 65% 35% 50% 50%" fill="none" stroke="rgba(16, 185, 129, 0.4)" stroke-width="2" stroke-dasharray="5,5" class="animate-pulse" />
 <path d="M 75% 75% Q 65% 65% 50% 50%" fill="none" stroke="rgba(16, 185, 129, 0.4)" stroke-width="2" stroke-dasharray="5,5" class="animate-pulse" />
 </svg>
-<div class="absolute top-[20%] left-[15%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
+<div id="mapInfoCard" class="hidden absolute top-4 md:top-8 left-4 md:left-8 bg-slate-900/95 border border-bio-accent/50 p-4 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] z-30 min-w-[220px] backdrop-blur-md transition-all">
+<div class="flex justify-between items-start mb-3 border-b border-white/10 pb-2"><h4 id="mi-title" class="text-white font-bold text-sm"></h4><button onclick="document.getElementById('mapInfoCard').classList.add('hidden')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button></div>
+<div id="mi-content" class="space-y-2 text-xs text-slate-300"></div>
+</div>
+<div onclick="window.showNodeInfo('coffeeA')" class="absolute top-[20%] left-[15%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
 <div class="w-12 h-12 rounded-full bg-slate-800 border-2 border-amber-500 flex items-center justify-center text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.4)]"><i class="fa-solid fa-mug-hot"></i></div>
 <span class="text-[10px] text-slate-300 mt-2 bg-bio-dark/90 px-2 py-1 rounded border border-white/10">連鎖咖啡 A</span>
 </div>
-<div class="absolute top-[70%] left-[20%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
+<div onclick="window.showNodeInfo('storeB')" class="absolute top-[70%] left-[20%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
 <div class="w-12 h-12 rounded-full bg-slate-800 border-2 border-amber-500 flex items-center justify-center text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.4)]"><i class="fa-solid fa-store"></i></div>
 <span class="text-[10px] text-slate-300 mt-2 bg-bio-dark/90 px-2 py-1 rounded border border-white/10">便利商店 B</span>
 </div>
-<div class="absolute top-[22%] left-[78%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
+<div onclick="window.showNodeInfo('coffeeC')" class="absolute top-[22%] left-[78%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
 <div class="w-12 h-12 rounded-full bg-slate-800 border-2 border-amber-500 flex items-center justify-center text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.4)]"><i class="fa-solid fa-mug-hot"></i></div>
 <span class="text-[10px] text-slate-300 mt-2 bg-bio-dark/90 px-2 py-1 rounded border border-white/10">獨立咖啡 C</span>
 </div>
-<div class="absolute top-[70%] left-[70%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
+<div onclick="window.showNodeInfo('storeD')" class="absolute top-[70%] left-[70%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
 <div class="w-12 h-12 rounded-full bg-slate-800 border-2 border-amber-500 flex items-center justify-center text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.4)]"><i class="fa-solid fa-store"></i></div>
 <span class="text-[10px] text-slate-300 mt-2 bg-bio-dark/90 px-2 py-1 rounded border border-white/10">便利商店 D</span>
 </div>
-<div class="absolute top-[40%] left-[45%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
+<div onclick="window.showNodeInfo('community')" class="absolute top-[40%] left-[45%] flex flex-col items-center z-10 hover:scale-110 transition cursor-pointer">
 <div class="w-16 h-16 rounded-full bg-bio-accent border-[3px] border-white flex items-center justify-center text-bio-dark text-2xl shadow-[0_0_30px_rgba(16,185,129,0.8)] animate-pulse-slow"><i class="fa-solid fa-leaf"></i></div>
 <span class="text-xs font-bold text-white mt-3 bg-bio-dark/90 px-3 py-1.5 rounded border border-bio-accent/50">麗寶萊茵 示範點</span>
 </div>
@@ -534,6 +537,8 @@ function getBezierPoint(p0,p1,p2,t){const i=1-t;return{x:i*i*p0.x+2*i*t*p1.x+t*t
 function animateNetwork(){time+=0.05;ctxCanvas.fillStyle='rgba(10, 13, 10, 0.2)';ctxCanvas.fillRect(0,0,width,height);nodes.forEach(n=>{const o=n.type==='root'?2:5;n.x=n.baseX+Math.sin(time*0.5+n.phase)*o;n.y=n.baseY+Math.cos(time*0.7+n.phase)*o;});if(ripple){ripple.radius+=ripple.speed;ripple.alpha-=0.02;if(ripple.alpha<=0)ripple=null;else{ctxCanvas.beginPath();ctxCanvas.arc(ripple.x,ripple.y,ripple.radius,0,6.28);ctxCanvas.strokeStyle=`rgba(${ripple.color}, ${ripple.alpha})`;ctxCanvas.lineWidth=2;ctxCanvas.stroke();}}ctxCanvas.strokeStyle='rgba(255,255,255,0.08)';ctxCanvas.lineWidth=1;links.forEach(l=>{ctxCanvas.beginPath();ctxCanvas.moveTo(l.from.x,l.from.y);ctxCanvas.quadraticCurveTo(l.cx,l.cy,l.to.x,l.to.y);ctxCanvas.stroke();});nodes.forEach(n=>{ctxCanvas.beginPath();ctxCanvas.arc(n.x,n.y,n.type==='root'?8:3,0,6.28);if(n.type==='root'){ctxCanvas.shadowBlur=10;ctxCanvas.shadowColor=ctxCanvas.fillStyle='#4ade80';}else{ctxCanvas.shadowBlur=0;ctxCanvas.fillStyle='rgba(255,255,255,0.3)';}ctxCanvas.fill();ctxCanvas.shadowBlur=0;});let tc,ts,tz,mp,tsc;if(window.currentMode==='signal'){tc='#ef4444';tsc='rgba(239, 68, 68, 0.8)';ts=0.03;tz=3;mp=60;}else if(window.currentMode==='redistribute'){tc='#3b82f6';tsc='rgba(59, 130, 246, 0.8)';ts=0.02;tz=4;mp=100;}else{tc=null;tsc='rgba(251, 191, 36, 0.8)';ts=0.01;tz=2.5;mp=40;}if(particles.length<mp){const l=links[Math.floor(Math.random()*links.length)];if(l){let c=tc,sc=tsc;if(!c){const i=Math.random()>0.5;c=i?'#fbbf24':'#38bdf8';sc=i?'rgba(251, 191, 36, 0.8)':'rgba(56, 189, 248, 0.8)';}particles.push({link:l,p:0,s:ts+Math.random()*0.01,c:c,sc:sc,size:tz});}}particles.forEach((p,i)=>{p.p+=p.s;if(p.p>=1){particles.splice(i,1);return;}const pos=getBezierPoint(p.link.from,{x:p.link.cx,y:p.link.cy},p.link.to,p.p);ctxCanvas.beginPath();ctxCanvas.arc(pos.x,pos.y,p.size,0,6.28);ctxCanvas.fillStyle=p.c;ctxCanvas.shadowBlur=8;ctxCanvas.shadowColor=p.sc;ctxCanvas.fill();ctxCanvas.shadowBlur=0;});requestAnimationFrame(animateNetwork);}
 window.networkApp={switchMode:(m)=>{window.currentMode=m;let c='16, 185, 129';if(m==='signal')c='239, 68, 68';if(m==='redistribute')c='59, 130, 246';const cn=nodes.find(n=>n.type==='root')||nodes[0];if(cn)ripple={x:cn.x,y:cn.y,radius:10,alpha:1,speed:3,color:c};}};
 setTimeout(initNetwork,500);window.addEventListener('resize',()=>{width=canvas.width=container.clientWidth;height=canvas.height=container.clientHeight;});
+const mapData={coffeeA:{t:'連鎖咖啡 A',type:'src',st:'🟢 穩定供應',d:'50m',w:'45kg',c:'25.2kg CO2e'},storeB:{t:'便利商店 B',type:'src',st:'🟢 穩定供應',d:'80m',w:'30kg',c:'16.8kg CO2e'},coffeeC:{t:'獨立咖啡 C',type:'src',st:'🟡 彈性供應',d:'120m',w:'20kg',c:'11.2kg CO2e'},storeD:{t:'便利商店 D',type:'src',st:'🟢 穩定供應',d:'150m',w:'35kg',c:'19.6kg CO2e'},community:{t:'麗寶萊茵 示範點',type:'hub',st:'🔴 高溫發酵中',tm:'55°C',p:'150kg',s:'105kg',b:'資源循環指標 達標'}};
+window.showNodeInfo=(id)=>{const d=mapData[id];if(!d)return;document.getElementById('mi-title').innerText=d.t;let h='';if(d.type==='src')h=`<div class="flex justify-between"><span>狀態</span><span class="text-white">${d.st}</span></div><div class="flex justify-between"><span>至轉化點距離</span><span class="text-white font-mono">${d.d}</span></div><div class="flex justify-between"><span>本月攔截</span><span class="text-amber-400 font-mono">${d.w}</span></div><div class="flex justify-between"><span>貢獻減碳</span><span class="text-bio-accent font-mono">${d.c}</span></div>`;else h=`<div class="flex justify-between"><span>系統狀態</span><span class="text-white">${d.st}</span></div><div class="flex justify-between"><span>堆肥核心溫度</span><span class="text-red-400 font-mono font-bold">${d.tm}</span></div><div class="flex justify-between"><span>本月處理量</span><span class="text-white font-mono">${d.p}</span></div><div class="flex justify-between"><span>預估產出沃土</span><span class="text-amber-400 font-mono">${d.s}</span></div><div class="mt-2 pt-2 border-t border-white/10 text-bio-accent font-bold"><i class="fa-solid fa-medal"></i> ${d.b}</div>`;document.getElementById('mi-content').innerHTML=h;document.getElementById('mapInfoCard').classList.remove('hidden');};
 initRealTimeData();
 </script>
 </body>
